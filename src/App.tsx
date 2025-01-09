@@ -3,7 +3,8 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import RootLayout from '../layout/root-layout'
 import RecordHome from '../pages/Record/RecordHome'
-import Main from '../pages/Main/Main'
+import Main from './start'
+import Home from './Home'
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: 'record',
         element: <RecordHome />,
+      },
+      {
+        path: 'home',
+        element: <Home />,
       },
     ],
   },
