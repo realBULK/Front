@@ -1,11 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 훅
 import ProgressBar from "../../src/components/ProgressBar";
 import styles from "./SignUp1.module.css"; // 스타일 파일 import
 
 const SignUp1: React.FC = () => {
+  const navigate = useNavigate(); // 페이지 이동을 위한 네비게이트 훅
+
   const handleGenderSelect = (gender: string) => {
     console.log(`Selected Gender: ${gender}`);
-    // TODO: 백엔드 API 호출 또는 다음 단계로 이동
+    navigate("/signup2"); // SignUp2 페이지로 이동
   };
 
   return (
@@ -17,10 +20,9 @@ const SignUp1: React.FC = () => {
 
       {/* Title */}
       <div className={styles.titleContainer}>
-      <h1 className={styles.title}>
-  성별을{"\n"}선택해 주세요.
-</h1>
-
+        <h1 className={styles.title}>
+          성별을{"\n"}선택해 주세요.
+        </h1>
         <p className={styles.subtitle}>
           성별에 따라 몸에 필요한 에너지가 달라져요!
         </p>
