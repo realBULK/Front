@@ -2,12 +2,12 @@ import React from "react";
 
 interface ProgressBarProps {
   progress: number; // 진행률 (0~100)
-  height?: string; // 높이 (기본값 8로 함)
+  height?: string; // 높이 (기본값 8px)
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ progress, height = "8px" }) => {
   return (
-    <div className="w-full bg-gray-200 rounded-full overflow-hidden" style={{ height }}>
+    <div className="max-w-xs bg-gray-200 rounded-full overflow-hidden mx-auto" style={{ height }}>
       <div
         className="transition-all duration-300"
         style={{

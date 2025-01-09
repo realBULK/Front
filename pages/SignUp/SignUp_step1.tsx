@@ -1,5 +1,6 @@
 import React from "react";
 import ProgressBar from "../../src/components/ProgressBar";
+import styles from "./SignUp1.module.css"; // 스타일 파일 import
 
 const SignUp1: React.FC = () => {
   const handleGenderSelect = (gender: string) => {
@@ -8,32 +9,33 @@ const SignUp1: React.FC = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center bg-primary font-pretendard">
+    <div className="h-screen flex flex-col items-center bg-primary font-pretendard px-6">
       {/* Progress Bar */}
-      <div className="w-11/12 mt-6">
-        <ProgressBar progress={20} /> {/* 진행률 20%로 설정 */}
+      <div className={styles.progressBarContainer}>
+        <ProgressBar progress={20} />
       </div>
 
       {/* Title */}
-      <div className="text-center mt-10">
-        <h1 className="text-3xl font-gmarket font-bold text-black">
-          성별을 선택해 주세요.
-        </h1>
-        <p className="text-gray-600 mt-2 text-sm">
+      <div className={styles.titleContainer}>
+      <h1 className={styles.title}>
+  성별을{"\n"}선택해 주세요.
+</h1>
+
+        <p className={styles.subtitle}>
           성별에 따라 몸에 필요한 에너지가 달라져요!
         </p>
       </div>
 
       {/* Buttons */}
-      <div className="flex flex-col gap-4 mt-10 w-11/12">
+      <div className={styles.buttonContainer}>
         <button
-          className="bg-white border border-gray-300 shadow rounded-lg py-4 text-black text-lg"
+          className={styles.button}
           onClick={() => handleGenderSelect("남자")}
         >
           남자
         </button>
         <button
-          className="bg-white border border-gray-300 shadow rounded-lg py-4 text-black text-lg"
+          className={styles.button}
           onClick={() => handleGenderSelect("여자")}
         >
           여자

@@ -1,0 +1,28 @@
+/* ProgressBar 컨테이너 */
+.progressBarContainer {
+    @apply w-full max-w-md mx-auto mt-6;
+  }
+  
+  /* Title 섹션 */
+  .titleContainer {
+    @apply text-center mt-12 w-full max-w-md mx-auto;
+  }
+  
+  .title {
+    @apply text-4xl font-gmarket font-bold text-black mt-8 ml-8 text-left; /* 텍스트 왼쪽 정렬 */
+    white-space: pre-line; /* 줄바꿈을 허용 */
+  }
+  
+  .subtitle {
+    @apply text-gray-600 mt-2 ml-8 text-left mt-12 text-base; /* 제목과 설명 간격 축소 */
+  }
+  
+  /* 버튼 섹션 */
+  .buttonContainer {
+    @apply flex flex-col gap-3 mt-8 w-full max-w-xs mx-auto; /* 간격 및 상단 마진 조정 */
+  }
+  
+  .button {
+    @apply bg-white border border-gray-300 shadow rounded-lg py-3 text-black text-lg; /* 버튼 높이 조정 */
+  }
+  
