@@ -1,4 +1,4 @@
-import logo from "../public/character.png";
+import character from "../public/character.png";
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
@@ -9,17 +9,22 @@ const Home = () => {
         <div className="flex flex-col items-center h-screen p-[33px]">
             {/* 상단 레벨 표시 */}
             <div className="w-full flex flex-col">
+                <h5
+                    className="text-[14px] font-[Pretendard] text-black leading-[1.21] text-left"
+                    >
+                    0kal
+                </h5>
                 <h1
                 className="text-[40px] font-[Gmarket Sans] font-bold text-black leading-[1.21] mb-4 text-left"
                 >
                 LV.12
                 </h1>
-                <h2 className="text-[32px] font-[Pretendard] font-semibold text-black mb-2 text-left">
+                <h2 className="text-[32px] font-[Pretendard] font-semibold text-black mb-1 text-left">
                 칼로리
                 </h2>
 
                 {/* 칼로리 바 */}
-                <div className="w-full max-w-[327px] items-center mb-[30px]">
+                <div className="w-full max-w-[327px] items-center mb-[15px]">
                 <div className="relative h-4 bg-gray-300 rounded-full">
                     <div
                     className="absolute h-4 bg-gradient-to-r from-[#445AFF] to-[#9AA6FF] rounded-full"
@@ -74,16 +79,18 @@ const Home = () => {
                 </div>
             </div>
 
-            {/* 로고 */}
-            <img src={logo} alt="Bulk Logo" className="w-[200px] h-[270px] mt-[40px]" />
-
-            {/* "벌크 먹어주기" 버튼 */}
-            <button className="w-[100px] h-[48px] text-[14px] font-[Pretendard] fixed bottom-[60px] right-[200px] font-semibold text-[#191919] text-center rounded-[15px] bg-[#CEDAFF] shadow-custom inset-shadow-custom filter"
-            style={{
-                boxShadow: `0px 0px 20px 2px #EDEFFE inset, 0px 2px 5px -2px rgba(0, 0, 0, 0.25)`,
-            }}>
-            벌크 먹어주기
-            </button>
+            {/* character */}
+            <div className="relative w-full max-w-[327px] mt-[30px] mb-[15px]">
+                <img src={character} alt="Bulk Logo" className="w-[200px] h-[270px] mx-auto" />
+                <button
+                className="absolute -right-5 w-[100px] h-[48px] text-[14px] font-[Pretendard] font-semibold text-[#191919] rounded-[15px] bg-[#CEDAFF] shadow-custom inset-shadow-custom filter mb-[100px]"
+                style={{
+                    boxShadow: `0px 0px 20px 2px #EDEFFE inset, 0px 2px 5px -2px rgba(0, 0, 0, 0.25)`,
+                }}
+                >
+                벌크 먹어주기
+                </button>
+            </div>
 
             {/* 하단 네비게이션 */}
             <div className="w-[393px] bg-[#EDEFFE] justify-center mt-[10%] rounded-t-lg">
