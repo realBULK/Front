@@ -13,7 +13,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ progress, height = "8px" }) =
         style={{
           width: `${progress}%`,
           height,
-          background: `linear-gradient(to right, #445AFF, #A8B4FF)`,
+          background: progress === 100 ? "#445AFF" : "linear-gradient(to right, #445AFF, #A8B4FF)",
           borderRadius: "9999px",
         }}
       ></div>
