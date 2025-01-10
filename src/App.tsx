@@ -1,13 +1,15 @@
 import './index.css'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import RootLayout from '../layout/root-layout'
-import RecordHome from '../pages/Record/RecordHome'
-import Main from '../pages/Main/Main'
-import SignUp1 from '../pages/SignUp/SignUp_step1'
-import SignUp2 from '../pages/SignUp/SignUp_step2'
-import SignUp3 from '../pages/SignUp/SignUp_step3'
-import SignUp4 from '../pages/SignUp/SignUp_step4'
+import RootLayout from './layout/root-layout'
+import RecordHome from './pages/Record/RecordHome'
+import Start from './pages/Start/Start'
+import Main from './pages/Main/Main'
+import SignUp1 from './pages/SignUp/SignUp1'
+import SignUp2 from './pages/SignUp/SignUp2'
+import SignUp3 from './pages/SignUp/SignUp3'
+import SignUp4 from './pages/SignUp/SignUp4'
+import SignUp5 from './pages/SignUp/SignUp5'
 
 const router = createBrowserRouter([
   {
@@ -17,11 +19,15 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Main />,
+        element: <Start />,
       },
       {
         path: 'record',
         element: <RecordHome />,
+      },
+      {
+        path: 'home',
+        element: <Main />,
       },
       {
         path: 'signup',
@@ -38,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: 'signup4',
         element: <SignUp4 />,
+      },
+      {
+        path: 'signup5',
+        element: <SignUp5 />,
       },
     ],
   },

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 훅
-import ProgressBar from "../../src/components/ProgressBar";
-import styles from "./SignUp2.module.css"; // 스타일 파일 import
+import ProgressBar from "../../components/ProgressBar";
 
 const SignUp3: React.FC = () => {
   const navigate = useNavigate();
@@ -29,25 +28,29 @@ const SignUp3: React.FC = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center bg-primary font-pretendard px-6">
+    <div className="h-screen flex flex-col items-center bg-blue-50 font-pretendard px-6">
       {/* Progress Bar */}
-      <div className={styles.progressBarContainer}>
+      <div className="w-full max-w-md mx-auto mt-16">
         <ProgressBar progress={100} />
       </div>
 
       {/* Title */}
-      <div className={styles.titleContainer}>
-        <h1 className={styles.title}>닉네임을{"\n"}알려주세요.</h1>
-        <p className={styles.subtitle}>한 번 설정한 닉네임은 추후에 변경 가능해요!</p>
+      <div className="text-center mt-6 w-full max-w-md mx-auto">
+        <h1 className="text-[40px] font-bold font-gmarket text-black ml-4 text-left whitespace-pre-line">
+          닉네임을{"\n"}알려주세요.
+        </h1>
+        <p className="text-gray-600 mt-8 ml-4 text-left font-semibold text-[16px]">
+          한 번 설정한 닉네임은 추후에 변경 가능해요!
+        </p>
       </div>
 
       {/* Input Section */}
-      <div className={styles.inputContainer}>
+      <div className="w-full max-w-xs mx-auto mt-4">
         <input
           type="text"
           id="nickname-input"
           placeholder="예: 홍길동"
-          className={styles.input}
+          className="w-full bg-white border border-gray-300 shadow rounded-lg py-3 px-4 text-[14px] text-gray-800 placeholder-gray-400 outline-none"
           value={nickname}
           onChange={handleNicknameChange} // 입력값 업데이트
           onKeyPress={handleKeyPress} // 엔터 키 이벤트 처리

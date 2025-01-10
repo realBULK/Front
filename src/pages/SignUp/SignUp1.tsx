@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 훅
-import ProgressBar from "../../src/components/ProgressBar";
-import styles from "./SignUp1.module.css"; // 스타일 파일 import
+import ProgressBar from "../../components/ProgressBar";
 
 const SignUp1: React.FC = () => {
   const navigate = useNavigate(); // 페이지 이동을 위한 네비게이트 훅
@@ -12,32 +11,32 @@ const SignUp1: React.FC = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center bg-primary font-pretendard px-6">
+    <div className="h-screen flex flex-col items-center bg-blue-50 font-pretendard px-6">
       {/* Progress Bar */}
-      <div className={styles.progressBarContainer}>
+      <div className="w-full max-w-md mx-auto mt-16">
         <ProgressBar progress={25} />
       </div>
 
       {/* Title */}
-      <div className={styles.titleContainer}>
-        <h1 className={styles.title}>
+      <div className="text-center mt-4 w-full max-w-md mx-auto">
+        <h1 className="text-[40px] font-gmarket font-bold text-black ml-4 text-left whitespace-pre-line">
           성별을{"\n"}선택해 주세요.
         </h1>
-        <p className={styles.subtitle}>
+        <p className="text-gray-600 mt-8 ml-4 text-left text-[16px]">
           성별에 따라 몸에 필요한 에너지가 달라져요!
         </p>
       </div>
 
       {/* Buttons */}
-      <div className={styles.buttonContainer}>
+      <div className="flex flex-col gap-3 mt-4 w-full max-w-xs mx-auto">
         <button
-          className={styles.button}
+          className="bg-white border border-gray-300 shadow rounded-lg py-3 text-black text-left text-[14px] pl-4"
           onClick={() => handleGenderSelect("남자")}
         >
           남자
         </button>
         <button
-          className={styles.button}
+          className="bg-white border border-gray-300 shadow rounded-lg py-3 text-black text-left text-[14px] pl-4"
           onClick={() => handleGenderSelect("여자")}
         >
           여자

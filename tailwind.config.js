@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        gmarket: ['GmarketSans', 'sans-serif'],
+        gmarket: ['Gmarket Sans', 'sans-serif'],
         pretendard: ['Pretendard', 'sans-serif'],
       },
     },
