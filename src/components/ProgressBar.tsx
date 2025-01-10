@@ -2,7 +2,7 @@ import React from "react";
 
 interface ProgressBarProps {
   progress: number; // 진행률 (0~100)
-  height?: string; // 높이 (기본값 8px)
+  height?: string; // 높이 (기본값 8px) -> 홈화면에서 사용할때 활용하면됨.
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ progress, height = "8px" }) => {

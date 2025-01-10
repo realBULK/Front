@@ -7,6 +7,7 @@ import Main from '../pages/Main/Main'
 import SignUp1 from '../pages/SignUp/SignUp_step1'
 import SignUp2 from '../pages/SignUp/SignUp_step2'
 import SignUp3 from '../pages/SignUp/SignUp_step3'
+import SignUp4 from '../pages/SignUp/SignUp_step4'
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: 'signup3',
         element: <SignUp3 />,
+      },
+      {
+        path: 'signup4',
+        element: <SignUp4 />,
       },
     ],
   },

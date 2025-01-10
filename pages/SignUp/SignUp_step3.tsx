@@ -13,7 +13,7 @@ const SignUp3: React.FC = () => {
 
   const handleNicknameSubmit = () => {
     console.log(`Entered Nickname: ${nickname}`);
-    navigate("/signup4"); // SignUp4 페이지로 이동
+    navigate("/signup4", { state: { nickname } }); // SignUp4 페이지로 닉네임 전달
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {

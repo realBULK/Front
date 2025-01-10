@@ -15,7 +15,7 @@ const SignUp1: React.FC = () => {
     <div className="h-screen flex flex-col items-center bg-primary font-pretendard px-6">
       {/* Progress Bar */}
       <div className={styles.progressBarContainer}>
-        <ProgressBar progress={20} />
+        <ProgressBar progress={25} />
       </div>
 
       {/* Title */}
