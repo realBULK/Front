@@ -9,7 +9,7 @@ interface BoxProps {
 
 const Box: React.FC<BoxProps> = ({ children, as = 'div', onClick, className = '' }) => {
   const baseStyle =
-    'bg-white shadow-base rounded-base w-[327px] h-[58px] p-4 flex items-center justify-center hover:shadow-lg transition'
+    'bg-white shadow-base rounded-base w-[327px] h-[70px] p-4 flex items-center justify-center hover:shadow-lg transition'
 
   if (as === 'button') {
     return (
