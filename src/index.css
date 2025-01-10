@@ -1,3 +1,7 @@
+@import url('https://cdn.jsdelivr.net/gh/ungveloper/web-fonts/GmarketSans/font-face.css');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-dynamic-subset.css');
+
+/* TailwindCSS 기본 설정 */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,3 +23,11 @@
   font-weight: 800;
   src: url('./fonts/GmarketSansBold.woff2') format(woff);
 }
+/* Global styles */
+body {
+  @apply font-pretendard; /* Pretendard 폰트를 기본 폰트로 설정 */
+}
+
+
+  
+  
