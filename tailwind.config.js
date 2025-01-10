@@ -1,8 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'], // 파일 경로 지정
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        gmarket: ['Gmarket Sans', 'sans-serif'],
+        pretendard: ['Pretendard', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
-}
+};

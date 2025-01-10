@@ -1,4 +1,4 @@
-import character from "../../../public/character.png";
+import character from "/character.png";
 import { useNavigate } from 'react-router-dom';
 
 const Main = () => {

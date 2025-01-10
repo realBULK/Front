@@ -1,4 +1,4 @@
-import logo from '../../../public/BULK.png'; 
+import logo from '/BULK.png'; 
 import { useNavigate } from 'react-router-dom';
 
 const Start = () => {
