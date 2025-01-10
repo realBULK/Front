@@ -1,9 +1,10 @@
 import './index.css'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import RootLayout from '../layout/root-layout'
-import RecordHome from '../pages/Record/RecordHome'
-import Main from '../pages/Main/Main'
+import RootLayout from './layout/root-layout'
+import RecordHome from './pages/Record/RecordHome'
+import Start from './pages/Start/Start'
+import Main from './pages/Main/Main'
 
 const router = createBrowserRouter([
   {
@@ -13,11 +14,15 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Main />,
+        element: <Start />,
       },
       {
         path: 'record',
         element: <RecordHome />,
+      },
+      {
+        path: 'home',
+        element: <Main />,
       },
     ],
   },
