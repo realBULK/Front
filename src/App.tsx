@@ -1,7 +1,4 @@
 import './index.css'
-import QuestionScreen from './questionScreen/questionScreen'
-import QuestionScreen1_1 from './questionScreen/questionScreen1-1'
-
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import RootLayout from './layout/root-layout'
 import RecordHome from './pages/Record/RecordHome'
@@ -15,12 +12,42 @@ import SignUp3 from './pages/SignUp/SignUp3'
 import SignUp4 from './pages/SignUp/SignUp4'
 import SignUp5 from './pages/SignUp/SignUp5'
 
+import Question1_1 from './pages/Question/Question1_1'
+import Question1_2 from './pages/Question/Question1_2'
+import Question2_1 from './pages/Question/Question2_1'
+import Question2_2 from './pages/Question/Question2_2'
+import Question3_1 from './pages/Question/Question3_1'
+import Question3_2 from './pages/Question/Question3_2'
+import Question4_1 from './pages/Question/Question4_1'
+import Question4_2 from './pages/Question/Question4_2'
+import QuestionStart from './pages/Question/QuestionStart'
+
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
     errorElement: <div className="bg-blue-50" />,
     children: [
+      {
+        index: true,
+        element: <Start />,
+      },
+      {
+        path: 'record',
+        element: <RecordHome />,
+      },
+      {
+        path: 'record/equal',
+        element: <RecordEqual />,
+      },
+      {
+        path: 'record/unequal',
+        element: <RecordUnequal />,
+      },
+      {
+        path: 'home',
+        element: <Main />,
+      },
       {
         index: true,
         element: <Start />,
@@ -61,23 +88,48 @@ const router = createBrowserRouter([
         path: 'signup5',
         element: <SignUp5 />,
       },
+      {
+        path: 'questionstart',
+        element: <QuestionStart />,
+      },
+      {
+        path: 'question1_1',
+        element: <Question1_1 />,
+      },
+      {
+        path: 'question1_2',
+        element: <Question1_2 />,
+      },
+      {
+        path: 'question2_1',
+        element: <Question2_1 />,
+      },
+      {
+        path: 'question2_2',
+        element: <Question2_2 />,
+      },
+      {
+        path: 'question3_1',
+        element: <Question3_1 />,
+      },
+      {
+        path: 'question3_2',
+        element: <Question3_2 />,
+      },
+      {
+        path: 'question4_1',
+        element: <Question4_1 />,
+      },
+      {
+        path: 'question4_2',
+        element: <Question4_2 />,
+      },
     ],
   },
 ])
 
 function App() {
-<<<<<<< HEAD
-  return (
-    <div>
-      <h1 className="text-3xl font-bold underline ">BULK front</h1>
-      <QuestionScreen />
-      <hr />
-      <QuestionScreen1_1 />
-    </div>
-  )
-=======
   return <RouterProvider router={router} />
->>>>>>> main
 }
 
 export default App
