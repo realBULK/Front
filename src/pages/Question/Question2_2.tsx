@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import ProgressBar from '../../components/ProgressBar'
 import QuestionSmallButton from './QuestionSmallButton'
 
-const Question1_2 = () => {
+const Question2_2 = () => {
   const navigate = useNavigate()
 
   return (
@@ -104,4 +104,4 @@ const Question1_2 = () => {
   )
 }
 
-export default Question1_2
+export default Question2_2

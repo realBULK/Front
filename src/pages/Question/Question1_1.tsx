@@ -6,13 +6,13 @@ import QuestionInputComponent from './QuestionInputComponent'
 const Question1_1 = () => {
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigate('/Question1_2')
-    }, 4000)
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     navigate('/Question1_2')
+  //   }, 4000)
 
-    return () => clearTimeout(timer)
-  }, [navigate])
+  //   return () => clearTimeout(timer)
+  // }, [navigate])
 
   return (
     <div className="bg-[#EDEFFE] w-full min-h-screen flex flex-col items-start px-[10%] pt-[9.27vh]">

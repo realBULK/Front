@@ -9,7 +9,7 @@ const Question1_2 = () => {
   return (
     <div className="bg-[#EDEFFE] w-full min-h-screen flex flex-col items-start px-[10%] pt-[9.27vh]">
       <div className="w-full mb-[3.17vh]">
-        <ProgressBar progress={25} />
+        <ProgressBar progress={100} />
       </div>
 
       <div className="flex flex-col justify-center w-[300px] h-[89px] flex-shrink-0 text-black font-[GmarketSansWeight] text-[40px] font-medium leading-[121%] mb-[5.05vh]">
