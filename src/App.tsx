@@ -5,6 +5,8 @@ import RootLayout from './layout/root-layout'
 import RecordHome from './pages/Record/RecordHome'
 import Start from './pages/Start/Start'
 import Main from './pages/Main/Main'
+import RecordEqual from './pages/Record/RecordEqual'
+import RecordUnequal from './pages/Record/RecordUnequal'
 import SignUp1 from './pages/SignUp/SignUp1'
 import SignUp2 from './pages/SignUp/SignUp2'
 import SignUp3 from './pages/SignUp/SignUp3'
@@ -24,6 +26,14 @@ const router = createBrowserRouter([
       {
         path: 'record',
         element: <RecordHome />,
+      },
+      {
+        path: 'record/equal',
+        element: <RecordEqual />,
+      },
+      {
+        path: 'record/unequal',
+        element: <RecordUnequal />,
       },
       {
         path: 'home',

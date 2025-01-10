@@ -3,9 +3,12 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      fontFamily: {
-        gmarket: ['Gmarket Sans', 'sans-serif'],
-        pretendard: ['Pretendard', 'sans-serif'],
+      boxShadow: {
+        base: '0px 5px 4px -2px rgba(0, 0, 0, 0.25)',
+      },
+      borderRadius: {
+        base: '0.938rem',
+
       },
     },
   },
