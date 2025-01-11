@@ -36,10 +36,10 @@ const SignUp3: React.FC = () => {
 
       {/* Title */}
       <div className="text-center mt-6 w-full max-w-md mx-auto">
-        <h1 className="text-[40px] font-bold font-gmarket text-black ml-4 text-left whitespace-pre-line">
+        <h1 className="text-[40px] font-bold font-[GmarketSansWeight] text-black ml-4 text-left whitespace-pre-line">
           닉네임을{"\n"}알려주세요.
         </h1>
-        <p className="text-gray-600 mt-8 ml-4 text-left font-semibold text-[16px]">
+        <p className="font-semibold font-[pretendard] mt-8 ml-4 text-left font-semibold text-[16px]">
           한 번 설정한 닉네임은 추후에 변경 가능해요!
         </p>
       </div>
@@ -50,7 +50,7 @@ const SignUp3: React.FC = () => {
           type="text"
           id="nickname-input"
           placeholder="예: 홍길동"
-          className="w-full bg-white border border-gray-300 shadow rounded-lg py-3 px-4 text-[14px] text-gray-800 placeholder-gray-400 outline-none"
+          className="w-full font-[pretendard] bg-white border border-gray-300 shadow rounded-lg py-3 px-4 text-[14px] text-gray-800 placeholder-gray-400 outline-none"
           value={nickname}
           onChange={handleNicknameChange} // 입력값 업데이트
           onKeyPress={handleKeyPress} // 엔터 키 이벤트 처리

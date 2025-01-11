@@ -36,10 +36,10 @@ const SignUp2: React.FC = () => {
 
       {/* Title */}
       <div className="text-center mt-6 w-full max-w-md mx-auto">
-        <h1 className="text-[40px] font-gmarket font-bold text-black ml-4 text-left whitespace-pre-line">
+        <h1 className="text-[40px] font-[GmarketSansWeight] font-bold text-black ml-4 text-left whitespace-pre-line">
           출생 연도를{"\n"}입력해 주세요.
         </h1>
-        <p className="text-gray-600 mt-8 ml-4 text-left text-[16px]">
+        <p className="font-semibold font-[pretendard] mt-8 ml-4 text-left text-[16px]">
           나이에 따라 하루 에너지가 달라져요!
         </p>
       </div>
@@ -50,7 +50,7 @@ const SignUp2: React.FC = () => {
           type="text"
           id="age-input"
           placeholder="예: 2001년"
-          className="w-full bg-white border border-gray-300 shadow rounded-lg py-3 px-4 text-[14px] text-gray-800 placeholder-gray-400 outline-none"
+          className="w-full bg-white font-[pretendard] border border-gray-300 shadow rounded-lg py-3 px-4 text-[14px] text-gray-800 placeholder-gray-400 outline-none"
           value={age}
           onChange={handleAgeChange} // 입력값 업데이트
           onKeyPress={handleKeyPress} // 엔터 키 이벤트 처리

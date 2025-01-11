@@ -31,7 +31,7 @@ const SignUp4: React.FC = () => {
 
       {/* Title */}
       <div className="text-center mt-8 w-full max-w-md">
-        <h1 className="text-[32px] font-bold text-black whitespace-pre-line leading-9">
+        <h1 className="font-[pretendard] text-[32px] font-[GmarketSansWeight] text-black whitespace-pre-line leading-9">
           {nickname}님을 위한 식단을{"\n"}추천하는 중입니다
         </h1>
       </div>
@@ -41,7 +41,7 @@ const SignUp4: React.FC = () => {
         {/* 첫 번째 항목 */}
         <div className="flex items-center gap-3">
           <div className="w-4 h-4 rounded-full bg-blue-500"></div>
-          <p className="text-gray-700 text-[14px] font-semibold">
+          <p className="font-[pretendard]text-gray-700 text-[14px] font-semibold">
             중량을 위한 효율적인 방법 계산 중
           </p>
         </div>
@@ -52,7 +52,7 @@ const SignUp4: React.FC = () => {
             <div className="absolute w-4 h-4 bg-gray-300 rounded-full"></div>
             <div className="absolute w-2 h-4 bg-blue-500 rounded-l-full"></div>
           </div>
-          <p className="text-gray-700 text-[14px] font-semibold">
+          <p className="font-[pretendard] text-gray-700 text-[14px] font-semibold">
             하루 목표 칼로리 계산 중
           </p>
         </div>
@@ -60,7 +60,7 @@ const SignUp4: React.FC = () => {
         {/* 세 번째 항목 */}
         <div className="flex items-center gap-3">
           <div className="w-4 h-4 rounded-full bg-gray-300"></div>
-          <p className="text-gray-700 text-[14px] font-semibold">
+          <p className="font-[pretendard] text-gray-700 text-[14px] font-semibold">
             건강을 위한 영양 지표 도출 중
           </p>
         </div>
