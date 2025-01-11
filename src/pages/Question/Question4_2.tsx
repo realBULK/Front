@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import ProgressBar from '../../components/ProgressBar'
 import QuestionButtonComponent from '../../components/QuestionButtonComponent'
+import BlueGradButton from '../../components/BlueGradButton'
 
 const Question4_2 = () => {
   const navigate = useNavigate()
@@ -27,15 +28,7 @@ const Question4_2 = () => {
         <QuestionButtonComponent text="가끔" navigateTo={nextPage} navigateTF={false} />
         <QuestionButtonComponent text="거의 안함" navigateTo={nextPage} navigateTF={false} />
       </div>
-      <button
-        className="w-[327px] h-[58px] text-[16px] font-[Pretendard] font-semibold text-[#191919] text-center rounded-[15px] bg-[#CEDAFF] shadow-custom inset-shadow-custom filter mb-3"
-        style={{
-          boxShadow: `0px 0px 20px 2px #EDEFFE inset, 0px 2px 5px -2px rgba(0, 0, 0, 0.25)`,
-        }}
-        onClick={() => navigate('/signup')}
-      >
-        나만의 식단 받아보기
-      </button>
+      <BlueGradButton text="나만의 식단 받아보기" navigateTo="signup"></BlueGradButton>
     </div>
   )
 }

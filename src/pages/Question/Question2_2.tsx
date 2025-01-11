@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import ProgressBar from '../../components/ProgressBar'
 import QuestionSmallButton from '../../components/QuestionSmallButton'
-import NextButton from '../../components/NextButton'
+import BlueGradButton from '../../components/BlueGradButton'
 
 const Question2_2 = () => {
   const navigate = useNavigate()
@@ -101,7 +101,7 @@ const Question2_2 = () => {
           </div>
         </div>
         <div className="flex flex-row justify-end items-center w-full gap-[2.35vh] mb-[20px]">
-          <NextButton text="다음" navigateTo="Question3_1"></NextButton>
+          <BlueGradButton text="완료하기" navigateTo="question3_1"></BlueGradButton>
         </div>
       </div>
     </div>
