@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import ProgressBar from '../../components/ProgressBar'
-import QuestionButtonComponent from './QuestionButtonComponent'
+import QuestionButtonComponent from '../../components/QuestionButtonComponent'
 
-const Question1_2 = () => {
+const Question2_1 = () => {
   const navigate = useNavigate()
   const nextPage: string = 'question2_2'
 
@@ -32,4 +32,4 @@ const Question1_2 = () => {
   )
 }
 
-export default Question1_2
+export default Question2_1
