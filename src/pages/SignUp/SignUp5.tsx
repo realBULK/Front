@@ -18,8 +18,8 @@ const SignUp5: React.FC = () => {
         <h1 className="text-[32px] font-[GmarketSansWeight] text-black whitespace-pre-line leading-9">
           식단 추천이{"\n"}완료 되었습니다
         </h1>
-        <p className="font-semibold font-[pretendard] mt-4 text-[16px]">
-          3초 안에 회원가입하고{"\n"}추천된 식단을 확인해 보세요!
+        <p className="font-semibold font-[pretendard] mt-4 whitespace-pre-line text-[16px]">
+          3초 안에 회원가입하고{"\n"}추천된 식단을 확인해 보세요
         </p>
       </div>
 
