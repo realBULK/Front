@@ -1,18 +1,10 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ProgressBar from '../../components/ProgressBar'
-import QuestionInputComponent from './QuestionInputComponent'
+import QuestionInputComponent from '../../components/QuestionInputComponent'
+import NextButton from '../../components/NextButton'
 
 const Question1_1 = () => {
   const navigate = useNavigate()
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     navigate('/Question1_2')
-  //   }, 4000)
-
-  //   return () => clearTimeout(timer)
-  // }, [navigate])
 
   return (
     <div className="bg-[#EDEFFE] w-full min-h-screen flex flex-col items-start px-[10%] pt-[9.27vh]">
@@ -30,9 +22,13 @@ const Question1_1 = () => {
         키와 몸무게를 입력해주세요.
       </div>
 
-      <div className="flex flex-col gap-[2%] w-full gap-[2.35vh]">
+      <div className="flex flex-col  w-full gap-[2.35vh] mb-[5vh]">
         <QuestionInputComponent placeholder="키(cm)" />
         <QuestionInputComponent placeholder="몸무게(kg)" />
+      </div>
+
+      <div className="flex flex-row justify-end items-center w-full gap-[2.35vh]">
+        <NextButton text="다음" navigateTo="Question1_2"></NextButton>
       </div>
     </div>
   )

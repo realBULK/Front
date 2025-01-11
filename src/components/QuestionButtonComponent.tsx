@@ -1,16 +1,16 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 interface QuestionButtonComponentProps {
   text: string
   navigateTo: string
+  navigateTF?: boolean
 }
 
-const QuestionButtonComponent: React.FC<QuestionButtonComponentProps> = ({ text, navigateTo }) => {
+const QuestionButtonComponent: React.FC<QuestionButtonComponentProps> = ({ text, navigateTo, navigateTF = true }) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    navigate(`/${navigateTo}`)
+    if (navigateTF === true) navigate(`/${navigateTo}`)
   }
 
   return (

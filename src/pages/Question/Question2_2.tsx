@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import ProgressBar from '../../components/ProgressBar'
-import QuestionSmallButton from './QuestionSmallButton'
+import QuestionSmallButton from '../../components/QuestionSmallButton'
+import NextButton from '../../components/NextButton'
 
 const Question2_2 = () => {
   const navigate = useNavigate()
@@ -82,7 +83,7 @@ const Question2_2 = () => {
           </div>
         </div>
 
-        <div className="mb-[50px]">
+        <div className="mb-[10px]">
           <div className="flex w-[200px] h-[23px] flex-col justify-center flex-shrink-0 text-[#191919] text-left font-pretendard text-[24px] font-extrabold leading-[100%] tracking-[-0.48px] mb-[1.17vh]">
             과일 & 베리류
           </div>
@@ -98,6 +99,9 @@ const Question2_2 = () => {
             <QuestionSmallButton text="포도" />
             <QuestionSmallButton text="석류" />
           </div>
+        </div>
+        <div className="flex flex-row justify-end items-center w-full gap-[2.35vh] mb-[20px]">
+          <NextButton text="다음" navigateTo="Question3_1"></NextButton>
         </div>
       </div>
     </div>
