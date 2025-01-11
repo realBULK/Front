@@ -30,13 +30,13 @@ const SignUp1: React.FC = () => {
       {/* Buttons */}
       <div className="flex flex-col gap-3 mt-4 w-full max-w-xs mx-auto">
         <button
-          className="bg-white border font-[pretendard] border-gray-300 shadow rounded-lg py-3 text-black text-left text-[14px] pl-4"
+          className="w-[327px] h-[55px] bg-white border border-[#EDEDED] shadow-whiteBox rounded-base text-black text-left text-[14px] pl-4 font-[pretendard]"
           onClick={() => handleGenderSelect("남자")}
         >
           남자
         </button>
         <button
-          className="bg-white border font-[pretendard] border-gray-300 shadow rounded-lg py-3 text-black text-left text-[14px] pl-4"
+          className="w-[327px] h-[55px] bg-white border border-[#EDEDED] shadow-whiteBox rounded-base text-black text-left text-[14px] pl-4 font-[pretendard]"
           onClick={() => handleGenderSelect("여자")}
         >
           여자

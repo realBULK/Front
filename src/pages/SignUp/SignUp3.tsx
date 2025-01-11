@@ -23,7 +23,7 @@ const SignUp3: React.FC = () => {
       setError(null);
     } catch (err) {
       if (err instanceof yup.ValidationError) {
-        setError(err.message); 
+        setError(err.message);
       } else {
         setError("알 수 없는 오류가 발생했습니다.");
       }
@@ -33,12 +33,21 @@ const SignUp3: React.FC = () => {
   const handleKeyPress = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       try {
-        await nicknameSchema.validate(nickname); 
-        setError(null); 
-        navigate("/signup4", { state: { nickname } }); 
+        await nicknameSchema.validate(nickname);
+        setError(null);
+
+        // 중복된 닉네임인지 확인 (예시: 비동기 호출로 백엔드 통신 필요)
+        const isDuplicate = false; // 백엔드와 통신하여 결과 받기
+
+        if (isDuplicate) {
+          setError("사용이 불가능한 닉네임입니다."); // 중복된 닉네임 에러 메시지
+          return;
+        }
+
+        navigate("/signup4", { state: { nickname } });
       } catch (err) {
         if (err instanceof yup.ValidationError) {
-          setError(err.message); 
+          setError(err.message);
         }
       }
     }
@@ -62,25 +71,24 @@ const SignUp3: React.FC = () => {
       </div>
 
       {/* Input Section */}
-      <div className="w-full max-w-xs mx-auto mt-4">
-  <input
-    type="text"
-    id="nickname-input"
-    placeholder="예: 홍길동"
-    className={`w-full font-[pretendard] bg-white border ${
-      error ? "border-[#FE8383]" : "border-gray-300"
-    } shadow rounded-lg py-3 px-4 text-[14px] text-gray-800 placeholder-gray-400 outline-none`}
-    value={nickname}
-    onChange={handleNicknameChange}
-    onKeyPress={handleKeyPress}
-  />
-  {error && (
-    <p className="mt-2 text-[10px] font-[pretendard] text-right" style={{ color: "#F81919" }}>
-      {error}
-    </p>
-  )}
-</div>
-
+      <div className="w-[327px] mx-auto mt-4">
+        <input
+          type="text"
+          id="nickname-input"
+          placeholder="예: 홍길동"
+          className={`w-[327px] h-[55px] font-[pretendard] bg-white border ${
+            error ? "border-[#FE8383]" : "border-[#EDEDED]"
+          } shadow-whiteBox rounded-base px-4 text-[14px] text-gray-800 placeholder-gray-400 outline-none`}
+          value={nickname}
+          onChange={handleNicknameChange}
+          onKeyPress={handleKeyPress}
+        />
+        {error && (
+          <p className="mt-2 text-[10px] font-[pretendard] text-right" style={{ color: "#F81919" }}>
+            {error}
+          </p>
+        )}
+      </div>
     </div>
   );
 };

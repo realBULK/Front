@@ -1,6 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignUp5: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleNavigation = (navigateTo: string) => {
+    navigate(`/${navigateTo}`);
+  };
+
   return (
     <div className="h-screen flex flex-col items-center bg-blue-50 font-pretendard px-6">
       {/* Circular Progress */}
@@ -24,11 +31,23 @@ const SignUp5: React.FC = () => {
       </div>
 
       {/* Buttons */}
-      <div className="mt-12 flex flex-col gap-4 w-full max-w-xs">
-        <button className="font-semibold font-[pretendard] bg-blue-100 text-blue-600 py-3 text-center text-[16px] rounded-lg shadow">
+      <div className="mt-12 flex flex-col gap-2 w-full max-w-xs">
+        <button
+          className="w-[327px] h-[58px] text-[16px] font-[Pretendard] font-semibold text-[#191919] text-center rounded-[15px] bg-[#CEDAFF] shadow-custom inset-shadow-custom filter mb-3"
+          style={{
+            boxShadow: `0px 0px 20px 2px #EDEFFE inset, 0px 2px 5px -2px rgba(0, 0, 0, 0.25)`,
+          }}
+          onClick={() => handleNavigation("kakao")}
+        >
           카카오로 계속하기
         </button>
-        <button className="font-semibold font-[pretendard] bg-blue-100 text-blue-600 py-3 text-center text-[16px] rounded-lg shadow">
+        <button
+          className="w-[327px] h-[58px] text-[16px] font-[Pretendard] font-semibold text-[#191919] text-center rounded-[15px] bg-[#CEDAFF] shadow-custom inset-shadow-custom filter"
+          style={{
+            boxShadow: `0px 0px 20px 2px #EDEFFE inset, 0px 2px 5px -2px rgba(0, 0, 0, 0.25)`,
+          }}
+          onClick={() => handleNavigation("apple")}
+        >
           Apple로 계속하기
         </button>
       </div>

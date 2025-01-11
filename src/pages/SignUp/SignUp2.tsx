@@ -50,7 +50,7 @@ const SignUp2: React.FC = () => {
           type="text"
           id="age-input"
           placeholder="예: 2001년"
-          className="w-full bg-white font-[pretendard] border border-gray-300 shadow rounded-lg py-3 px-4 text-[14px] text-gray-800 placeholder-gray-400 outline-none"
+          className="w-[327px] h-[55px] bg-white font-[pretendard] border border-[#EDEDED] shadow-whiteBox rounded-base px-4 text-[14px] text-gray-800 placeholder-gray-400 outline-none"
           value={age}
           onChange={handleAgeChange} // 입력값 업데이트
           onKeyPress={handleKeyPress} // 엔터 키 이벤트 처리
