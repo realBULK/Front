@@ -23,6 +23,8 @@ import Question4_1 from './pages/Question/Question4_1'
 import Question4_2 from './pages/Question/Question4_2'
 import QuestionStart from './pages/Question/QuestionStart'
 
+import Splash from './pages/Splash/Splash'
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -128,6 +130,10 @@ const router = createBrowserRouter([
       {
         path: 'question4_2',
         element: <Question4_2 />,
+      },
+      {
+        path: 'splash',
+        element: <Splash />,
       },
     ],
   },
