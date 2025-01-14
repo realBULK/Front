@@ -18,7 +18,7 @@ interface SuggestionDaysComponentProps {
 
 const SuggestionDaysComponent: React.FC<SuggestionDaysComponentProps> = ({ data }) => {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 mb-[44px]">
       {data.map((dayData) => (
         <div key={dayData.day} className="flex flex-col gap-4">
           {/* 요일 */}
