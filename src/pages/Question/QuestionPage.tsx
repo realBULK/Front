@@ -33,6 +33,7 @@ export default function QuestionPage() {
         smallQuestion={q.smallQuestion}
         options={q.options}
         navigateTo={`/question/${q.navigateTo}`}
+        specialButton={q.specialButton}
       />
     )
   }

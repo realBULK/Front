@@ -7,7 +7,7 @@ export const questionData: Record<string, any> = {
     inputs: ['키(cm)', '몸무게(kg)'],
     navigateTo: 'question/1_2',
   },
-  '1_2': {
+  '1_3': {
     type: 'button',
     progress: 25,
     bigQuestion: '000에 대해\n알려주세요!',
@@ -20,13 +20,13 @@ export const questionData: Record<string, any> = {
     ],
     navigateTo: 'question/2_1',
   },
-  '1_3': {
+  '1_2': {
     type: 'input',
     progress: 25,
     bigQuestion: '000에 대해\n알려주세요!',
     smallQuestion: '목표 몸무게를 알려주세요.',
     inputs: ['몸무게(kg)'],
-    navigateTo: 'question/1_2',
+    navigateTo: 'question/1_3',
   },
   '2_1': {
     type: 'button',
