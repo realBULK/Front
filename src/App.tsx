@@ -24,6 +24,7 @@ import Question4_2 from './pages/Question/Question4_2'
 import QuestionStart from './pages/Question/QuestionStart'
 import RecordMyself from './pages/Record/RecordMyself'
 import Suggestion from './pages/Suggestion/Suggestion'
+import Splash from './pages/Splash/Splash'
 
 const router = createBrowserRouter([
   {
@@ -126,6 +127,10 @@ const router = createBrowserRouter([
       {
         path: 'suggestion',
         element: <Suggestion />,
+      },
+      {
+        path: 'splash',
+        element: <Splash />,
       },
     ],
   },
