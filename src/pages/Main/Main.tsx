@@ -121,22 +121,32 @@
 
 import React, { useState } from "react";
 import character from "/character.png";
+import character_eat from "/BULK_EAT.png";
 import { useNavigate } from "react-router-dom";
 
 const Main: React.FC = () => {
+
     const navigate = useNavigate();
 
-    // 버튼 위치 상태
-    const [buttonPosition, setButtonPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+    // 상태 관리
+    const [buttonPosition, setButtonPosition] = useState<{ x: number; y: number }>({ x: 150, y: 400 }); // 버튼 초기 위치
     const [isDragging, setIsDragging] = useState<boolean>(false);
     const [offset, setOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+    const [characterImage, setCharacterImage] = useState<string>(character); // 캐릭터 이미지 상태
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (isDragging) {
-            setButtonPosition({
-                x: e.clientX - offset.x,
-                y: e.clientY - offset.y,
-            });
+            const newX = e.clientX - offset.x;
+            const newY = e.clientY - offset.y;
+
+            setButtonPosition({ x: newX, y: newY });
+
+            // 버튼이 캐릭터 입 주변에 도달했는지 확인
+            if (newX >= 120 && newX <= 230 && newY >= 300 && newY <= 400) {
+                setCharacterImage(character_eat); // 이미지를 먹는 상태로 변경
+                setIsDragging(false); // 드래그 중지
+                setButtonPosition({ x: 150, y: 400 }); // 버튼 초기 위치로 이동
+            }
         }
     };
 
@@ -233,7 +243,7 @@ const Main: React.FC = () => {
 
             {/* character */}
             <div className="relative w-full max-w-[327px] top-7 bottom-1">
-                <img src={character} alt="Bulk Logo" className="w-[200px] h-[270px] mx-auto" />
+                <img src={characterImage} alt="Character" className="w-[200px] h-[270px] mx-auto" />
                 <button
                     className="absolute w-[100px] h-[48px] text-[14px] font-[Pretendard] font-semibold text-[#191919] rounded-[15px] bg-[#CEDAFF] shadow-custom inset-shadow-custom filter"
                     style={{

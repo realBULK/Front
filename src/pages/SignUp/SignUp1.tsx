@@ -19,10 +19,10 @@ const SignUp1: React.FC = () => {
 
       {/* Title */}
       <div className="text-center mt-4 w-full max-w-md mx-auto">
-        <h1 className="text-[40px] font-gmarket font-bold text-black ml-4 text-left whitespace-pre-line">
+        <h1 className="text-[40px] font-[GmarketSansWeight] font-bold text-black ml-4 text-left whitespace-pre-line">
           성별을{"\n"}선택해 주세요.
         </h1>
-        <p className="text-gray-600 mt-8 ml-4 text-left text-[16px]">
+        <p className="font-[pretendard] font-semibold mt-8 ml-4 text-left text-[16px]">
           성별에 따라 몸에 필요한 에너지가 달라져요!
         </p>
       </div>
@@ -30,13 +30,13 @@ const SignUp1: React.FC = () => {
       {/* Buttons */}
       <div className="flex flex-col gap-3 mt-4 w-full max-w-xs mx-auto">
         <button
-          className="bg-white border border-gray-300 shadow rounded-lg py-3 text-black text-left text-[14px] pl-4"
+          className="w-[327px] h-[55px] bg-white border border-[#EDEDED] shadow-whiteBox rounded-base text-black text-left text-[14px] pl-4 font-[pretendard]"
           onClick={() => handleGenderSelect("남자")}
         >
           남자
         </button>
         <button
-          className="bg-white border border-gray-300 shadow rounded-lg py-3 text-black text-left text-[14px] pl-4"
+          className="w-[327px] h-[55px] bg-white border border-[#EDEDED] shadow-whiteBox rounded-base text-black text-left text-[14px] pl-4 font-[pretendard]"
           onClick={() => handleGenderSelect("여자")}
         >
           여자

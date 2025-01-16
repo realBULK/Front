@@ -22,8 +22,8 @@ import Question3_2 from './pages/Question/Question3_2'
 import Question4_1 from './pages/Question/Question4_1'
 import Question4_2 from './pages/Question/Question4_2'
 import QuestionStart from './pages/Question/QuestionStart'
-
-import Splash from './pages/Splash/Splash'
+import RecordMyself from './pages/Record/RecordMyself'
+import Suggestion from './pages/Suggestion/Suggestion'
 
 const router = createBrowserRouter([
   {
@@ -34,18 +34,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Start />,
-      },
-      {
-        path: 'record',
-        element: <RecordHome />,
-      },
-      {
-        path: 'record/equal',
-        element: <RecordEqual />,
-      },
-      {
-        path: 'record/unequal',
-        element: <RecordUnequal />,
       },
       {
         path: 'home',
@@ -66,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: 'record/unequal',
         element: <RecordUnequal />,
+      },
+      {
+        path: 'record/myself',
+        element: <RecordMyself />,
       },
       {
         path: 'home',
@@ -132,8 +124,8 @@ const router = createBrowserRouter([
         element: <Question4_2 />,
       },
       {
-        path: 'splash',
-        element: <Splash />,
+        path: 'suggestion',
+        element: <Suggestion />,
       },
     ],
   },
