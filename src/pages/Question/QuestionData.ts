@@ -5,7 +5,7 @@ export const questionData: Record<string, any> = {
     bigQuestion: '000에 대해\n알려주세요!',
     smallQuestion: '키와 몸무게를 입력해주세요.',
     inputs: ['키(cm)', '몸무게(kg)'],
-    navigateTo: '1_2',
+    navigateTo: 'question/1_2',
   },
   '1_2': {
     type: 'button',
@@ -18,7 +18,7 @@ export const questionData: Record<string, any> = {
       '높음 (주 3회 이상 운동)',
       '매우 높음 (매일 강도 높은 운동)',
     ],
-    navigateTo: '2_1',
+    navigateTo: 'question/2_1',
   },
   '1_3': {
     type: 'input',
@@ -26,7 +26,7 @@ export const questionData: Record<string, any> = {
     bigQuestion: '000에 대해\n알려주세요!',
     smallQuestion: '목표 몸무게를 알려주세요.',
     inputs: ['몸무게(kg)'],
-    navigateTo: '1_2',
+    navigateTo: 'question/1_2',
   },
   '2_1': {
     type: 'button',
@@ -34,7 +34,7 @@ export const questionData: Record<string, any> = {
     bigQuestion: '식습관에 대해\n알려주세요!',
     smallQuestion: '평소 식사를 몇 끼 하시나요?',
     options: ['1끼', '2끼', '3끼', '4끼'],
-    navigateTo: '2_2',
+    navigateTo: 'question/2_2',
   },
   '2_2': {
     type: 'select',
@@ -63,7 +63,7 @@ export const questionData: Record<string, any> = {
         items: ['감귤류', '사과', '바나나', '배', '키위', '감', '복숭아', '베리류', '포도', '석류'],
       },
     ],
-    navigateTo: '3_1',
+    navigateTo: 'question/3_1',
   },
   '3_1': {
     type: 'button',
@@ -75,7 +75,7 @@ export const questionData: Record<string, any> = {
       '보통 (대체로 규칙적이지만 가끔 변동 있음)',
       '불규칙적 (매일 식사 시간이 달라짐)',
     ],
-    navigateTo: '3_2',
+    navigateTo: 'question/3_2',
   },
   '3_2': {
     type: 'button',
@@ -87,7 +87,7 @@ export const questionData: Record<string, any> = {
       '가끔 있음 (주 1-2회 정도 외식)',
       '자주 있음 (학교, 직장 등 외부에서 주로 식사)',
     ],
-    navigateTo: '4_1',
+    navigateTo: 'question/4_1',
   },
   '4_1': {
     type: 'button',
@@ -95,7 +95,7 @@ export const questionData: Record<string, any> = {
     bigQuestion: '요리 습관에 대해\n알려주세요!',
     smallQuestion: '요리를 할 시간이 얼마나 있나요?',
     options: ['10분 이내', '10-30분', '30분 이상', '요리를 거의 하지 않음'],
-    navigateTo: '4_2',
+    navigateTo: 'question/4_2',
   },
   '4_2': {
     type: 'button',
