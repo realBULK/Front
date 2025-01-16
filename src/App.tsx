@@ -23,6 +23,7 @@ import Question4_1 from './pages/Question/Question4_1'
 import Question4_2 from './pages/Question/Question4_2'
 import QuestionStart from './pages/Question/QuestionStart'
 import RecordMyself from './pages/Record/RecordMyself'
+import Suggestion from './pages/Suggestion/Suggestion'
 
 const router = createBrowserRouter([
   {
@@ -121,6 +122,10 @@ const router = createBrowserRouter([
       {
         path: 'question4_2',
         element: <Question4_2 />,
+      },
+      {
+        path: 'suggestion',
+        element: <Suggestion />,
       },
     ],
   },
