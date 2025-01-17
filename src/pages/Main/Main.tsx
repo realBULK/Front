@@ -7,6 +7,7 @@ import groupIcon from "/Vector.png";
 import homeIcon from "/Home.png";
 import dietIcon from "/List.png";
 import infoIcon from "/Info.png";
+import background from "/background.svg";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -100,12 +101,38 @@ const Main = () => {
     >
       {/* 상단 레벨 표시 */}
       <div className="w-full flex flex-col mb-6">
-        <h1 className="text-[40px] font-[GmarketSansWeight] text-black leading-[1.21] mb-2 text-left">
-          LV.12
-        </h1>
+        <div className="flex items-center">
+          {/* 원형 진행바 */}
+          <div className="relative w-10 h-10 mr-3">
+            <svg className="absolute top-0 left-0 w-[90%] h-full" viewBox="0 0 36 36">
+              <path
+                className="text-gray-200"
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              ></path>
+              <path
+                className="text-orange-500"
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                strokeDasharray="75, 100"
+                stroke="currentColor"
+                strokeWidth="2"
+              ></path>
+            </svg>
+          </div>
+          <h1 className="text-[40px] font-[GmarketSansWeight] text-black leading-[1.21]">
+            LV.12
+          </h1>
+      </div>
 
         {/* 칼로리 카드 */}
-        <div className="w-[100%] bg-[#F4E3DC] rounded-[20px] p-4 shadow-md mx-auto">
+        <div className="w-[100%] bg-[#F4E3DC] rounded-[20px] p-4 shadow-md mx-auto mt-[11px]">
           <div className="flex justify-between items-center mb-3">
             <h2 className="text-[24px] font-[Pretendard] font-semibold text-black">
               칼로리
@@ -181,8 +208,8 @@ const Main = () => {
       </div>
 
       {/* character */}
-      <div className="relative w-full max-w-[327px] top-7 bottom-1">
-        <img src={characterImage} alt="Character" className="w-[200px] h-[270px] mx-auto" />
+      <div className="relative w-full bottom-1">
+        <img src={background} alt="Character" className="w-[100%] h-[370px] mx-auto" />
         {isFed && (
           <button
             className="absolute w-[100px] h-[48px] text-[14px] font-[Pretendard] font-semibold text-[#191919] rounded-[15px] bg-[#CEDAFF] shadow-custom inset-shadow-custom filter"
