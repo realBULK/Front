@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import ProgressBar from "../../components/MainProgressBar";
+
 import character from "/character.png";
 import character_eat from "/BULK_EAT.png";
 import recordIcon from "/Note.png";
@@ -100,9 +102,9 @@ const Main = () => {
       onMouseUp={handleMouseUp}
     >
       {/* 상단 레벨 표시 */}
+            {/* 상단 레벨 표시 */}
       <div className="w-full flex flex-col mb-6">
         <div className="flex items-center">
-          {/* 원형 진행바 */}
           <div className="relative w-10 h-10 mr-3">
             <svg className="absolute top-0 left-0 w-[90%] h-full" viewBox="0 0 36 36">
               <path
@@ -129,15 +131,12 @@ const Main = () => {
           <h1 className="text-[40px] font-[GmarketSansWeight] text-black leading-[1.21]">
             LV.12
           </h1>
-      </div>
+        </div>
 
         {/* 칼로리 카드 */}
         <div className="w-[100%] bg-[#F4E3DC] rounded-[20px] p-4 shadow-md mx-auto mt-[11px]">
           <div className="flex justify-between items-center mb-3">
-            <h2 className="text-[24px] font-[Pretendard] font-semibold text-black">
-              칼로리
-            </h2>
-            {/* 색상 동그라미 표시 */}
+            <h2 className="text-[24px] font-[Pretendard] font-semibold text-black">칼로리</h2>
             <div className="flex space-x-2">
               <button className="w-3 h-3 bg-[#FF9163] rounded-full"></button>
               <button className="w-3 h-3 bg-[#9A7EB1] rounded-full"></button>
@@ -148,59 +147,32 @@ const Main = () => {
           </div>
 
           {/* 칼로리 바 */}
-          <div className="w-full max-w-[327px] items-center mb-[15px]">
-            <div className="relative h-4 bg-gray-300 rounded-full">
-              <div
-                className="absolute h-4 bg-gradient-to-r from-[#FF9163] to-[#FF9163] rounded-full"
-                style={{ width: "89%" }}
-              ></div>
-            </div>
-            <div className="font-[Pretendard] flex justify-between mt-1 text-sm text-#000">
-              <span></span>
-              <span>
-                <span>1,345</span>
-                <span className="text-[#8D8D8D]">/1,500kcal</span>
-              </span>
-            </div>
+          <ProgressBar progress={89} color="#FF9163" />
+          <div className="font-[Pretendard] flex justify-between mt-1 text-sm text-#000">
+            <span></span>
+            <span>
+              <span>1,345</span>
+              <span className="text-[#8D8D8D]">/1,500kcal</span>
+            </span>
           </div>
 
           {/* 탄, 단, 지 */}
-          <div className="w-full">
+          <div className="w-full mt-2">
             <div className="flex justify-between">
-              {/* 탄 */}
               <div className="flex flex-col items-start">
-                <span className="font-[Pretendard] text-lg font-semibold mb-1">탄수화물</span>
-                <div className="relative w-[90px] h-4 bg-gray-300 rounded-full">
-                  <div
-                    className="absolute h-4 bg-gradient-to-r from-[#FF9163] to-[#FF9163] rounded-full"
-                    style={{ width: "100%" }}
-                  ></div>
-                </div>
-                <span className="font-[Pretendard] mt-1 text-sm text-[#000000]-600 ml-[61px]">***g</span>
+                <span className="font-[Pretendard] w-[90px] text-lg font-semibold mb-1">탄수화물</span>
+                <ProgressBar progress={100} color="#FF9163" />
+                <span className="font-[Pretendard] mt-1 text-sm text-[#000000]-600 ml-[61px]">350g</span>
               </div>
-
-              {/* 단 */}
               <div className="flex flex-col items-start">
-                <span className="font-[Pretendard] text-lg font-semibold mb-1">단백질</span>
-                <div className="relative w-[90px] h-4 bg-gray-300 rounded-full">
-                  <div
-                    className="absolute h-4 bg-gradient-to-r from-[#FF9163] to-[#FF9163] rounded-full"
-                    style={{ width: "50%" }}
-                  ></div>
-                </div>
-                <span className="font-[Pretendard] mt-1 text-sm text-[#000000] ml-[61px]">***g</span>
+                <span className="font-[Pretendard] w-[90px] text-lg font-semibold mb-1">단백질</span>
+                <ProgressBar progress={50} color="#FF9163" />
+                <span className="font-[Pretendard] mt-1 text-sm text-[#000000]-600 ml-[61px]">200g</span>
               </div>
-
-              {/* 지 */}
               <div className="flex flex-col items-start">
-                <span className="font-[Pretendard] text-lg font-semibold mb-1">지방</span>
-                <div className="relative w-[90px] h-4 bg-gray-300 rounded-full">
-                  <div
-                    className="absolute h-4 bg-gradient-to-r from-[#FF9163] to-[#FF9163] rounded-full"
-                    style={{ width: "30%" }}
-                  ></div>
-                </div>
-                <span className="font-[Pretendard] mt-1 text-sm text-[#000000] ml-[61px]">***g</span>
+                <span className="font-[Pretendard] w-[90px] text-lg font-semibold mb-1">지방</span>
+                <ProgressBar progress={30} color="#FF9163" />
+                <span className="font-[Pretendard] mt-1 text-sm text-[#000000]-600 ml-[61px]">100g</span>
               </div>
             </div>
           </div>
@@ -208,8 +180,16 @@ const Main = () => {
       </div>
 
       {/* character */}
-      <div className="relative w-full bottom-1">
-        <img src={background} alt="Character" className="w-[100%] h-[370px] mx-auto" />
+      <div className="relative w-full h-[370px]">
+        {/* 배경 이미지 */}
+        <img src={background} alt="Background" className="absolute top-0 left-0 w-full h-full object-cover" />
+        
+        {/* 캐릭터 이미지 */}
+        <img
+          src={characterImage}
+          alt="Character"
+          className="absolute top-1/2 left-1/2 w-[200px] h-[270px] transform -translate-x-1/2 -translate-y-1/2"
+        />
         {isFed && (
           <button
             className="absolute w-[100px] h-[48px] text-[14px] font-[Pretendard] font-semibold text-[#191919] rounded-[15px] bg-[#CEDAFF] shadow-custom inset-shadow-custom filter"
