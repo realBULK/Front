@@ -94,68 +94,88 @@ const Main = () => {
 
   return (
     <div
-      className="flex flex-col items-center h-screen p-[33px]"
+      className="flex flex-col items-center h-screen p-[15px]"
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
     >
       {/* 상단 레벨 표시 */}
-      <div className="w-full flex flex-col">
-        <h5 className="text-[14px] font-[Pretendard] text-black leading-[1.21] text-left">0kal</h5>
-        <h1 className="text-[40px] font-[GmarketSansWeight] text-black leading-[1.21] mb-4 text-left">LV.12</h1>
-        <h2 className="text-[32px] font-[Pretendard] font-semibold text-black mb-1 text-left">칼로리</h2>
+      <div className="w-full flex flex-col mb-6">
+        <h1 className="text-[40px] font-[GmarketSansWeight] text-black leading-[1.21] mb-2 text-left">
+          LV.12
+        </h1>
 
-        {/* 칼로리 바 */}
-        <div className="w-full max-w-[327px] items-center mb-[15px]">
-          <div className="relative h-4 bg-gray-300 rounded-full">
-            <div
-              className="absolute h-4 bg-gradient-to-r from-[#445AFF] to-[#9AA6FF] rounded-full"
-              style={{ width: "89%" }}
-            ></div>
+        {/* 칼로리 카드 */}
+        <div className="w-[100%] bg-[#F4E3DC] rounded-[20px] p-4 shadow-md mx-auto">
+          <div className="flex justify-between items-center mb-3">
+            <h2 className="text-[24px] font-[Pretendard] font-semibold text-black">
+              칼로리
+            </h2>
+            {/* 색상 동그라미 표시 */}
+            <div className="flex space-x-2">
+              <button className="w-3 h-3 bg-[#FF9163] rounded-full"></button>
+              <button className="w-3 h-3 bg-[#9A7EB1] rounded-full"></button>
+              <button className="w-3 h-3 bg-[#B1CAC8] rounded-full"></button>
+              <button className="w-3 h-3 bg-[#83B2E8] rounded-full"></button>
+              <button className="w-3 h-3 bg-[#FFF292] rounded-full"></button>
+            </div>
           </div>
-          <div className="font-[Pretendard] flex justify-between mt-1 text-sm text-#000">
-            <span>0kcal</span>
-            <span>1,500kcal</span>
-          </div>
-        </div>
-      </div>
 
-      {/* 탄단지 바 */}
-      <div className="w-full">
-        <div className="flex justify-between">
-          {/* 탄 */}
-          <div className="flex flex-col items-start">
-            <span className="font-[Pretendard] text-lg font-semibold mb-1">탄</span>
-            <div className="relative w-[90px] h-4 bg-gray-300 rounded-full">
+          {/* 칼로리 바 */}
+          <div className="w-full max-w-[327px] items-center mb-[15px]">
+            <div className="relative h-4 bg-gray-300 rounded-full">
               <div
-                className="absolute h-4 bg-gradient-to-r from-[#445AFF] to-[#9AA6FF] rounded-full"
-                style={{ width: "100%" }}
+                className="absolute h-4 bg-gradient-to-r from-[#FF9163] to-[#FF9163] rounded-full"
+                style={{ width: "89%" }}
               ></div>
             </div>
-            <span className="font-[Pretendard] mt-1 text-sm text-gray-600 ml-[61px]">***g</span>
+            <div className="font-[Pretendard] flex justify-between mt-1 text-sm text-#000">
+              <span></span>
+              <span>
+                <span>1,345</span>
+                <span className="text-[#8D8D8D]">/1,500kcal</span>
+              </span>
+            </div>
           </div>
 
-          {/* 단 */}
-          <div className="flex flex-col items-start">
-            <span className="font-[Pretendard] text-lg font-semibold mb-1">단</span>
-            <div className="relative w-[90px] h-4 bg-gray-300 rounded-full">
-              <div
-                className="absolute h-4 bg-gradient-to-r from-[#445AFF] to-[#9AA6FF] rounded-full"
-                style={{ width: "50%" }}
-              ></div>
-            </div>
-            <span className="font-[Pretendard] mt-1 text-sm text-gray-600 ml-[61px]">***g</span>
-          </div>
+          {/* 탄, 단, 지 */}
+          <div className="w-full">
+            <div className="flex justify-between">
+              {/* 탄 */}
+              <div className="flex flex-col items-start">
+                <span className="font-[Pretendard] text-lg font-semibold mb-1">탄수화물</span>
+                <div className="relative w-[90px] h-4 bg-gray-300 rounded-full">
+                  <div
+                    className="absolute h-4 bg-gradient-to-r from-[#FF9163] to-[#FF9163] rounded-full"
+                    style={{ width: "100%" }}
+                  ></div>
+                </div>
+                <span className="font-[Pretendard] mt-1 text-sm text-[#000000]-600 ml-[61px]">***g</span>
+              </div>
 
-          {/* 지 */}
-          <div className="flex flex-col items-start">
-            <span className="font-[Pretendard] text-lg font-semibold mb-1">지</span>
-            <div className="relative w-[90px] h-4 bg-gray-300 rounded-full">
-              <div
-                className="absolute h-4 bg-gradient-to-r from-[#445AFF] to-[#9AA6FF] rounded-full"
-                style={{ width: "30%" }}
-              ></div>
+              {/* 단 */}
+              <div className="flex flex-col items-start">
+                <span className="font-[Pretendard] text-lg font-semibold mb-1">단백질</span>
+                <div className="relative w-[90px] h-4 bg-gray-300 rounded-full">
+                  <div
+                    className="absolute h-4 bg-gradient-to-r from-[#FF9163] to-[#FF9163] rounded-full"
+                    style={{ width: "50%" }}
+                  ></div>
+                </div>
+                <span className="font-[Pretendard] mt-1 text-sm text-[#000000] ml-[61px]">***g</span>
+              </div>
+
+              {/* 지 */}
+              <div className="flex flex-col items-start">
+                <span className="font-[Pretendard] text-lg font-semibold mb-1">지방</span>
+                <div className="relative w-[90px] h-4 bg-gray-300 rounded-full">
+                  <div
+                    className="absolute h-4 bg-gradient-to-r from-[#FF9163] to-[#FF9163] rounded-full"
+                    style={{ width: "30%" }}
+                  ></div>
+                </div>
+                <span className="font-[Pretendard] mt-1 text-sm text-[#000000] ml-[61px]">***g</span>
+              </div>
             </div>
-            <span className="font-[Pretendard] mt-1 text-sm text-gray-600 ml-[61px]">***g</span>
           </div>
         </div>
       </div>
@@ -180,49 +200,51 @@ const Main = () => {
       </div>
 
       {/* 하단 네비게이션 */}
-      <div className="fixed bottom-5 w-[393px] bg-[#EDEFFE] justify-center mt-[10%] rounded-t-lg">
-        <div className="flex justify-around items-center">
-          {/* 내 기록 */}
-          <button onClick={() => navigate('/record')} className="font-[Pretendard] flex flex-col items-center">
-            <img src={recordIcon} alt="Record Icon" className="w-[17px] h-[17px] mb-1" />
-            <div className="text-black text-sm">
-              내 기록
-            </div>
-          </button>
+      <div className="fixed bottom-0 w-full max-w-[393px] bg-[#F5F5F5] justify-center rounded-t-[30px] shadow-md">
+      <div
+        className="flex justify-around items-center py-3"
+      >
+        {/* 내 기록 */}
+        <button onClick={() => navigate('/record')} className="font-[Pretendard] flex flex-col items-center">
+          <img src={recordIcon} alt="Record Icon" className="w-[17px] h-[17px] mb-1" />
+          <div className="text-black text-sm">
+            내 기록
+          </div>
+        </button>
 
-          {/* 그룹 */}
-          <button onClick={() => navigate('/group')} className="font-[Pretendard] flex flex-col items-center">
-            <img src={groupIcon} alt="Group Icon" className="w-[21px] h-[18px] mb-1" />
-            <div className="text-black text-sm">
-              그룹
-            </div>
-          </button>
+        {/* 그룹 */}
+        <button onClick={() => navigate('/group')} className="font-[Pretendard] flex flex-col items-center">
+          <img src={groupIcon} alt="Group Icon" className="w-[21px] h-[18px] mb-1" />
+          <div className="text-black text-sm">
+            그룹
+          </div>
+        </button>
 
-          {/* 홈 */}
-          <button onClick={() => navigate('/home')} className="font-[Pretendard] flex flex-col items-center">
-            <img src={homeIcon} alt="Home Icon" className="w-[16px] h-[18px] mb-1" />
-            <div className="text-black text-sm">
-              홈
-            </div>
-          </button>
+        {/* 홈 */}
+        <button onClick={() => navigate('/home')} className="font-[Pretendard] flex flex-col items-center">
+          <img src={homeIcon} alt="Home Icon" className="w-[16px] h-[18px] mb-1" />
+          <div className="text-black text-sm">
+            홈
+          </div>
+        </button>
 
-          {/* 식단 */}
-          <button onClick={() => navigate('/diet')} className="font-[Pretendard] flex flex-col items-center">
-            <img src={dietIcon} alt="Diet Icon" className="w-[16px] h-[18px] mb-1" />
-            <div className="text-black text-sm">
-              식단
-            </div>
-          </button>
+        {/* 식단 */}
+        <button onClick={() => navigate('/diet')} className="font-[Pretendard] flex flex-col items-center">
+          <img src={dietIcon} alt="Diet Icon" className="w-[16px] h-[18px] mb-1" />
+          <div className="text-black text-sm">
+            식단
+          </div>
+        </button>
 
-          {/* 내 정보 */}
-          <button onClick={() => navigate('/mypage')} className="font-[Pretendard] flex flex-col items-center">
-            <img src={infoIcon} alt="Info Icon" className="w-[7px] h-[13px] mb-1" />
-            <div className="text-black text-sm">
-              내 정보
-            </div>
-          </button>
-        </div>
+        {/* 내 정보 */}
+        <button onClick={() => navigate('/mypage')} className="font-[Pretendard] flex flex-col items-center">
+          <img src={infoIcon} alt="Info Icon" className="w-[7px] h-[13px] mb-1" />
+          <div className="text-black text-sm">
+            내 정보
+          </div>
+        </button>
       </div>
+    </div>
     </div>
   );
 };
