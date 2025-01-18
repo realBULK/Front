@@ -108,7 +108,7 @@ const Main = () => {
                   a 15.9155 15.9155 0 0 1 0 -31.831"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="4"
               ></path>
               <path
                 d="M18 2.0845
@@ -117,7 +117,7 @@ const Main = () => {
                 fill="none"
                 stroke={selectedColor.bar} // 진행 색상 변경
                 strokeDasharray="75, 100"
-                strokeWidth="2"
+                strokeWidth="4"
               ></path>
             </svg>
           </div>
@@ -135,7 +135,7 @@ const Main = () => {
             <h2 className="text-[24px] font-[Pretendard] font-semibold text-black">칼로리</h2>
             
             {/* 색상 버튼 */}
-            <div className="flex space-x-2">
+            <div className="flex space-x-2 mb-5">
               {Object.entries(colors).map(([key, color]) => (
                 <button
                   key={key}
