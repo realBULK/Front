@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import ProgressBar from "../../components/ProgressBar";
+
 
 const SignUp1: React.FC = () => {
   const navigate = useNavigate();
@@ -55,15 +55,11 @@ const SignUp1: React.FC = () => {
 
   return (
     <div className="h-screen flex flex-col items-center bg-blue-50 font-pretendard px-6">
-      {/* Progress Bar */}
-      <div className="w-full max-w-md mx-auto mt-16">
-        <ProgressBar progress={100} />
-      </div>
-
+    
       {/* Title */}
-      <div className="text-center mt-6 w-full max-w-md mx-auto">
+      <div className="text-center mt-20 w-full max-w-md mx-auto">
         <h1 className="text-[40px] font-bold font-[GmarketSansWeight] text-black ml-4 text-left whitespace-pre-line">
-          닉네임을{"\n"}알려주세요.
+          닉네임을{"\n"}알려 주세요.
         </h1>
         <p className="font-semibold font-[pretendard] mt-8 ml-4 text-left text-[16px]">
           한 번 설정한 닉네임은 추후에 변경 가능해요!
