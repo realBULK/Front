@@ -8,10 +8,9 @@ const SignUp1: React.FC = () => {
   const [nickname, setNickname] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  // 닉네임 유효성 검사 스키마
   const nicknameSchema = yup
     .string()
-    .required("닉네임을 입력해주세요")
+    .required("") 
     .max(10, "닉네임은 10자 이내로 설정해주세요");
 
   const handleNicknameChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,43 +18,50 @@ const SignUp1: React.FC = () => {
     setNickname(value);
 
     try {
-      await nicknameSchema.validate(value); // 실시간 유효성 검사
+      await nicknameSchema.validate(value, { abortEarly: true });
       setError(null);
     } catch (err) {
       if (err instanceof yup.ValidationError) {
-        setError(err.message);
+        if (value.trim() === "") {
+          setError(null);
+        } else {
+          setError(err.message);
+        }
       } else {
-        setError("알 수 없는 오류가 발생했습니다.");
+        setError(null);
       }
     }
   };
 
   const handleKeyPress = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      try {
-        await nicknameSchema.validate(nickname);
-        setError(null);
+      handleNext();
+    }
+  };
 
-        // 중복된 닉네임인지 확인 (예시: 비동기 호출로 백엔드 통신 필요)
-        const isDuplicate = false; // 백엔드와 통신하여 결과 받기
+  const handleNext = async () => {
+    try {
+      await nicknameSchema.validate(nickname);
+      setError(null);
 
-        if (isDuplicate) {
-          setError("사용이 불가능한 닉네임입니다."); // 중복된 닉네임 에러 메시지
-          return;
-        }
+      // 중복된 닉네임인지 확인 (예시: 비동기 호출로 백엔드 통신 필요)
+      const isDuplicate = false;
 
-        navigate("/signup2", { state: { nickname } });
-      } catch (err) {
-        if (err instanceof yup.ValidationError) {
-          setError(err.message);
-        }
+      if (isDuplicate) {
+        setError("사용이 불가능한 닉네임입니다.");
+        return;
+      }
+
+      navigate("/signup2", { state: { nickname } });
+    } catch (err) {
+      if (err instanceof yup.ValidationError) {
+        setError(err.message);
       }
     }
   };
 
   return (
-    <div className="h-screen flex flex-col items-center bg-blue-50 font-pretendard px-6">
-    
+    <div className="h-screen flex flex-col items-center bg-[#F5F5F5] font-pretendard px-6">
       {/* Title */}
       <div className="text-center mt-20 w-full max-w-md mx-auto">
         <h1 className="text-[40px] font-bold font-[GmarketSansWeight] text-black ml-4 text-left whitespace-pre-line">
@@ -66,25 +72,52 @@ const SignUp1: React.FC = () => {
         </p>
       </div>
 
-      {/* Input Section */}
       <div className="w-[327px] mx-auto mt-4">
-        <input
-          type="text"
-          id="nickname-input"
-          placeholder="예: 홍길동"
-          className={`w-[327px] h-[55px] font-[pretendard] bg-white border ${
-            error ? "border-[#FE8383]" : "border-[#EDEDED]"
-          } shadow-whiteBox rounded-base px-4 text-[14px] text-gray-800 placeholder-gray-400 outline-none`}
-          value={nickname}
-          onChange={handleNicknameChange}
-          onKeyPress={handleKeyPress}
-        />
-        {error && (
-          <p className="mt-2 text-[10px] font-[pretendard] text-right" style={{ color: "#F81919" }}>
-            {error}
-          </p>
-        )}
-      </div>
+  <input
+    type="text"
+    id="nickname-input"
+    placeholder="예: 홍길동"
+    className={`w-[327px] h-[55px] font-[pretendard] bg-[#EDEDEDCC] border-[#FFFFFF] border 
+      shadow-whiteBox rounded-base px-4 text-[14px] outline-none 
+      placeholder-[#BDBDBD] ${error ? "text-[#F81919]" : "text-gray-800"}`} // 오류 상태일 때 텍스트 색상 변경
+    value={nickname}
+    onChange={handleNicknameChange}
+    onKeyDown={handleKeyPress}
+  />
+  {error && (
+    <p
+      className="mt-2"
+      style={{
+        color: "#F81919",
+        textAlign: "right",
+        fontFamily: "Pretendard",
+        fontSize: "10px",
+        fontStyle: "normal",
+        fontWeight: 500,
+        lineHeight: "10px",
+        letterSpacing: "-0.2px",
+      }}
+    >
+      {error}
+    </p>
+  )}
+</div>
+
+
+     {/* Next Button */}
+<div className="w-[327px] max-w-md mx-auto mt-auto mb-10">
+  <button
+    className="w-[327px] h-[55px] font-[pretendard] bg-[#D1D1D1] 
+      shadow-whiteBox rounded-base text-[14px] text-[#191919] outline-none
+      hover:bg-[#DED1E8CC]" 
+    onClick={handleNext}
+    disabled={!nickname.trim() || !!error} // 닉네임이 없거나 에러가 있으면 비활성화
+  >
+    다음
+  </button>
+</div>
+
+
     </div>
   );
 };
