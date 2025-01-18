@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import KakaoIcon from "../../assets/kakao.svg";
+import AppleIcon from '/apple.png'
 
 const SignUp3: React.FC = () => {
   const navigate = useNavigate();
@@ -9,14 +11,14 @@ const SignUp3: React.FC = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center bg-blue-50 font-pretendard px-6">
+    <div className="h-screen flex flex-col items-center bg-[#F5F5F5] font-pretendard px-6">
       {/* Circular Progress */}
       <div className="mt-36 w-[148px] h-[148px] flex items-center justify-center">
         <div
           className="w-full h-full rounded-full flex items-center justify-center"
-          style={{ backgroundColor: "#445AFF" }} // 동그라미 배경색 설정
+          style={{ backgroundColor: "#DED1E8" }}
         >
-          <span className="text-white text-[16px] font-bold">100</span>
+
         </div>
       </div>
 
@@ -32,22 +34,33 @@ const SignUp3: React.FC = () => {
 
       {/* Buttons */}
       <div className="mt-12 flex flex-col gap-2 w-full max-w-xs">
+      <button
+      className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold text-[#000000] text-center rounded-[200px] bg-[#FAE100] active:bg-[#998C17] flex items-center justify-center gap-1"
+      style={{
+        border: "1px solid #FFEB01",
+      }}
+      onClick={() => handleNavigation("kakao")}
+    >
+      <img
+        src={KakaoIcon}
+        alt="Kakao Icon"
+        className="w-5 h-5"
+      />
+      카카오로 계속하기
+    </button>
+
         <button
-          className="w-[327px] h-[58px] text-[16px] font-[Pretendard] font-semibold text-[#191919] text-center rounded-[15px] bg-[#CEDAFF] shadow-custom inset-shadow-custom filter mb-3"
+          className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold text-[#FFFFFF] text-center rounded-[200px] bg-[#000000] flex items-center justify-center gap-1"
           style={{
-            boxShadow: `0px 0px 20px 2px #EDEFFE inset, 0px 2px 5px -2px rgba(0, 0, 0, 0.25)`,
-          }}
-          onClick={() => handleNavigation("kakao")}
-        >
-          카카오로 계속하기
-        </button>
-        <button
-          className="w-[327px] h-[58px] text-[16px] font-[Pretendard] font-semibold text-[#191919] text-center rounded-[15px] bg-[#CEDAFF] shadow-custom inset-shadow-custom filter"
-          style={{
-            boxShadow: `0px 0px 20px 2px #EDEFFE inset, 0px 2px 5px -2px rgba(0, 0, 0, 0.25)`,
+            border: "1px solid #000000",
           }}
           onClick={() => handleNavigation("apple")}
         >
+          <img
+        src={AppleIcon}
+        alt="Apple Icon"
+        className="w-5 h-5"
+      />
           Apple로 계속하기
         </button>
       </div>
