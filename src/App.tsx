@@ -9,8 +9,6 @@ import RecordUnequal from './pages/Record/RecordUnequal'
 import SignUp1 from './pages/SignUp/SignUp1'
 import SignUp2 from './pages/SignUp/SignUp2'
 import SignUp3 from './pages/SignUp/SignUp3'
-import SignUp4 from './pages/SignUp/SignUp4'
-import SignUp5 from './pages/SignUp/SignUp5'
 
 import QuestionPage from './pages/Question/QuestionPage'
 import QuestionStart from './pages/Question/QuestionStart'
@@ -57,7 +55,7 @@ const router = createBrowserRouter([
         element: <Main />,
       },
       {
-        path: 'signup',
+        path: 'signup1',
         element: <SignUp1 />,
       },
       {
@@ -67,14 +65,6 @@ const router = createBrowserRouter([
       {
         path: 'signup3',
         element: <SignUp3 />,
-      },
-      {
-        path: 'signup4',
-        element: <SignUp4 />,
-      },
-      {
-        path: 'signup5',
-        element: <SignUp5 />,
       },
       {
         path: 'questionstart',
