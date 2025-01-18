@@ -36,7 +36,7 @@ const SignUp2: React.FC = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center bg-blue-50 font-pretendard px-6">
+    <div className="h-screen flex flex-col items-center bg-[#F5F5F5] font-pretendard px-6">
       {/* Circular Progress */}
       <div className="mt-36 relative w-[148px] h-[148px] flex items-center justify-center">
         <img
@@ -51,18 +51,19 @@ const SignUp2: React.FC = () => {
       </div>
 
       {/* Title */}
-      <div className="text-center mt-8 w-full max-w-md">
-        <h1 className="font-[GmarketSansWeight] text-[32px] font-[GmarketSansWeight] text-black whitespace-pre-line leading-9">
-          {nickname}님을 위한 식단을{"\n"}추천하는 중입니다
-        </h1>
-      </div>
+<div className="text-center mt-8 w-full max-w-md">
+  <h1 className="text-[#191919] text-center font-[GmarketSansWeight] text-[24px] leading-[39px] whitespace-pre-wrap">
+    {nickname}님을 위한 맞춤형{"\n"}증량 식단을 준비하고 있습니다.
+  </h1>
+</div>
+
 
       <div className="mt-12 ml-28 flex flex-col gap-6 w-full max-w-md">
         {/* 첫 번째 항목 */}
         <div className="flex items-center gap-3">
           <div className={`w-4 h-4 rounded-full ${getCircleState(1)}`}></div>
           <p className="font-[pretendard] text-gray-700 text-[14px] font-semibold">
-            중량을 위한 효율적인 방법 계산 중
+          사용자의 증량 목표와 라이프 스타일 분석 중
           </p>
         </div>
 
@@ -70,7 +71,7 @@ const SignUp2: React.FC = () => {
         <div className="flex items-center gap-3">
           <div className={`w-4 h-4 rounded-full ${getCircleState(2)}`}></div>
           <p className="font-[pretendard] text-gray-700 text-[14px] font-semibold">
-            하루 목표 칼로리 계산 중
+          하루 권장 섭취 칼로리와 영양소 비율 계산 중
           </p>
         </div>
 
@@ -78,7 +79,7 @@ const SignUp2: React.FC = () => {
         <div className="flex items-center gap-3">
           <div className={`w-4 h-4 rounded-full ${getCircleState(3)}`}></div>
           <p className="font-[pretendard] text-gray-700 text-[14px] font-semibold">
-            건강을 위한 영양 지표 도출 중
+          맞춤형 식단을 최적화 하여 준비 중
           </p>
         </div>
       </div>

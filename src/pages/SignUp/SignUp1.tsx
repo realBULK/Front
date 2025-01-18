@@ -44,7 +44,7 @@ const SignUp1: React.FC = () => {
       await nicknameSchema.validate(nickname);
       setError(null);
 
-      // 중복된 닉네임인지 확인 (예시: 비동기 호출로 백엔드 통신 필요)
+      // 중복된 닉네임인지 확인 
       const isDuplicate = false;
 
       if (isDuplicate) {
@@ -79,7 +79,9 @@ const SignUp1: React.FC = () => {
     placeholder="예: 홍길동"
     className={`w-[327px] h-[55px] font-[pretendard] bg-[#EDEDEDCC] border-[#FFFFFF] border 
       shadow-whiteBox rounded-base px-4 text-[14px] outline-none 
-      placeholder-[#BDBDBD] ${error ? "text-[#F81919]" : "text-gray-800"}`} // 오류 상태일 때 텍스트 색상 변경
+      placeholder-[#BDBDBD] ${error ? "text-[#F81919]" : "text-gray-800"}
+      hover:bg-[#DED1E8] hover:border-[#DED1E8CC]
+      active:bg-[#EDEDEDCC] active:border-[#FFFFFF]"`} 
     value={nickname}
     onChange={handleNicknameChange}
     onKeyDown={handleKeyPress}
@@ -104,12 +106,13 @@ const SignUp1: React.FC = () => {
 </div>
 
 
+
      {/* Next Button */}
 <div className="w-[327px] max-w-md mx-auto mt-auto mb-10">
   <button
     className="w-[327px] h-[55px] font-[pretendard] bg-[#D1D1D1] 
       shadow-whiteBox rounded-base text-[14px] text-[#191919] outline-none
-      hover:bg-[#DED1E8CC]" 
+      hover:bg-[#B8ADC0] active:bg-[#9B88A8]" 
     onClick={handleNext}
     disabled={!nickname.trim() || !!error} // 닉네임이 없거나 에러가 있으면 비활성화
   >
