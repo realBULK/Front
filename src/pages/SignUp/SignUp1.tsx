@@ -80,7 +80,7 @@ const SignUp1: React.FC = () => {
     className={`w-[327px] h-[55px] font-[pretendard] bg-[#EDEDEDCC] border-[#FFFFFF] border 
       shadow-whiteBox rounded-base px-4 text-[14px] outline-none 
       placeholder-[#BDBDBD] ${error ? "text-[#F81919]" : "text-gray-800"}
-      hover:bg-[#DED1E8] hover:border-[#DED1E8CC]
+      hover:bg-[#DED1E8CC] hover:border-[#DED1E8]
       active:bg-[#EDEDEDCC] active:border-[#FFFFFF]"`} 
     value={nickname}
     onChange={handleNicknameChange}
@@ -111,7 +111,7 @@ const SignUp1: React.FC = () => {
 <div className="w-[327px] max-w-md mx-auto mt-auto mb-10">
   <button
     className="w-[327px] h-[55px] font-[pretendard] bg-[#D1D1D1] 
-      shadow-whiteBox rounded-base text-[14px] text-[#191919] outline-none
+      shadow-whiteBox rounded-base font-semibold text-[14px] text-[#191919] outline-none
       hover:bg-[#B8ADC0] active:bg-[#9B88A8]" 
     onClick={handleNext}
     disabled={!nickname.trim() || !!error} // 닉네임이 없거나 에러가 있으면 비활성화
