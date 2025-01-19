@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import DefaultCircle from "../../assets/defaultCircle.svg";
+import HalfCircle from "../../assets/halfCircle.svg";
+import FullCircle from "../../assets/fullCircle.svg";
+import Check from "../../assets/check.svg";
 
 const SignUp2: React.FC = () => {
   const location = useLocation();
@@ -7,18 +11,60 @@ const SignUp2: React.FC = () => {
   const { nickname = "회원" } = location.state || {};
 
   const [progress, setProgress] = useState(0);
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const getCircleIcon = (step: number) => {
+    if (step < currentStep) {
+      return FullCircle;
+    } else if (step === currentStep) {
+      return HalfCircle;
+    }
+    return DefaultCircle;
+  };
+
+  const renderStepIcon = (step: number) => {
+    const isFull = step < currentStep;
+
+    return (
+      <div className="relative w-4 h-4">
+        <img
+          src={getCircleIcon(step)}
+          alt="Progress Icon"
+          className="w-full h-full"
+        />
+        {isFull && (
+          <img
+            src={Check}
+            alt="Check Icon"
+            className="absolute w-2 h-2"
+            style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+          />
+        )}
+      </div>
+    );
+  };
 
   useEffect(() => {
     let currentProgress = 0;
+    let step = 0;
+
     const interval = setInterval(() => {
       currentProgress += 1;
       setProgress(currentProgress);
 
-      if (currentProgress >= 100) {
-        clearInterval(interval);
+      if (currentProgress >= (step + 1) * 33.33) {
+        setCurrentStep((prevStep) => prevStep + 1);
+        step += 1;
+      }
+
+      if (currentProgress >= 99) {
+        setTimeout(() => {
+          setCurrentStep(3); // Ensure last step completes visually
+        }, 500);
         setTimeout(() => {
           navigate("/signup3");
-        }, 500);
+        }, 2500); // Added delay to show fullCircle + check icon
+        clearInterval(interval);
       }
     }, 30);
 
@@ -49,14 +95,10 @@ const SignUp2: React.FC = () => {
         </h1>
       </div>
 
-      <div className="mt-12 flex flex-col gap-6 w-full max-w-md">
+      <div className="mt-12 flex flex-col gap-6 w-full ml-20 max-w-md">
         {/* 첫 번째 항목 */}
         <div className="flex items-center gap-3">
-          <div
-            className={`w-4 h-4 rounded-full ${
-              progress >= 33.33 ? "bg-blue-500" : "bg-gray-300"
-            }`}
-          ></div>
+          {renderStepIcon(1)}
           <p className="font-[pretendard] text-gray-700 text-[14px] font-semibold">
             사용자의 증량 목표와 라이프 스타일 분석 중
           </p>
@@ -64,11 +106,7 @@ const SignUp2: React.FC = () => {
 
         {/* 두 번째 항목 */}
         <div className="flex items-center gap-3">
-          <div
-            className={`w-4 h-4 rounded-full ${
-              progress >= 66.66 ? "bg-blue-500" : "bg-gray-300"
-            }`}
-          ></div>
+          {renderStepIcon(2)}
           <p className="font-[pretendard] text-gray-700 text-[14px] font-semibold">
             하루 권장 섭취 칼로리와 영양소 비율 계산 중
           </p>
@@ -76,11 +114,7 @@ const SignUp2: React.FC = () => {
 
         {/* 세 번째 항목 */}
         <div className="flex items-center gap-3">
-          <div
-            className={`w-4 h-4 rounded-full ${
-              progress >= 100 ? "bg-blue-500" : "bg-gray-300"
-            }`}
-          ></div>
+          {renderStepIcon(3)}
           <p className="font-[pretendard] text-gray-700 text-[14px] font-semibold">
             맞춤형 식단을 최적화 하여 준비 중
           </p>
