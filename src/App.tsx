@@ -24,68 +24,44 @@ const router = createBrowserRouter([
     errorElement: <div className="bg-blue-50" />,
     children: [
       {
-        index: true,
+        index: true, // 기본 페이지 설정
         element: <Start />,
       },
       {
         path: 'home',
         element: <Main />,
-      },
-      {
-        index: true,
-        element: <Start />,
       },
       {
         path: 'record',
-        element: <RecordHome />,
+        children: [
+          { index: true, element: <RecordHome /> },
+          { path: 'equal', element: <RecordEqual /> },
+          { path: 'unequal', element: <RecordUnequal /> },
+          { path: 'myself', element: <RecordMyself /> },
+        ],
       },
       {
-        path: 'record/equal',
-        element: <RecordEqual />,
+        path: 'signup',
+        children: [
+          { path: '1', element: <SignUp1 /> },
+          { path: '2', element: <SignUp2 /> },
+          { path: '3', element: <SignUp3 /> },
+        ],
       },
       {
-        path: 'record/unequal',
-        element: <RecordUnequal />,
-      },
-      {
-        path: 'record/myself',
-        element: <RecordMyself />,
-      },
-      {
-        path: 'home',
-        element: <Main />,
-      },
-      {
-        path: 'signup1',
-        element: <SignUp1 />,
-      },
-      {
-        path: 'signup2',
-        element: <SignUp2 />,
-      },
-      {
-        path: 'signup3',
-        element: <SignUp3 />,
-      },
-      {
-        path: 'questionstart',
-        element: <QuestionStart />,
-      },
-      {
-        path: '/question/:id',
-        element: <QuestionPage />,
+        path: 'question',
+        children: [
+          { index: true, element: <QuestionStart /> },
+          { path: ':id', element: <QuestionPage /> },
+        ],
       },
       {
         path: 'suggestion',
-        element: <Suggestion />,
+        element: <Suggestion />, // 부모 라우트
         children: [
-          {
-            path: ':mealId',
-            element: <SuggestionDetail />,
-          },
+          { path: ':mealId', element: <SuggestionDetail /> }, // 자식 라우트
         ],
       },
-
       {
         path: 'splash',
         element: <Splash />,
