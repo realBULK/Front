@@ -14,6 +14,7 @@ import SignUp5 from './pages/SignUp/SignUp5'
 
 import Question1_1 from './pages/Question/Question1_1'
 import Question1_2 from './pages/Question/Question1_2'
+import Question1_3 from './pages/Question/Question1_3'
 import Question2_1 from './pages/Question/Question2_1'
 import Question2_2 from './pages/Question/Question2_2'
 import Question3_1 from './pages/Question/Question3_1'
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
       {
         path: 'question1_2',
         element: <Question1_2 />,
+      },
+      {
+        path: 'question1_3',
+        element: <Question1_3 />,
       },
       {
         path: 'question2_1',

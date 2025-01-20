@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import ProgressBar from '../../components/ProgressBar'
-import QuestionButtonComponent from './QuestionButtonComponent'
+import QuestionButtonComponent from './../../components/QuestionButtonComponent'
 
 const Question1_2 = () => {
   const navigate = useNavigate()
