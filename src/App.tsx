@@ -78,11 +78,14 @@ const router = createBrowserRouter([
       {
         path: 'suggestion',
         element: <Suggestion />,
+        children: [
+          {
+            path: ':mealId',
+            element: <SuggestionDetail />,
+          },
+        ],
       },
-      {
-        path: 'suggestion/:id',
-        element: <SuggestionDetail />,
-      },
+
       {
         path: 'splash',
         element: <Splash />,
