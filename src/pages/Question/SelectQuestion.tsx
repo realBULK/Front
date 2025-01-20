@@ -2,6 +2,7 @@ import { FC, useState } from 'react'
 import QuestionInfo from './QuestionInfo'
 import QuestionSmallButton from '../../components/QuestionSmallButton'
 import BigGrayButton from '../../components/BigGrayButton'
+import { useNavigate } from 'react-router'
 
 interface Category {
   title: string
@@ -25,17 +26,37 @@ const SelectionQuestion: FC<SelectionQuestionProps> = ({
   categories,
   navigateTo,
 }) => {
-  const [selectedItems, setSelectedItems] = useState<string[]>([])
-  const dataName = datatype
+  // 모든 항목이 선택된 상태로 시작
+  const initialSelectedItems = categories.flatMap((category) => category.items)
+  const [selectedItems, setSelectedItems] = useState<string[]>(initialSelectedItems)
+  const [errorMessage, setErrorMessage] = useState<string>('')
+
   const handleSelectionChange = (item: string, isNowSelected: boolean) => {
     setSelectedItems((prevSelected) => {
       if (isNowSelected) {
-        return [...prevSelected, item]
+        if (!prevSelected.includes(item)) {
+          return [...prevSelected, item] // 중복 방지 후 추가
+        }
       } else {
-        return prevSelected.filter((prevItem) => prevItem !== item)
+        return prevSelected.filter((prevItem) => prevItem !== item) // 항목 제거
       }
+      return prevSelected
     })
-    console.log('현재까지 선택된 items: ', selectedItems)
+  }
+
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    if (selectedItems.length < 1) {
+      setErrorMessage('하나 이상의 식재료를 선택해야 합니다.')
+      return
+    }
+
+    // 정상적으로 처리될 경우 에러 메시지 초기화 후 로컬 저장 및 페이지 이동
+    setErrorMessage('')
+    console.log('localStorage 저장:', JSON.stringify(selectedItems))
+    localStorage.setItem(datatype, JSON.stringify(selectedItems))
+    navigate(`/${navigateTo}`)
   }
 
   return (
@@ -50,10 +71,10 @@ const SelectionQuestion: FC<SelectionQuestionProps> = ({
               <div className="flex flex-wrap gap-[5px]">
                 {cat.items.map((item, idx2) => (
                   <QuestionSmallButton
-                    key={idx2}
+                    key={`${item}-${selectedItems.includes(item)}`} // 상태 반영을 위한 key
                     text={item}
-                    onSelectionChange={handleSelectionChange}
                     selected={selectedItems.includes(item)}
+                    onSelectionChange={handleSelectionChange}
                   />
                 ))}
               </div>
@@ -63,14 +84,8 @@ const SelectionQuestion: FC<SelectionQuestionProps> = ({
       </QuestionInfo>
 
       <div className="flex flex-col-reverse justify-end items-center w-full mt-[min(3.93vh,2vh)]">
-        <BigGrayButton
-          text="다음"
-          navigateTo={navigateTo}
-          onClick={() => {
-            console.log('localStorage저장:' + JSON.stringify(selectedItems))
-            localStorage.setItem(dataName, JSON.stringify(selectedItems))
-          }}
-        />
+        <BigGrayButton text="다음" navigateTo={navigateTo} navigateTF={false} onClick={handleClick} />
+        {errorMessage && <p className="text-red-500 mt-1 text-l mb-[10px]">{errorMessage}</p>}
       </div>
     </div>
   )
