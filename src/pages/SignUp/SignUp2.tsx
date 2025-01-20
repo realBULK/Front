@@ -46,27 +46,24 @@ const SignUp2: React.FC = () => {
 
   useEffect(() => {
     let currentProgress = 0;
-    let step = 0;
 
     const interval = setInterval(() => {
-      currentProgress += 1;
+      currentProgress += 1; // 진행률 증가
       setProgress(currentProgress);
 
-      if (currentProgress >= (step + 1) * 33.33) {
-        setCurrentStep((prevStep) => prevStep + 1);
-        step += 1;
-      }
-
-      if (currentProgress >= 99) {
+      // 단계별 업데이트
+      if (currentProgress >= 33.33 && currentProgress < 66.66) {
+        setCurrentStep(1);
+      } else if (currentProgress >= 66.66 && currentProgress < 99) {
+        setCurrentStep(2); 
+      } else if (currentProgress >= 99) {
+        setCurrentStep(3); 
+        clearInterval(interval); 
         setTimeout(() => {
-          setCurrentStep(3); 
-        }, 500);
-        setTimeout(() => {
-          navigate("/signup3");
-        }, 2500); 
-        clearInterval(interval);
+          navigate("/signup3"); 
+        }, 2500);
       }
-    }, 30);
+    }, 30); 
 
     return () => {
       clearInterval(interval);
@@ -82,7 +79,7 @@ const SignUp2: React.FC = () => {
             className="absolute bottom-0 left-0 w-full bg-[#DED1E8]"
             style={{
               height: `${progress}%`,
-              transition: "height 0.3s linear",
+              transition: "height 0.2s linear",
             }}
           ></div>
         </div>
@@ -95,7 +92,7 @@ const SignUp2: React.FC = () => {
         </h1>
       </div>
 
-      <div className="mt-8 flex flex-col gap-6 w-full ml-20 max-w-md">
+      <div className="mt-12 flex flex-col gap-6 w-full ml-20 max-w-md">
         {/* 첫 번째 항목 */}
         <div className="flex items-center gap-3">
           {renderStepIcon(1)}
