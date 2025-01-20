@@ -59,11 +59,11 @@ const SignUp2: React.FC = () => {
 
       if (currentProgress >= 99) {
         setTimeout(() => {
-          setCurrentStep(3); // Ensure last step completes visually
+          setCurrentStep(3); 
         }, 500);
         setTimeout(() => {
           navigate("/signup3");
-        }, 2500); // Added delay to show fullCircle + check icon
+        }, 2500); 
         clearInterval(interval);
       }
     }, 30);
@@ -95,7 +95,7 @@ const SignUp2: React.FC = () => {
         </h1>
       </div>
 
-      <div className="mt-12 flex flex-col gap-6 w-full ml-20 max-w-md">
+      <div className="mt-8 flex flex-col gap-6 w-full ml-20 max-w-md">
         {/* 첫 번째 항목 */}
         <div className="flex items-center gap-3">
           {renderStepIcon(1)}

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import KakaoIcon from "../../assets/kakao.svg";
-import AppleIcon from '/apple.png'
+import AppleIcon from '../../assets/apple.svg'
 
 const SignUp3: React.FC = () => {
   const navigate = useNavigate();
