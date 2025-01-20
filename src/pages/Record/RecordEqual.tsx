@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import lunchSun from '../../assets/lunchSun.svg'
-import DietBox from './Recordcomponents/dietDetailBox'
+import lunchSun from '@/assets/lunchSun.svg'
+import DietBox from '@/components/SuggestionDietDetailBox'
 import { Link } from 'react-router'
 
 interface Diet {
@@ -70,7 +70,9 @@ const RecordEqual = () => {
             key={diet.id}
             {...diet}
             onRemove={() => removeDietBox(diet.id)} // 삭제 함수 전달
-          />
+          >
+            <></>
+          </DietBox>
         ))}
 
         <div className="flex flex-row gap-[7px] mb-[30px] justify-around w-full">
