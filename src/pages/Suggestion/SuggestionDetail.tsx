@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom'
 // import useSuggestion from '@/hooks/useSuggestion'
 
 const SuggestionDetail = () => {
-  const { id } = useParams()
+  const { mealId } = useParams()
   // const suggestion = useSuggestion(id)
   return (
     <div>
-      <h1> 상세페이지 </h1>
+      <h1> {mealId} </h1>
     </div>
   )
 }

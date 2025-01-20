@@ -78,12 +78,10 @@ const router = createBrowserRouter([
       {
         path: 'suggestion',
         element: <Suggestion />,
-        children: [
-          {
-            path: ':mealId',
-            element: <SuggestionDetail />,
-          },
-        ],
+      },
+      {
+        path: 'suggestion/:mealId',
+        element: <SuggestionDetail />,
       },
 
       {
