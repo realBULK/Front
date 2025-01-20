@@ -1,5 +1,6 @@
 import React from 'react'
 import SuggestionDaysComponent from '@/components/SuggestionDaysComponent'
+import { K } from 'react-router/dist/development/fog-of-war-DLtn2OLr'
 
 const Suggestion: React.FC = () => {
   const data = [
@@ -8,175 +9,42 @@ const Suggestion: React.FC = () => {
       meals: [
         {
           title: '아침',
-          items: ['오트밀 (50g)', '건과류 (한 줌)', '바나나 (1개)', '우유 (200ml)'],
+          items: ['오트밀', '바나나', '닭가슴살'],
+          nutrients: ['탄수화물 55g', '단백질 16g', '지방 18g'],
+          Kcal: 449,
           icon: <img src="/src/assets/sunrise.svg" alt="아침" />,
         },
         {
           title: '점심',
-          items: ['현미밥 (200g)', '채소 볶음 (브로콜리, 당근)', '닭가슴살 (100g)', '계란 프라이 (1개)'],
+          items: ['현미밥', '채소볶음', '닭가슴살'],
+          nutrients: ['탄수화물 55g', '단백질 16g', '지방 18g'],
+          Kcal: 449,
           icon: <img src="/src/assets/sun.svg" alt="점심" />,
         },
         {
           title: '저녁',
-          items: ['연어구이 (120g)', '아보카도 슬라이스 (1/2개)', '고구마 (200g)', '나물 반찬'],
+          items: ['연어구이', '아보카도', '고구마'],
+          nutrients: ['탄수화물 55g', '단백질 16g', '지방 18g'],
+          Kcal: 449,
           icon: <img src="/src/assets/moon.svg" alt="저녁" />,
         },
         {
           title: '간식',
-          items: ['그릭 요거트 (150g)', '블루베리 (한 줌)'],
+          items: ['요거트(그릭요거트)', '블루베리'],
+          nutrients: ['탄수화물 55g', '단백질 16g', '지방 18g'],
+          Kcal: 449,
           icon: <img src="/src/assets/snack.svg" alt="간식" />,
         },
       ],
     },
+  ]
+
+  const totalKcal = [
     {
-      day: '화',
-      meals: [
-        {
-          title: '아침',
-          items: ['오트밀 (50g)', '건과류 (한 줌)', '바나나 (1개)', '우유 (200ml)'],
-          icon: <img src="/src/assets/sunrise.svg" alt="아침" />,
-        },
-        {
-          title: '점심',
-          items: ['현미밥 (200g)', '채소 볶음 (브로콜리, 당근)', '닭가슴살 (100g)', '계란 프라이 (1개)'],
-          icon: <img src="/src/assets/sun.svg" alt="점심" />,
-        },
-        {
-          title: '저녁',
-          items: ['연어구이 (120g)', '아보카도 슬라이스 (1/2개)', '고구마 (200g)', '나물 반찬'],
-          icon: <img src="/src/assets/moon.svg" alt="저녁" />,
-        },
-        {
-          title: '간식',
-          items: ['그릭 요거트 (150g)', '블루베리 (한 줌)'],
-          icon: <img src="/src/assets/snack.svg" alt="간식" />,
-        },
-      ],
-    },
-    {
-      day: '수',
-      meals: [
-        {
-          title: '아침',
-          items: ['오트밀 (50g)', '건과류 (한 줌)', '바나나 (1개)', '우유 (200ml)'],
-          icon: <img src="/src/assets/sunrise.svg" alt="아침" />,
-        },
-        {
-          title: '점심',
-          items: ['현미밥 (200g)', '채소 볶음 (브로콜리, 당근)', '닭가슴살 (100g)', '계란 프라이 (1개)'],
-          icon: <img src="/src/assets/sun.svg" alt="점심" />,
-        },
-        {
-          title: '저녁',
-          items: ['연어구이 (120g)', '아보카도 슬라이스 (1/2개)', '고구마 (200g)', '나물 반찬'],
-          icon: <img src="/src/assets/moon.svg" alt="저녁" />,
-        },
-        {
-          title: '간식',
-          items: ['그릭 요거트 (150g)', '블루베리 (한 줌)'],
-          icon: <img src="/src/assets/snack.svg" alt="간식" />,
-        },
-      ],
-    },
-    {
-      day: '목',
-      meals: [
-        {
-          title: '아침',
-          items: ['오트밀 (50g)', '건과류 (한 줌)', '바나나 (1개)', '우유 (200ml)'],
-          icon: <img src="/src/assets/sunrise.svg" alt="아침" />,
-        },
-        {
-          title: '점심',
-          items: ['현미밥 (200g)', '채소 볶음 (브로콜리, 당근)', '닭가슴살 (100g)', '계란 프라이 (1개)'],
-          icon: <img src="/src/assets/sun.svg" alt="점심" />,
-        },
-        {
-          title: '저녁',
-          items: ['연어구이 (120g)', '아보카도 슬라이스 (1/2개)', '고구마 (200g)', '나물 반찬'],
-          icon: <img src="/src/assets/moon.svg" alt="저녁" />,
-        },
-        {
-          title: '간식',
-          items: ['그릭 요거트 (150g)', '블루베리 (한 줌)'],
-          icon: <img src="/src/assets/snack.svg" alt="간식" />,
-        },
-      ],
-    },
-    {
-      day: '금',
-      meals: [
-        {
-          title: '아침',
-          items: ['오트밀 (50g)', '건과류 (한 줌)', '바나나 (1개)', '우유 (200ml)'],
-          icon: <img src="/src/assets/sunrise.svg" alt="아침" />,
-        },
-        {
-          title: '점심',
-          items: ['현미밥 (200g)', '채소 볶음 (브로콜리, 당근)', '닭가슴살 (100g)', '계란 프라이 (1개)'],
-          icon: <img src="/src/assets/sun.svg" alt="점심" />,
-        },
-        {
-          title: '저녁',
-          items: ['연어구이 (120g)', '아보카도 슬라이스 (1/2개)', '고구마 (200g)', '나물 반찬'],
-          icon: <img src="/src/assets/moon.svg" alt="저녁" />,
-        },
-        {
-          title: '간식',
-          items: ['그릭 요거트 (150g)', '블루베리 (한 줌)'],
-          icon: <img src="/src/assets/snack.svg" alt="간식" />,
-        },
-      ],
-    },
-    {
-      day: '토',
-      meals: [
-        {
-          title: '아침',
-          items: ['오트밀 (50g)', '건과류 (한 줌)', '바나나 (1개)', '우유 (200ml)'],
-          icon: <img src="/src/assets/sunrise.svg" alt="아침" />,
-        },
-        {
-          title: '점심',
-          items: ['현미밥 (200g)', '채소 볶음 (브로콜리, 당근)', '닭가슴살 (100g)', '계란 프라이 (1개)'],
-          icon: <img src="/src/assets/sun.svg" alt="점심" />,
-        },
-        {
-          title: '저녁',
-          items: ['연어구이 (120g)', '아보카도 슬라이스 (1/2개)', '고구마 (200g)', '나물 반찬'],
-          icon: <img src="/src/assets/moon.svg" alt="저녁" />,
-        },
-        {
-          title: '간식',
-          items: ['그릭 요거트 (150g)', '블루베리 (한 줌)'],
-          icon: <img src="/src/assets/snack.svg" alt="간식" />,
-        },
-      ],
-    },
-    {
-      day: '일',
-      meals: [
-        {
-          title: '아침',
-          items: ['오트밀 (50g)', '건과류 (한 줌)', '바나나 (1개)', '우유 (200ml)'],
-          icon: <img src="/src/assets/sunrise.svg" alt="아침" />,
-        },
-        {
-          title: '점심',
-          items: ['현미밥 (200g)', '채소 볶음 (브로콜리, 당근)', '닭가슴살 (100g)', '계란 프라이 (1개)'],
-          icon: <img src="/src/assets/sun.svg" alt="점심" />,
-        },
-        {
-          title: '저녁',
-          items: ['연어구이 (120g)', '아보카도 슬라이스 (1/2개)', '고구마 (200g)', '나물 반찬'],
-          icon: <img src="/src/assets/moon.svg" alt="저녁" />,
-        },
-        {
-          title: '간식',
-          items: ['그릭 요거트 (150g)', '블루베리 (한 줌)'],
-          icon: <img src="/src/assets/snack.svg" alt="간식" />,
-        },
-      ],
+      Carbohydrate: 201,
+      Protein: 98,
+      Fat: 82,
+      Kcal: 1796,
     },
   ]
 
