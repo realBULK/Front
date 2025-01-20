@@ -1,16 +1,16 @@
 export const questionData: Record<string, any> = {
   '1_1': {
     type: 'input',
-    progress: 25,
-    bigQuestion: '000에 대해\n알려주세요!',
+    progress: 8.33,
+    bigQuestion: '맞춤 증량 계획을\n위해 알려주세요!',
     smallQuestion: '키와 몸무게를 입력해주세요.',
     inputs: ['키(cm)', '몸무게(kg)'],
     navigateTo: 'question/1_2',
   },
   '1_3': {
     type: 'button',
-    progress: 25,
-    bigQuestion: '000에 대해\n알려주세요!',
+    progress: 16.66,
+    bigQuestion: '맞춤 증량 계획을\n위해 알려주세요!',
     smallQuestion: '현재의 활동량은 어느 정도인가요?',
     options: [
       '낮음 (운동 거의 안함)',
@@ -23,14 +23,14 @@ export const questionData: Record<string, any> = {
   '1_2': {
     type: 'input',
     progress: 25,
-    bigQuestion: '000에 대해\n알려주세요!',
+    bigQuestion: '맞춤 증량 계획을\n위해 알려주세요!',
     smallQuestion: '목표 몸무게를 알려주세요.',
     inputs: ['몸무게(kg)'],
     navigateTo: 'question/1_3',
   },
   '2_1': {
     type: 'button',
-    progress: 50,
+    progress: 37.5,
     bigQuestion: '식습관에 대해\n알려주세요!',
     smallQuestion: '평소 식사를 몇 끼 하시나요?',
     options: ['1끼', '2끼', '3끼', '4끼'],
@@ -67,7 +67,7 @@ export const questionData: Record<string, any> = {
   },
   '3_1': {
     type: 'button',
-    progress: 75,
+    progress: 62.5,
     bigQuestion: '라이프스타일에\n대해 알려주세요!',
     smallQuestion: '식사 시간이 항상 규칙적인 편인가요?',
     options: [
@@ -91,7 +91,7 @@ export const questionData: Record<string, any> = {
   },
   '4_1': {
     type: 'button',
-    progress: 100,
+    progress: 87.5,
     bigQuestion: '요리 습관에 대해\n알려주세요!',
     smallQuestion: '요리를 할 시간이 얼마나 있나요?',
     options: ['10분 이내', '10-30분', '30분 이상', '요리를 거의 하지 않음'],

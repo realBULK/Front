@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import ProgressBar from '../../components/ProgressBar'
 import QuestionSmallButton from '../../components/QuestionSmallButton'
-import BlueGradButton from '../../components/BlueGradButton'
+import BlueGradButton from '../../components/BigGrayButton'
 
 interface Category {
   title: string

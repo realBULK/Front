@@ -1,6 +1,6 @@
 import QuestionInfo from './QuestionInfo'
 import QuestionInputComponent from './../../components/QuestionInputComponent'
-import NextButton from './../../components/NextButton'
+import BigGrayButton from './../../components/BigGrayButton'
 
 interface InputQuestionProps {
   progress: number
@@ -19,8 +19,8 @@ const InputQuestion: React.FC<InputQuestionProps> = ({ progress, bigQuestion, sm
         ))}
       </div>
 
-      <div className="flex flex-row justify-end items-center w-full gap-[2.35vh]">
-        <NextButton text="다음" navigateTo={nextPage} />
+      <div className="flex flex-row justify-end items-center w-full mt-[3.39vh]">
+        <BigGrayButton text="다음" navigateTo={nextPage} />
       </div>
     </QuestionInfo>
   )

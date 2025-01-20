@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import ProgressBar from '../../components/ProgressBar'
 import QuestionButtonComponent from '../../components/QuestionButtonComponent'
-import BlueGradButton from '../../components/BlueGradButton'
+import BlueGradButton from '../../components/BigGrayButton'
 
 const Question4_2 = () => {
   const navigate = useNavigate()

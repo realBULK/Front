@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import BlueGradButton from '../../components/BlueGradButton'
+import BlueGradButton from '../../components/BigGrayButton'
 
 const Question1_1 = () => {
   const navigate = useNavigate()

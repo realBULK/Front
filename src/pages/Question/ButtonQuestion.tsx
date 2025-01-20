@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import ProgressBar from '../../components/ProgressBar'
 import QuestionButtonComponent from '../../components/QuestionButtonComponent'
-import BlueGradButton from '../../components/BlueGradButton'
+import BlueGradButton from '../../components/BigGrayButton'
 
 interface SpecialButtonProps {
   text: string
