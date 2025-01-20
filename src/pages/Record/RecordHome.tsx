@@ -16,14 +16,14 @@ const RecordHome = () => {
         {/* 첫 번째 버튼 */}
         <Link
           to="equal"
-          className="flex items-center justify-center py-4 bg-white rounded-base shadow-base text-[24px] font-[600] h-[80px] border-[1px] border-solid border-[#EDEDED]"
+          className="flex items-center justify-center py-4 bg-white rounded-base shadow-base text-[16px] font-[600] h-[80px] border-[1px] border-solid border-[#EDEDED]"
         >
           식단 대로 먹었어요 📄
         </Link>
         {/* 두 번째 버튼 */}
         <Link
           to="unequal"
-          className="flex items-center justify-center py-4 bg-white rounded-base shadow-base text-[24px] font-[600] h-[80px] border-[1px] border-solid border-[#EDEDED]"
+          className="flex items-center justify-center py-4 bg-white rounded-base shadow-base text-[16px] font-[600] h-[80px] border-[1px] border-solid border-[#EDEDED]"
         >
           식단과 다르게 먹었어요 😊
         </Link>
