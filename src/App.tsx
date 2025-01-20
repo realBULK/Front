@@ -49,11 +49,12 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: 'question',
-        children: [
-          { index: true, element: <QuestionStart /> },
-          { path: ':id', element: <QuestionPage /> },
-        ],
+        path: 'questionstart',
+        element: <QuestionStart />,
+      },
+      {
+        path: '/question/:id',
+        element: <QuestionPage />,
       },
       {
         path: 'suggestion',
