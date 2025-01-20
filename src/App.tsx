@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     errorElement: <div className="bg-blue-50" />,
     children: [
       {
-        index: true, // 기본 페이지 설정
+        index: true,
         element: <Start />,
       },
       {
@@ -32,21 +32,40 @@ const router = createBrowserRouter([
         element: <Main />,
       },
       {
-        path: 'record',
-        children: [
-          { index: true, element: <RecordHome /> },
-          { path: 'equal', element: <RecordEqual /> },
-          { path: 'unequal', element: <RecordUnequal /> },
-          { path: 'myself', element: <RecordMyself /> },
-        ],
+        index: true,
+        element: <Start />,
       },
       {
-        path: 'signup',
-        children: [
-          { path: '1', element: <SignUp1 /> },
-          { path: '2', element: <SignUp2 /> },
-          { path: '3', element: <SignUp3 /> },
-        ],
+        path: 'record',
+        element: <RecordHome />,
+      },
+      {
+        path: 'record/equal',
+        element: <RecordEqual />,
+      },
+      {
+        path: 'record/unequal',
+        element: <RecordUnequal />,
+      },
+      {
+        path: 'record/myself',
+        element: <RecordMyself />,
+      },
+      {
+        path: 'home',
+        element: <Main />,
+      },
+      {
+        path: 'signup1',
+        element: <SignUp1 />,
+      },
+      {
+        path: 'signup2',
+        element: <SignUp2 />,
+      },
+      {
+        path: 'signup3',
+        element: <SignUp3 />,
       },
       {
         path: 'questionstart',
@@ -58,11 +77,15 @@ const router = createBrowserRouter([
       },
       {
         path: 'suggestion',
-        element: <Suggestion />, // 부모 라우트
+        element: <Suggestion />,
         children: [
-          { path: ':mealId', element: <SuggestionDetail /> }, // 자식 라우트
+          {
+            path: ':mealId',
+            element: <SuggestionDetail />,
+          },
         ],
       },
+
       {
         path: 'splash',
         element: <Splash />,
