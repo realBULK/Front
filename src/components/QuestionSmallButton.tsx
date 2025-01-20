@@ -3,13 +3,21 @@ import { useState } from 'react'
 interface QuestionSmallButtonProps {
   text: string
   selected?: boolean
+  onSelectionChange?: (item: string, isNowSelected: boolean) => void
 }
 
-const QuestionSmallButton: React.FC<QuestionSmallButtonProps> = ({ text, selected = false }) => {
+const QuestionSmallButton: React.FC<QuestionSmallButtonProps> = ({ text, selected = false, onSelectionChange }) => {
   const [isSelected, setIsSelected] = useState(selected)
 
   const handleClick = () => {
-    setIsSelected(!isSelected)
+    setIsSelected((prev) => {
+      const newState = !prev
+
+      if (onSelectionChange) {
+        onSelectionChange(text, newState)
+      }
+      return newState
+    })
   }
 
   return (

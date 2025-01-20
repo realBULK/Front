@@ -1,13 +1,15 @@
-import { useState } from 'react'
 import * as Yup from 'yup'
+import { useState } from 'react'
 
 interface QuestionComponentProps {
   placeholder: string
+  value: string
+  onChange: (value: string) => void
+  setValid: (isValid: boolean) => void
 }
 
-const QuestionInputComponent: React.FC<QuestionComponentProps> = ({ placeholder }) => {
-  const [inputValue, setInputValue] = useState('')
-  const [error, setError] = useState('')
+const QuestionInputComponent: React.FC<QuestionComponentProps> = ({ placeholder, value, onChange, setValid }) => {
+  const [error, setError] = useState<string | null>(null)
 
   const validationSchema = Yup.object().shape({
     number: Yup.number()
@@ -20,14 +22,16 @@ const QuestionInputComponent: React.FC<QuestionComponentProps> = ({ placeholder 
   })
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setInputValue(value)
+    const inputValue = e.target.value
+    onChange(inputValue)
 
     try {
-      await validationSchema.validate({ number: value })
-      setError('')
+      await validationSchema.validate({ number: inputValue })
+      setError(null)
+      setValid(true)
     } catch (err) {
       setError((err as Yup.ValidationError).message)
+      setValid(false)
     }
   }
 
@@ -38,10 +42,10 @@ const QuestionInputComponent: React.FC<QuestionComponentProps> = ({ placeholder 
         placeholder={placeholder}
         className={`w-[327px] h-[55px] rounded-[15px] border border-[#EDEDED] px-4 shadow-[0px_2px_5px_-2px_rgba(0,0,0,0.25)] transition-colors 
           ${error ? 'bg-[#FFDDDD]' : 'bg-[rgba(255,255,255,0.8)]'} outline-none`}
-        value={inputValue}
+        value={value}
         onChange={handleChange}
       />
-      {error && <p className="text-red-500 mt-2 text-sm">{error}</p>}
+      {error && <p className="text-red-500 mt-1 text-sm">{error}</p>}
     </div>
   )
 }

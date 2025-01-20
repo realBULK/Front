@@ -4,20 +4,24 @@ interface QuestionButtonComponentProps {
   text: string
   navigateTo: string
   navigateTF?: boolean
+  datatype: string
 }
 
-const QuestionButtonComponent: React.FC<QuestionButtonComponentProps> = ({ text, navigateTo, navigateTF = true }) => {
+const QuestionButtonComponent: React.FC<QuestionButtonComponentProps> = ({
+  text,
+  navigateTo,
+  datatype,
+  navigateTF = true,
+}) => {
   const navigate = useNavigate()
+  const dataName = datatype
 
   const handleClick = () => {
     if (navigateTF === true) {
-      navigate(`/${navigateTo}`, {
-        state: {
-          questionText: text,
-          nextPage: navigateTo,
-        },
-      })
+      navigate(`/${navigateTo}`)
     }
+    console.log('localStorage저장:' + dataName + '  ' + text)
+    localStorage.setItem(dataName, text)
   }
 
   return (

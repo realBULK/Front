@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import QuestionInfo from './QuestionInfo'
 import QuestionSmallButton from '../../components/QuestionSmallButton'
 import BigGrayButton from '../../components/BigGrayButton'
@@ -9,6 +9,7 @@ interface Category {
 }
 
 interface SelectionQuestionProps {
+  datatype: string
   progress: number
   bigQuestion: string
   smallQuestion: string
@@ -17,12 +18,26 @@ interface SelectionQuestionProps {
 }
 
 const SelectionQuestion: FC<SelectionQuestionProps> = ({
+  datatype,
   progress,
   bigQuestion,
   smallQuestion,
   categories,
   navigateTo,
 }) => {
+  const [selectedItems, setSelectedItems] = useState<string[]>([])
+  const dataName = datatype
+  const handleSelectionChange = (item: string, isNowSelected: boolean) => {
+    setSelectedItems((prevSelected) => {
+      if (isNowSelected) {
+        return [...prevSelected, item]
+      } else {
+        return prevSelected.filter((prevItem) => prevItem !== item)
+      }
+    })
+    console.log('현재까지 선택된 items: ', selectedItems)
+  }
+
   return (
     <div className="bg-[#F5F5F5]">
       <QuestionInfo progress={progress} bigQuestion={bigQuestion} smallQuestion={smallQuestion}>
@@ -34,7 +49,12 @@ const SelectionQuestion: FC<SelectionQuestionProps> = ({
               </div>
               <div className="flex flex-wrap gap-[5px]">
                 {cat.items.map((item, idx2) => (
-                  <QuestionSmallButton key={idx2} text={item} />
+                  <QuestionSmallButton
+                    key={idx2}
+                    text={item}
+                    onSelectionChange={handleSelectionChange}
+                    selected={selectedItems.includes(item)}
+                  />
                 ))}
               </div>
             </div>
@@ -43,7 +63,14 @@ const SelectionQuestion: FC<SelectionQuestionProps> = ({
       </QuestionInfo>
 
       <div className="flex flex-col-reverse justify-end items-center w-full mt-[min(3.93vh,2vh)]">
-        <BigGrayButton text="다음" navigateTo={navigateTo} />
+        <BigGrayButton
+          text="다음"
+          navigateTo={navigateTo}
+          onClick={() => {
+            console.log('localStorage저장:' + JSON.stringify(selectedItems))
+            localStorage.setItem(dataName, JSON.stringify(selectedItems))
+          }}
+        />
       </div>
     </div>
   )

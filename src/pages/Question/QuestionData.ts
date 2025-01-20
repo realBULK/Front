@@ -1,5 +1,7 @@
 export const questionData: Record<string, any> = {
   '1_1': {
+    id: 1,
+    datatype: 'height&weight',
     type: 'input',
     progress: 8.33,
     bigQuestion: '맞춤 증량 계획을\n위해 알려주세요!',
@@ -8,6 +10,8 @@ export const questionData: Record<string, any> = {
     navigateTo: 'question/1_2',
   },
   '1_2': {
+    id: 2,
+    datatype: 'goal_weight',
     type: 'input',
     progress: 16.66,
     bigQuestion: '맞춤 증량 계획을\n위해 알려주세요!',
@@ -16,6 +20,8 @@ export const questionData: Record<string, any> = {
     navigateTo: 'question/1_3',
   },
   '1_3': {
+    id: 3,
+    datatype: 'activity_level',
     type: 'button',
     progress: 25,
     bigQuestion: '맞춤 증량 계획을\n위해 알려주세요!',
@@ -29,6 +35,8 @@ export const questionData: Record<string, any> = {
     navigateTo: 'question/2_1',
   },
   '2_1': {
+    id: 4,
+    datatype: 'meal_number',
     type: 'button',
     progress: 37.5,
     bigQuestion: '식습관에 대해\n알려주세요!',
@@ -37,6 +45,8 @@ export const questionData: Record<string, any> = {
     navigateTo: 'question/2_2',
   },
   '2_2': {
+    id: 5,
+    datatype: 'favorite_food',
     type: 'select',
     progress: 50,
     bigQuestion: '식습관에 대해\n알려주세요!',
@@ -66,6 +76,8 @@ export const questionData: Record<string, any> = {
     navigateTo: 'question/3_1',
   },
   '3_1': {
+    id: 6,
+    datatype: 'meal_time',
     type: 'button',
     progress: 62.5,
     bigQuestion: '라이프스타일에\n대해 알려주세요!',
@@ -78,6 +90,8 @@ export const questionData: Record<string, any> = {
     navigateTo: 'question/3_2',
   },
   '3_2': {
+    id: 7,
+    datatype: 'eating-out',
     type: 'button',
     progress: 75,
     bigQuestion: '라이프스타일에\n대해 알려주세요!',
@@ -90,6 +104,8 @@ export const questionData: Record<string, any> = {
     navigateTo: 'question/4_1',
   },
   '4_1': {
+    id: 8,
+    datatype: 'cook_time',
     type: 'button',
     progress: 87.5,
     bigQuestion: '요리 습관에 대해\n알려주세요!',
@@ -98,6 +114,8 @@ export const questionData: Record<string, any> = {
     navigateTo: 'question/4_2',
   },
   '4_2': {
+    id: 9,
+    datatype: 'delivery_num',
     type: 'button',
     progress: 100,
     bigQuestion: '요리 습관에 대해\n알려주세요!',
@@ -106,7 +124,7 @@ export const questionData: Record<string, any> = {
     navigateTo: 'signup',
     specialButton: {
       text: '다음',
-      navigateTo: 'signup',
+      navigateTo: 'question_post_test',
     },
   },
 }

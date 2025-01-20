@@ -10,6 +10,7 @@ interface SpecialButtonProps {
 
 interface ButtonQuestionProps {
   progress: number
+  datatype: string
   bigQuestion: string
   smallQuestion: string
   options?: string[]
@@ -18,6 +19,7 @@ interface ButtonQuestionProps {
 }
 
 const ButtonQuestion: FC<ButtonQuestionProps> = ({
+  datatype,
   progress,
   bigQuestion,
   smallQuestion,
@@ -29,7 +31,7 @@ const ButtonQuestion: FC<ButtonQuestionProps> = ({
     <QuestionInfo progress={progress} bigQuestion={bigQuestion} smallQuestion={smallQuestion}>
       <div className="flex flex-col gap-[2.35vh] min-h-[400px] w-full">
         {options?.map((option, idx) => (
-          <QuestionButtonComponent key={idx} text={option} navigateTo={navigateTo || ''} />
+          <QuestionButtonComponent key={idx} text={option} datatype={datatype} navigateTo={navigateTo || ''} />
         ))}
 
         {specialButton && (
