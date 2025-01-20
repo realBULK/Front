@@ -1,93 +1,68 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import * as yup from "yup";
-import ProgressBar from "../../components/ProgressBar";
+import KakaoIcon from "../../assets/kakao.svg";
+import AppleIcon from '../../assets/apple.svg'
 
 const SignUp3: React.FC = () => {
   const navigate = useNavigate();
-  const [nickname, setNickname] = useState("");
-  const [error, setError] = useState<string | null>(null);
 
-  // 닉네임 유효성 검사 스키마
-  const nicknameSchema = yup
-    .string()
-    .required("닉네임을 입력해주세요")
-    .max(10, "닉네임은 10자 이내로 설정해주세요");
-
-  const handleNicknameChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setNickname(value);
-
-    try {
-      await nicknameSchema.validate(value); // 실시간 유효성 검사
-      setError(null);
-    } catch (err) {
-      if (err instanceof yup.ValidationError) {
-        setError(err.message);
-      } else {
-        setError("알 수 없는 오류가 발생했습니다.");
-      }
-    }
-  };
-
-  const handleKeyPress = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      try {
-        await nicknameSchema.validate(nickname);
-        setError(null);
-
-        // 중복된 닉네임인지 확인 (예시: 비동기 호출로 백엔드 통신 필요)
-        const isDuplicate = false; // 백엔드와 통신하여 결과 받기
-
-        if (isDuplicate) {
-          setError("사용이 불가능한 닉네임입니다."); // 중복된 닉네임 에러 메시지
-          return;
-        }
-
-        navigate("/signup4", { state: { nickname } });
-      } catch (err) {
-        if (err instanceof yup.ValidationError) {
-          setError(err.message);
-        }
-      }
-    }
+  const handleNavigation = (navigateTo: string) => {
+    navigate(`/${navigateTo}`);
   };
 
   return (
-    <div className="h-screen flex flex-col items-center bg-blue-50 font-pretendard px-6">
-      {/* Progress Bar */}
-      <div className="w-full max-w-md mx-auto mt-16">
-        <ProgressBar progress={100} />
+    <div className="h-screen flex flex-col items-center bg-[#F5F5F5] font-pretendard px-6">
+      {/* Circular Progress */}
+      <div className="mt-36 w-[148px] h-[148px] flex items-center justify-center">
+        <div
+          className="w-full h-full rounded-full flex items-center justify-center"
+          style={{ backgroundColor: "#DED1E8" }}
+        >
+
+        </div>
       </div>
 
       {/* Title */}
-      <div className="text-center mt-6 w-full max-w-md mx-auto">
-        <h1 className="text-[40px] font-bold font-[GmarketSansWeight] text-black ml-4 text-left whitespace-pre-line">
-          닉네임을{"\n"}알려주세요.
+      <div className="text-center mt-8 w-full max-w-md">
+        <h1 className="text-[32px] font-[GmarketSansWeight] text-black whitespace-pre-line leading-9">
+          식단 추천이{"\n"}완료 되었습니다
         </h1>
-        <p className="font-semibold font-[pretendard] mt-8 ml-4 text-left text-[16px]">
-          한 번 설정한 닉네임은 추후에 변경 가능해요!
+        <p className="font-semibold font-[pretendard] mt-4 whitespace-pre-line text-[16px]">
+          3초 안에 회원가입하고{"\n"}추천된 식단을 확인해 보세요
         </p>
       </div>
 
-      {/* Input Section */}
-      <div className="w-[327px] mx-auto mt-4">
-        <input
-          type="text"
-          id="nickname-input"
-          placeholder="예: 홍길동"
-          className={`w-[327px] h-[55px] font-[pretendard] bg-white border ${
-            error ? "border-[#FE8383]" : "border-[#EDEDED]"
-          } shadow-whiteBox rounded-base px-4 text-[14px] text-gray-800 placeholder-gray-400 outline-none`}
-          value={nickname}
-          onChange={handleNicknameChange}
-          onKeyPress={handleKeyPress}
-        />
-        {error && (
-          <p className="mt-2 text-[10px] font-[pretendard] text-right" style={{ color: "#F81919" }}>
-            {error}
-          </p>
-        )}
+      {/* Buttons */}
+      <div className="mt-12 flex flex-col gap-2 w-full max-w-xs">
+      <button
+      className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold text-[#000000] text-center rounded-[200px] bg-[#FAE100] active:bg-[#998C17] flex items-center justify-center gap-1"
+      style={{
+        border: "1px solid #FFEB01",
+      }}
+      onClick={() => handleNavigation("kakao")}
+    >
+      <img
+        src={KakaoIcon}
+        alt="Kakao Icon"
+        className="w-5 h-5"
+      />
+      카카오로 계속하기
+    </button>
+
+        <button
+          className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold text-[#FFFFFF] text-center rounded-[200px] bg-[#000000] flex items-center justify-center gap-1"
+          style={{
+            border: "1px solid #000000",
+          }}
+          onClick={() => handleNavigation("apple")}
+        >
+          <img
+        src={AppleIcon}
+        alt="Apple Icon"
+        className="w-5 h-5"
+      />
+          Apple로 계속하기
+        </button>
       </div>
     </div>
   );
