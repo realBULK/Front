@@ -44,6 +44,24 @@ const SelectionQuestion: FC<SelectionQuestionProps> = ({
   }
 
   const navigate = useNavigate()
+  function strCut(str: string) {
+    if (typeof str !== 'string') {
+      console.error('Error: Input must be a string')
+      return ''
+    }
+
+    if (str.startsWith('[') && str.endsWith(']')) {
+      str = str.slice(1, -1)
+    }
+
+    if (str.startsWith('"') && str.endsWith('"')) {
+      str = str.slice(1, -1)
+    }
+
+    str = str.replace(/"/g, '')
+
+    return str
+  }
 
   const handleClick = () => {
     if (selectedItems.length < 1) {
@@ -53,7 +71,7 @@ const SelectionQuestion: FC<SelectionQuestionProps> = ({
 
     setErrorMessage('')
     console.log('localStorage 저장:', JSON.stringify(selectedItems))
-    localStorage.setItem(datatype, JSON.stringify(selectedItems))
+    localStorage.setItem(datatype, strCut(JSON.stringify(selectedItems)))
     navigate(`/${navigateTo}`)
   }
 

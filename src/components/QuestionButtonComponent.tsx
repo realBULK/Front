@@ -16,11 +16,10 @@ const QuestionButtonComponent: React.FC<QuestionButtonComponentProps> = ({
   const navigate = useNavigate()
   const dataName = datatype
 
-  // 문자열에서 '(' 이전의 문자열만 추출
   function strCut(str: string | undefined | null): string {
     if (!str) {
       console.error("Error: 'text' is null or undefined.")
-      return '' // 빈 문자열 반환
+      return ''
     }
     const index = str.indexOf('(')
     return index === -1 ? str.trim() : str.substring(0, index).trim()
