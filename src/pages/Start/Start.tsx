@@ -1,4 +1,4 @@
-import logo from '/BULK.svg'
+import logo from '../../assets/BULK.svg'
 import { useNavigate } from 'react-router-dom'
 import KakaoIcon from "../../assets/kakao.svg"
 import AppleIcon from '../../assets/apple.svg'

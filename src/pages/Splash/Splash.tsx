@@ -1,4 +1,4 @@
-import logo from '/BULK.svg'
+import logo from '../../assets/BULK.svg'
 
 const Splash = () => {
 

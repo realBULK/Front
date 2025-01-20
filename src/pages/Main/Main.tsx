@@ -2,19 +2,22 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ProgressBar from "../../components/MainProgressBar";
 
-import character from "/character.png";
-import character_eat from "/BULK_EAT.svg";
-import recordIcon from "/Note.svg";
-import groupIcon from "/Vector.svg";
-import homeIcon from "/Home.svg";
-import dietIcon from "/List.svg";
-import infoIcon from "/Info.svg";
-import background from "/background.svg";
+import character from "../../assets/character.svg";
+import character_eat from "../../assets/BULK_EAT.svg";
+import recordIcon from "../../assets/Note.svg";
+import groupIcon from "../../assets/Vector.svg";
+import homeIcon from "../../assets/Home.svg";
+import dietIcon from "../../assets/List.svg";
+import infoIcon from "../../assets/Info.svg";
+import background from "../../assets/background.svg";
+import food from "../../assets/food.svg";
+
 
 const Main = () => {
+
   const navigate = useNavigate();
 
-  // 색상 목록
+  // 초기 색상 로드 (로컬 스토리지에 저장된 색상 사용)
   const colors = {
     orange: { bar: "#FF9163", background: "#F4E3DC" },
     purple: { bar: "#9A7EB1", background: "#DED1E8" },
@@ -23,60 +26,36 @@ const Main = () => {
     yellow: { bar: "#BBDB50", background: "#FFFAD4" },
   };
 
-  // 초기 색상 로드 (로컬 스토리지에 저장된 색상 사용)
   const getInitialColor = () => {
     const storedColor = localStorage.getItem("selectedColor");
-    return storedColor ? JSON.parse(storedColor) : colors.orange; // 저장된 색상이 없으면 기본값 orange
+    return storedColor ? JSON.parse(storedColor) : colors.orange;
   };
 
-  // 상태 관리
-  const [selectedColor, setSelectedColor] = useState(getInitialColor); // 기본 색상 초기화
-  const [buttonPosition, setButtonPosition] = useState<{ x: number; y: number }>({ x: 245, y: 280 });
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [offset, setOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [characterImage, setCharacterImage] = useState<string>(() => {
-    const isFedStored = localStorage.getItem("isFed");
-    return isFedStored === "true" ? character : character_eat;
-  });
-  const [isFed, setIsFed] = useState<boolean>(() => {
-    return localStorage.getItem("isFed") === "true";
-  });
+  const [selectedColor, setSelectedColor] = useState(getInitialColor);
+  const [buttonPosition, setButtonPosition] = useState({ x: 275, y: 40 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [characterImage, setCharacterImage] = useState(character);
+  const [isFed, setIsFed] = useState(() => localStorage.getItem("isFed") === "true");
+  const [timer, setTimer] = useState<number | null>(null);
+
+  useEffect(() => {
+    const timerEndTime = localStorage.getItem("timerEndTime");
+    if (timerEndTime) {
+      const remainingTime = parseInt(timerEndTime, 10) - Date.now();
+      if (remainingTime > 0) {
+        setCharacterImage(character_eat);
+        setIsFed(false);
+        setTimer(setTimeout(() => resetCharacterState(), remainingTime));
+      } else {
+        resetCharacterState();
+      }
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("isFed", isFed.toString());
   }, [isFed]);
-
-    // 색상 변경 시 로컬 스토리지에 저장
-    const handleColorChange = (color: { bar: string; background: string }) => {
-      setSelectedColor(color);
-      localStorage.setItem("selectedColor", JSON.stringify(color)); // 색상 저장
-    };
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isDragging) {
-      const newX = e.clientX - offset.x;
-      const newY = e.clientY - offset.y;
-
-      setButtonPosition({ x: newX, y: newY });
-
-      if (newX >= 50 && newX <= 200 && newY >= 50 && newY <= 120) {
-        setCharacterImage(character_eat);
-        setIsFed(false);
-        setIsDragging(false);
-        setButtonPosition({ x: 245, y: 280 });
-
-        const timerEndTime = Date.now() + 10000;
-        localStorage.setItem("timerEndTime", timerEndTime.toString());
-
-        setTimeout(() => {
-          setCharacterImage(character);
-          setIsFed(true);
-          localStorage.setItem("isFed", "true");
-          localStorage.removeItem("timerEndTime");
-        }, 10000);
-      }
-    }
-  };
 
   const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsDragging(true);
@@ -86,8 +65,45 @@ const Main = () => {
     });
   };
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isDragging) {
+      const newX = e.clientX - offset.x;
+      const newY = e.clientY - offset.y;
+
+      setButtonPosition({ x: newX, y: newY });
+
+      if (newX >= 80 && newX <= 120 && newY >= 145 && newY <= 170) {
+        setCharacterImage(character_eat);
+        setIsFed(false);
+        setIsDragging(false);
+        setButtonPosition({ x: 275, y: 40 });
+
+        const timerEndTime = Date.now() + 10000; // 10초 타이머
+        localStorage.setItem("timerEndTime", timerEndTime.toString());
+
+        setTimer(
+          setTimeout(() => {
+            resetCharacterState();
+          }, 10000)
+        );
+      }
+    }
+  };
+
   const handleMouseUp = () => {
     setIsDragging(false);
+  };
+
+  const resetCharacterState = () => {
+    setCharacterImage(character);
+    setIsFed(true);
+    localStorage.setItem("isFed", "true");
+    localStorage.removeItem("timerEndTime");
+  };
+
+  const handleColorChange = (color: { bar: string; background: string }) => {
+    setSelectedColor(color);
+    localStorage.setItem("selectedColor", JSON.stringify(color));
   };
 
   return (
@@ -190,21 +206,22 @@ const Main = () => {
       <img
         src={characterImage}
         alt="Character"
-        className="absolute top-1/2 left-1/2 w-[200px] h-[270px] transform -translate-x-1/2 -translate-y-1/2"
+        className="absolute top-1/2 left-1/2 w-[127px] h-[154px] transform -translate-x-[120px] -translate-y-[50px]"
       />
       {isFed && (
         <button
-          className="absolute w-[100px] h-[48px] text-[14px] font-[Pretendard] font-semibold text-[#191919] rounded-[15px] bg-[#CEDAFF] shadow-custom inset-shadow-custom filter"
+          className="absolute w-[50px] h-[48px] rounded-[15px] shadow-custom inset-shadow-custom filter"
           style={{
             left: `${buttonPosition.x}px`,
             top: `${buttonPosition.y}px`,
             position: "absolute",
-            boxShadow: `0px 0px 20px 2px #EDEFFE inset, 0px 2px 5px -2px rgba(0, 0, 0, 0.25)`
+            backgroundImage: `url(${food})`, 
+            backgroundSize: "100% 100%",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat", 
           }}
           onMouseDown={handleMouseDown}
-        >
-          벌크 먹어주기
-        </button>
+        ></button>
       )}
     </div>
 
