@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface QuestionComponentProps {
   placeholder: string
@@ -34,6 +34,16 @@ const QuestionInputComponent: React.FC<QuestionComponentProps> = ({ placeholder,
       setValid(false)
     }
   }
+
+  // useEffect(() => {
+  //   console.log('페이지전환')
+
+  //   const inputElement = document.querySelector('input')
+  //   if (inputElement) {
+  //     inputElement.value = ''
+  //   }
+  //   return () => {}
+  // }, [])
 
   return (
     <div>

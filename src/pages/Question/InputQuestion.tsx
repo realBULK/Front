@@ -42,13 +42,13 @@ const InputQuestion: React.FC<InputQuestionProps> = ({
 
   const handleClick = () => {
     console.log('입력된 값:', inputValues)
-
     if (id === 1) {
       localStorage.setItem('height', inputValues[0] || '')
       localStorage.setItem('weight', inputValues[1] || '')
     } else if (id === 2) {
       localStorage.setItem('goal_weight', inputValues[0] || '')
     }
+    setInputValues(Array(inputs.length).fill(''))
   }
 
   const isFormValid = validStates.every((valid) => valid === true)
