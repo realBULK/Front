@@ -10,7 +10,14 @@ const QuestionButtonComponent: React.FC<QuestionButtonComponentProps> = ({ text,
   const navigate = useNavigate()
 
   const handleClick = () => {
-    if (navigateTF === true) navigate(`/${navigateTo}`)
+    if (navigateTF === true) {
+      navigate(`/${navigateTo}`, {
+        state: {
+          questionText: text,
+          nextPage: navigateTo,
+        },
+      })
+    }
   }
 
   return (

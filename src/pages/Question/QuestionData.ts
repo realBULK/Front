@@ -7,6 +7,14 @@ export const questionData: Record<string, any> = {
     inputs: ['키(cm)', '몸무게(kg)'],
     navigateTo: 'question/1_2',
   },
+  '1_2': {
+    type: 'input',
+    progress: 16.66,
+    bigQuestion: '맞춤 증량 계획을\n위해 알려주세요!',
+    smallQuestion: '목표 몸무게를 알려주세요.',
+    inputs: ['몸무게(kg)'],
+    navigateTo: 'question/1_3',
+  },
   '1_3': {
     type: 'button',
     progress: 25,
@@ -19,14 +27,6 @@ export const questionData: Record<string, any> = {
       '매우 높음 (매일 강도 높은 운동)',
     ],
     navigateTo: 'question/2_1',
-  },
-  '1_2': {
-    type: 'input',
-    progress: 16.66,
-    bigQuestion: '맞춤 증량 계획을\n위해 알려주세요!',
-    smallQuestion: '목표 몸무게를 알려주세요.',
-    inputs: ['몸무게(kg)'],
-    navigateTo: 'question/1_3',
   },
   '2_1': {
     type: 'button',
