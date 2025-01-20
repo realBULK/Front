@@ -16,6 +16,8 @@ export default function QuestionPage() {
   if (q.type === 'input') {
     return (
       <InputQuestion
+        id={q.id}
+        datatype={q.datatype}
         progress={q.progress}
         bigQuestion={q.bigQuestion}
         smallQuestion={q.smallQuestion}
@@ -28,6 +30,7 @@ export default function QuestionPage() {
   if (q.type === 'button') {
     return (
       <ButtonQuestion
+        datatype={q.datatype}
         progress={q.progress}
         bigQuestion={q.bigQuestion}
         smallQuestion={q.smallQuestion}
@@ -41,6 +44,7 @@ export default function QuestionPage() {
   if (q.type === 'select') {
     return (
       <SelectQuestion
+        datatype={q.datatype}
         progress={q.progress}
         bigQuestion={q.bigQuestion}
         smallQuestion={q.smallQuestion}

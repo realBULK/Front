@@ -1,7 +1,8 @@
-import { FC } from 'react'
-import ProgressBar from '../../components/ProgressBar'
+import { FC, useState } from 'react'
+import QuestionInfo from './QuestionInfo'
 import QuestionSmallButton from '../../components/QuestionSmallButton'
-import BlueGradButton from '../../components/BlueGradButton'
+import BigGrayButton from '../../components/BigGrayButton'
+import { useNavigate } from 'react-router'
 
 interface Category {
   title: string
@@ -9,6 +10,7 @@ interface Category {
 }
 
 interface SelectionQuestionProps {
+  datatype: string
   progress: number
   bigQuestion: string
   smallQuestion: string
@@ -17,47 +19,89 @@ interface SelectionQuestionProps {
 }
 
 const SelectionQuestion: FC<SelectionQuestionProps> = ({
+  datatype,
   progress,
   bigQuestion,
   smallQuestion,
   categories,
   navigateTo,
 }) => {
+  const initialSelectedItems = categories.flatMap((category) => category.items)
+  const [selectedItems, setSelectedItems] = useState<string[]>(initialSelectedItems)
+  const [errorMessage, setErrorMessage] = useState<string>('')
+
+  const handleSelectionChange = (item: string, isNowSelected: boolean) => {
+    setSelectedItems((prevSelected) => {
+      if (isNowSelected) {
+        if (!prevSelected.includes(item)) {
+          return [...prevSelected, item]
+        }
+      } else {
+        return prevSelected.filter((prevItem) => prevItem !== item)
+      }
+      return prevSelected
+    })
+  }
+
+  const navigate = useNavigate()
+  function strCut(str: string) {
+    if (typeof str !== 'string') {
+      console.error('Error: Input must be a string')
+      return ''
+    }
+
+    if (str.startsWith('[') && str.endsWith(']')) {
+      str = str.slice(1, -1)
+    }
+
+    if (str.startsWith('"') && str.endsWith('"')) {
+      str = str.slice(1, -1)
+    }
+
+    str = str.replace(/"/g, '')
+
+    return str
+  }
+
+  const handleClick = () => {
+    if (selectedItems.length < 1) {
+      setErrorMessage('하나 이상의 식재료를 선택해야 합니다.')
+      return
+    }
+
+    setErrorMessage('')
+    console.log('localStorage 저장:', JSON.stringify(selectedItems))
+    localStorage.setItem(datatype, strCut(JSON.stringify(selectedItems)))
+    navigate(`/${navigateTo}`)
+  }
+
   return (
-    <div className="bg-[#EDEFFE] w-full min-h-screen flex flex-col items-start px-[10%] pt-[9.27vh]">
-      <div className="w-full mb-[3.17vh]">
-        <ProgressBar progress={progress} />
-      </div>
-
-      <div className="flex flex-col justify-center w-[300px] h-[89px] flex-shrink-0 text-black font-[GmarketSansWeight] text-[40px] font-medium leading-[121%] mb-[5.05vh]">
-        {bigQuestion.split('\n').map((line, i) => (
-          <span key={i}>
-            {line}
-            <br />
-          </span>
-        ))}
-      </div>
-
-      <div className="text-[#191919] font-pretendard text-[16px] font-[pretendard] font-semibold leading-[100%] tracking-[-0.32px] mb-[2.23vh]">
-        {smallQuestion}
-      </div>
-
-      <div className="flex flex-col gap-[2.93vh] w-full">
-        {categories.map((cat, idx) => (
-          <div key={idx}>
-            <div className="mb-[1.17vh] text-[#191919] text-left font-pretendard text-[24px] font-extrabold leading-[100%] tracking-[-0.48px]">
-              {cat.title}
+    <div className="bg-[#F5F5F5]">
+      <QuestionInfo progress={progress} bigQuestion={bigQuestion} smallQuestion={smallQuestion}>
+        <div className="flex flex-col gap-[2.93vh] w-full">
+          {categories.map((cat, idx) => (
+            <div key={idx}>
+              <div className="mb-[1.17vh] text-[#191919] text-left font-pretendard text-[24px] font-extrabold leading-[100%] tracking-[-0.48px]">
+                {cat.title}
+              </div>
+              <div className="flex flex-wrap gap-[5px]">
+                {cat.items.map((item, idx2) => (
+                  <QuestionSmallButton
+                    key={`${item}-${selectedItems.includes(item)}`}
+                    text={item}
+                    selected={selectedItems.includes(item)}
+                    onSelectionChange={handleSelectionChange}
+                  />
+                ))}
+              </div>
             </div>
-            <div className="flex flex-wrap gap-[5px]">
-              {cat.items.map((item, idx2) => (
-                <QuestionSmallButton key={idx2} text={item} />
-              ))}
-            </div>
-          </div>
-        ))}
-        <div className="flex flex-row justify-end items-center w-full gap-[2.35vh] mb-[20px]">
-          <BlueGradButton text="완료하기" navigateTo={navigateTo} />
+          ))}
         </div>
+      </QuestionInfo>
+
+      <div className="flex flex-col-reverse justify-end items-center w-full mt-[min(3.93vh,2vh)]">
+        <BigGrayButton text="다음" navigateTo={navigateTo} navigateTF={false} onClick={handleClick} />
+        {errorMessage && <p className="text-red-500 mt-1 text-l mb-[10px]">{errorMessage}</p>}
       </div>
     </div>
   )
