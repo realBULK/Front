@@ -26,7 +26,6 @@ const SelectionQuestion: FC<SelectionQuestionProps> = ({
   categories,
   navigateTo,
 }) => {
-  // 모든 항목이 선택된 상태로 시작
   const initialSelectedItems = categories.flatMap((category) => category.items)
   const [selectedItems, setSelectedItems] = useState<string[]>(initialSelectedItems)
   const [errorMessage, setErrorMessage] = useState<string>('')
@@ -35,10 +34,10 @@ const SelectionQuestion: FC<SelectionQuestionProps> = ({
     setSelectedItems((prevSelected) => {
       if (isNowSelected) {
         if (!prevSelected.includes(item)) {
-          return [...prevSelected, item] // 중복 방지 후 추가
+          return [...prevSelected, item]
         }
       } else {
-        return prevSelected.filter((prevItem) => prevItem !== item) // 항목 제거
+        return prevSelected.filter((prevItem) => prevItem !== item)
       }
       return prevSelected
     })
@@ -52,7 +51,6 @@ const SelectionQuestion: FC<SelectionQuestionProps> = ({
       return
     }
 
-    // 정상적으로 처리될 경우 에러 메시지 초기화 후 로컬 저장 및 페이지 이동
     setErrorMessage('')
     console.log('localStorage 저장:', JSON.stringify(selectedItems))
     localStorage.setItem(datatype, JSON.stringify(selectedItems))
@@ -71,7 +69,7 @@ const SelectionQuestion: FC<SelectionQuestionProps> = ({
               <div className="flex flex-wrap gap-[5px]">
                 {cat.items.map((item, idx2) => (
                   <QuestionSmallButton
-                    key={`${item}-${selectedItems.includes(item)}`} // 상태 반영을 위한 key
+                    key={`${item}-${selectedItems.includes(item)}`}
                     text={item}
                     selected={selectedItems.includes(item)}
                     onSelectionChange={handleSelectionChange}
