@@ -25,7 +25,7 @@ const SuggestionDaysComponent: React.FC<SuggestionDaysComponentProps> = ({ data 
   const [selectedDay, setSelectedDay] = useState(data[0]?.day || '월') // 기본 선택 요일
 
   return (
-    <div className="flex flex-col gap-6 mb-[44px]">
+    <div className="flex flex-col gap-5">
       {/* 요일 선택 버튼 */}
       <div className="flex gap-2">
         {data.map((dayData) => (
