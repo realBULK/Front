@@ -1,61 +1,68 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 훅
-import ProgressBar from "../../components/ProgressBar";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import KakaoIcon from "../../assets/kakao.svg";
+import AppleIcon from '../../assets/apple.svg'
 
 const SignUp3: React.FC = () => {
   const navigate = useNavigate();
-  const [nickname, setNickname] = useState(""); // 닉네임 상태 관리
 
-  const handleNicknameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNickname(event.target.value); // 입력값 업데이트
-  };
-
-  const handleNicknameSubmit = () => {
-    console.log(`Entered Nickname: ${nickname}`);
-    navigate("/signup4", { state: { nickname } }); // SignUp4 페이지로 닉네임 전달
-  };
-
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      handleNicknameSubmit(); // 엔터 키 입력 시 다음 페이지로 이동
-    }
-  };
-
-  const handleBlur = () => {
-    if (nickname) {
-      handleNicknameSubmit(); // 입력 필드에서 포커스가 벗어나면 이동
-    }
+  const handleNavigation = (navigateTo: string) => {
+    navigate(`/${navigateTo}`);
   };
 
   return (
-    <div className="h-screen flex flex-col items-center bg-blue-50 font-pretendard px-6">
-      {/* Progress Bar */}
-      <div className="w-full max-w-md mx-auto mt-16">
-        <ProgressBar progress={100} />
+    <div className="h-screen flex flex-col items-center bg-[#F5F5F5] font-pretendard px-6">
+      {/* Circular Progress */}
+      <div className="mt-36 w-[148px] h-[148px] flex items-center justify-center">
+        <div
+          className="w-full h-full rounded-full flex items-center justify-center"
+          style={{ backgroundColor: "#DED1E8" }}
+        >
+
+        </div>
       </div>
 
       {/* Title */}
-      <div className="text-center mt-6 w-full max-w-md mx-auto">
-        <h1 className="text-[40px] font-bold font-gmarket text-black ml-4 text-left whitespace-pre-line">
-          닉네임을{"\n"}알려주세요.
+      <div className="text-center mt-8 w-full max-w-md">
+        <h1 className="text-[32px] font-[GmarketSansWeight] text-black whitespace-pre-line leading-9">
+          식단 추천이{"\n"}완료 되었습니다
         </h1>
-        <p className="text-gray-600 mt-8 ml-4 text-left font-semibold text-[16px]">
-          한 번 설정한 닉네임은 추후에 변경 가능해요!
+        <p className="font-semibold font-[pretendard] mt-4 whitespace-pre-line text-[16px]">
+          3초 안에 회원가입하고{"\n"}추천된 식단을 확인해 보세요
         </p>
       </div>
 
-      {/* Input Section */}
-      <div className="w-full max-w-xs mx-auto mt-4">
-        <input
-          type="text"
-          id="nickname-input"
-          placeholder="예: 홍길동"
-          className="w-full bg-white border border-gray-300 shadow rounded-lg py-3 px-4 text-[14px] text-gray-800 placeholder-gray-400 outline-none"
-          value={nickname}
-          onChange={handleNicknameChange} // 입력값 업데이트
-          onKeyPress={handleKeyPress} // 엔터 키 이벤트 처리
-          onBlur={handleBlur} // 포커스 아웃 이벤트 처리
-        />
+      {/* Buttons */}
+      <div className="mt-12 flex flex-col gap-2 w-full max-w-xs">
+      <button
+      className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold text-[#000000] text-center rounded-[200px] bg-[#FAE100] active:bg-[#998C17] flex items-center justify-center gap-1"
+      style={{
+        border: "1px solid #FFEB01",
+      }}
+      onClick={() => handleNavigation("kakao")}
+    >
+      <img
+        src={KakaoIcon}
+        alt="Kakao Icon"
+        className="w-5 h-5"
+      />
+      카카오로 계속하기
+    </button>
+
+        <button
+          className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold text-[#FFFFFF] text-center rounded-[200px] bg-[#000000] flex items-center justify-center gap-1"
+          style={{
+            border: "1px solid #000000",
+          }}
+          onClick={() => handleNavigation("apple")}
+        >
+          <img
+        src={AppleIcon}
+        alt="Apple Icon"
+        className="w-5 h-5"
+      />
+          Apple로 계속하기
+        </button>
       </div>
     </div>
   );

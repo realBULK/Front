@@ -9,20 +9,12 @@ import RecordUnequal from './pages/Record/RecordUnequal'
 import SignUp1 from './pages/SignUp/SignUp1'
 import SignUp2 from './pages/SignUp/SignUp2'
 import SignUp3 from './pages/SignUp/SignUp3'
-import SignUp4 from './pages/SignUp/SignUp4'
-import SignUp5 from './pages/SignUp/SignUp5'
 
-import Question1_1 from './pages/Question/Question1_1'
-import Question1_2 from './pages/Question/Question1_2'
-import Question1_3 from './pages/Question/Question1_3'
-import Question2_1 from './pages/Question/Question2_1'
-import Question2_2 from './pages/Question/Question2_2'
-import Question3_1 from './pages/Question/Question3_1'
-import Question3_2 from './pages/Question/Question3_2'
-import Question4_1 from './pages/Question/Question4_1'
-import Question4_2 from './pages/Question/Question4_2'
+import QuestionPage from './pages/Question/QuestionPage'
 import QuestionStart from './pages/Question/QuestionStart'
 import RecordMyself from './pages/Record/RecordMyself'
+import Suggestion from './pages/Suggestion/Suggestion'
+import Splash from './pages/Splash/Splash'
 
 const router = createBrowserRouter([
   {
@@ -63,7 +55,7 @@ const router = createBrowserRouter([
         element: <Main />,
       },
       {
-        path: 'signup',
+        path: 'signup1',
         element: <SignUp1 />,
       },
       {
@@ -75,52 +67,20 @@ const router = createBrowserRouter([
         element: <SignUp3 />,
       },
       {
-        path: 'signup4',
-        element: <SignUp4 />,
-      },
-      {
-        path: 'signup5',
-        element: <SignUp5 />,
-      },
-      {
         path: 'questionstart',
         element: <QuestionStart />,
       },
       {
-        path: 'question1_1',
-        element: <Question1_1 />,
+        path: '/question/:id',
+        element: <QuestionPage />,
       },
       {
-        path: 'question1_2',
-        element: <Question1_2 />,
+        path: 'suggestion',
+        element: <Suggestion />,
       },
       {
-        path: 'question1_3',
-        element: <Question1_3 />,
-      },
-      {
-        path: 'question2_1',
-        element: <Question2_1 />,
-      },
-      {
-        path: 'question2_2',
-        element: <Question2_2 />,
-      },
-      {
-        path: 'question3_1',
-        element: <Question3_1 />,
-      },
-      {
-        path: 'question3_2',
-        element: <Question3_2 />,
-      },
-      {
-        path: 'question4_1',
-        element: <Question4_1 />,
-      },
-      {
-        path: 'question4_2',
-        element: <Question4_2 />,
+        path: 'splash',
+        element: <Splash />,
       },
     ],
   },

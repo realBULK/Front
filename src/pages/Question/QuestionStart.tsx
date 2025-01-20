@@ -14,7 +14,7 @@ const Question1_1 = () => {
         <img className="mt-[48px] mb-[5px]" src="character3.png" alt="벌크캐릭터" />
       </div>
 
-      <BlueGradButton text="BULK 시작하기" navigateTo="question1_1"></BlueGradButton>
+      <BlueGradButton text="BULK 시작하기" navigateTo="question/1_1"></BlueGradButton>
     </div>
   )
 }
