@@ -1,55 +1,69 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import character from "/character.png";
-import character_eat from "/BULK_EAT.png";
-import recordIcon from "/Note.png";
-import groupIcon from "/Vector.png";
-import homeIcon from "/Home.png";
-import dietIcon from "/List.png";
-import infoIcon from "/Info.png";
+import ProgressBar from "../../components/MainProgressBar";
+
+import character from "../../assets/character.svg";
+import character_eat from "../../assets/BULK_EAT.svg";
+import recordIcon from "../../assets/Note.svg";
+import groupIcon from "../../assets/Vector.svg";
+import homeIcon from "../../assets/Home.svg";
+import dietIcon from "../../assets/List.svg";
+import infoIcon from "../../assets/Info.svg";
+import background from "../../assets/background.svg";
+import food from "../../assets/food.svg";
+
 
 const Main = () => {
+
   const navigate = useNavigate();
-  
-  // 상태 관리
-  const [buttonPosition, setButtonPosition] = useState<{ x: number; y: number }>({ x: 245, y: 280 }); // 버튼 초기 위치
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [offset, setOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [characterImage, setCharacterImage] = useState<string>(() => {
-    const isFedStored = localStorage.getItem("isFed");
-    return isFedStored === "true" ? character : character_eat;
-  });
-  const [isFed, setIsFed] = useState<boolean>(() => {
-    return localStorage.getItem("isFed") === "true";
-  });
+
+  // 초기 색상 로드 (로컬 스토리지에 저장된 색상 사용)
+  const colors = {
+    orange: { bar: "#FF9163", background: "#F4E3DC" },
+    purple: { bar: "#9A7EB1", background: "#DED1E8" },
+    teal: { bar: "#82DED7", background: "#B1CAC8" },
+    blue: { bar: "#83B2E8", background: "#BBD5F3" },
+    yellow: { bar: "#BBDB50", background: "#FFFAD4" },
+  };
+
+  const getInitialColor = () => {
+    const storedColor = localStorage.getItem("selectedColor");
+    return storedColor ? JSON.parse(storedColor) : colors.orange;
+  };
+
+  const [selectedColor, setSelectedColor] = useState(getInitialColor);
+  const [buttonPosition, setButtonPosition] = useState({ x: 275, y: 40 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [characterImage, setCharacterImage] = useState(character);
+  const [isFed, setIsFed] = useState(() => localStorage.getItem("isFed") === "true");
+  const [timer, setTimer] = useState<number | null>(null);
 
   useEffect(() => {
-    // 먹이 상태 변경 시 로컬 스토리지에 저장
-    localStorage.setItem("isFed", isFed.toString());
-  }, [isFed]);
-
-  useEffect(() => {
-    // 타이머 복구 로직
     const timerEndTime = localStorage.getItem("timerEndTime");
     if (timerEndTime) {
-      const timeLeft = parseInt(timerEndTime, 10) - Date.now();
-      if (timeLeft > 0) {
-        // 남은 시간이 있으면 타이머 설정
-        setTimeout(() => {
-          setCharacterImage(character);
-          setIsFed(true);
-          localStorage.setItem("isFed", "true");
-          localStorage.removeItem("timerEndTime"); // 타이머 종료 후 정리
-        }, timeLeft);
+      const remainingTime = parseInt(timerEndTime, 10) - Date.now();
+      if (remainingTime > 0) {
+        setCharacterImage(character_eat);
+        setIsFed(false);
+        setTimer(setTimeout(() => resetCharacterState(), remainingTime));
       } else {
-        // 시간이 지났으면 바로 상태 복구
-        setCharacterImage(character);
-        setIsFed(true);
-        localStorage.setItem("isFed", "true");
-        localStorage.removeItem("timerEndTime");
+        resetCharacterState();
       }
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("isFed", isFed.toString());
+  }, [isFed]);
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setIsDragging(true);
+    setOffset({
+      x: e.clientX - buttonPosition.x,
+      y: e.clientY - buttonPosition.y,
+    });
+  };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isDragging) {
@@ -58,171 +72,205 @@ const Main = () => {
 
       setButtonPosition({ x: newX, y: newY });
 
-      // 버튼이 캐릭터 입 주변에 도달했는지 확인
-      if (newX >= 50 && newX <= 200 && newY >= 50 && newY <= 120) {
-        setCharacterImage(character_eat); // 이미지를 먹는 상태로 변경
-        setIsFed(false); // 먹이 먹은 상태 설정
-        setIsDragging(false); // 드래그 중지
-        setButtonPosition({ x: 245, y: 280 }); // 버튼 초기 위치로 이동
+      if (newX >= 80 && newX <= 120 && newY >= 145 && newY <= 170) {
+        setCharacterImage(character_eat);
+        setIsFed(false);
+        setIsDragging(false);
+        setButtonPosition({ x: 275, y: 40 });
 
-        // 타이머 종료 시간을 로컬 스토리지에 저장
-        const timerEndTime = Date.now() + 10000;
+        const timerEndTime = Date.now() + 10000; // 10초 타이머
         localStorage.setItem("timerEndTime", timerEndTime.toString());
 
-        // 10초 후에 원래 상태로 복구
-        setTimeout(() => {
-          setCharacterImage(character); // 원래 이미지로 복구
-          setIsFed(true); // 먹이 상태 해제
-          localStorage.setItem("isFed", "true");
-          localStorage.removeItem("timerEndTime"); // 타이머 종료 후 정리
-        }, 10000);
+        setTimer(
+          setTimeout(() => {
+            resetCharacterState();
+          }, 10000)
+        );
       }
     }
-  };
-
-  const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setIsDragging(true);
-    setOffset({
-      x: e.clientX - buttonPosition.x, // 마우스 클릭 위치와 버튼 왼쪽 경계의 차이
-      y: e.clientY - buttonPosition.y, // 마우스 클릭 위치와 버튼 위쪽 경계의 차이
-    });
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
   };
 
+  const resetCharacterState = () => {
+    setCharacterImage(character);
+    setIsFed(true);
+    localStorage.setItem("isFed", "true");
+    localStorage.removeItem("timerEndTime");
+  };
+
+  const handleColorChange = (color: { bar: string; background: string }) => {
+    setSelectedColor(color);
+    localStorage.setItem("selectedColor", JSON.stringify(color));
+  };
+
   return (
     <div
-      className="flex flex-col items-center h-screen p-[33px]"
+      className="flex flex-col items-center h-screen p-[15px]"
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
     >
       {/* 상단 레벨 표시 */}
-      <div className="w-full flex flex-col">
-        <h5 className="text-[14px] font-[Pretendard] text-black leading-[1.21] text-left">0kal</h5>
-        <h1 className="text-[40px] font-[GmarketSansWeight] text-black leading-[1.21] mb-4 text-left">LV.12</h1>
-        <h2 className="text-[32px] font-[Pretendard] font-semibold text-black mb-1 text-left">칼로리</h2>
-
-        {/* 칼로리 바 */}
-        <div className="w-full max-w-[327px] items-center mb-[15px]">
-          <div className="relative h-4 bg-gray-300 rounded-full">
-            <div
-              className="absolute h-4 bg-gradient-to-r from-[#445AFF] to-[#9AA6FF] rounded-full"
-              style={{ width: "89%" }}
-            ></div>
+      <div className="w-full flex flex-col mb-4">
+        <div className="flex items-center">
+          <div className="relative w-10 h-10 mr-3">
+            <svg className="absolute top-0 left-0 w-[90%] h-full" viewBox="0 0 36 36">
+              <path
+                className="text-gray-200"
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></path>
+              <path
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                stroke={selectedColor.bar} // 진행 색상 변경
+                strokeDasharray="75, 100"
+                strokeWidth="4"
+              ></path>
+            </svg>
           </div>
-          <div className="font-[Pretendard] flex justify-between mt-1 text-sm text-#000">
-            <span>0kcal</span>
-            <span>1,500kcal</span>
-          </div>
+          <h1 className="text-[40px] font-[GmarketSansWeight] text-black leading-[1.21]">
+            LV.12
+          </h1>
         </div>
-      </div>
 
-      {/* 탄단지 바 */}
-      <div className="w-full">
-        <div className="flex justify-between">
-          {/* 탄 */}
-          <div className="flex flex-col items-start">
-            <span className="font-[Pretendard] text-lg font-semibold mb-1">탄</span>
-            <div className="relative w-[90px] h-4 bg-gray-300 rounded-full">
-              <div
-                className="absolute h-4 bg-gradient-to-r from-[#445AFF] to-[#9AA6FF] rounded-full"
-                style={{ width: "100%" }}
-              ></div>
+        {/* 칼로리 카드 */}
+        <div
+          className="w-[100%] rounded-[20px] p-4 shadow-md mx-auto mt-[11px]"
+          style={{ backgroundColor: selectedColor.background }}
+        >
+          <div className="flex justify-between items-center mb-3">
+            <h2 className="text-[24px] font-[Pretendard] font-semibold text-black">칼로리</h2>
+            
+            {/* 색상 버튼 */}
+            <div className="flex space-x-2 mb-5">
+              {Object.entries(colors).map(([key, color]) => (
+                <button
+                  key={key}
+                  onClick={() => handleColorChange(color)}
+                  className="w-3 h-3 rounded-full"
+                  style={{ backgroundColor: color.bar }}
+                ></button>
+              ))}
             </div>
-            <span className="font-[Pretendard] mt-1 text-sm text-gray-600 ml-[61px]">***g</span>
           </div>
 
-          {/* 단 */}
-          <div className="flex flex-col items-start">
-            <span className="font-[Pretendard] text-lg font-semibold mb-1">단</span>
-            <div className="relative w-[90px] h-4 bg-gray-300 rounded-full">
-              <div
-                className="absolute h-4 bg-gradient-to-r from-[#445AFF] to-[#9AA6FF] rounded-full"
-                style={{ width: "50%" }}
-              ></div>
-            </div>
-            <span className="font-[Pretendard] mt-1 text-sm text-gray-600 ml-[61px]">***g</span>
+          {/* 칼로리 진행바 */}
+          <ProgressBar progress={89} color={selectedColor.bar} />
+          <div className="font-[Pretendard] flex justify-between mt-1 text-sm text-#000">
+            <span></span>
+            <span>
+              <span>1,345</span>
+              <span className="text-[#8D8D8D]">/1,500kcal</span>
+            </span>
           </div>
 
-          {/* 지 */}
-          <div className="flex flex-col items-start">
-            <span className="font-[Pretendard] text-lg font-semibold mb-1">지</span>
-            <div className="relative w-[90px] h-4 bg-gray-300 rounded-full">
-              <div
-                className="absolute h-4 bg-gradient-to-r from-[#445AFF] to-[#9AA6FF] rounded-full"
-                style={{ width: "30%" }}
-              ></div>
+          {/* 탄, 단, 지 */}
+          <div className="w-full mt-2">
+            <div className="flex justify-between">
+              <div className="flex flex-col items-start">
+                <span className="font-[Pretendard] w-[90px] text-lg font-semibold mb-1">탄수화물</span>
+                <ProgressBar progress={100} color={selectedColor.bar} />
+                <span className="font-[Pretendard] mt-1 text-sm text-[#000000]-600 ml-[61px]">350g</span>
+              </div>
+              <div className="flex flex-col items-start">
+                <span className="font-[Pretendard] w-[90px] text-lg font-semibold mb-1">단백질</span>
+                <ProgressBar progress={50} color={selectedColor.bar} />
+                <span className="font-[Pretendard] mt-1 text-sm text-[#000000]-600 ml-[61px]">200g</span>
+              </div>
+              <div className="flex flex-col items-start">
+                <span className="font-[Pretendard] w-[90px] text-lg font-semibold mb-1">지방</span>
+                <ProgressBar progress={30} color={selectedColor.bar} />
+                <span className="font-[Pretendard] mt-1 text-sm text-[#000000]-600 ml-[61px]">100g</span>
+              </div>
             </div>
-            <span className="font-[Pretendard] mt-1 text-sm text-gray-600 ml-[61px]">***g</span>
           </div>
         </div>
       </div>
 
       {/* character */}
-      <div className="relative w-full max-w-[327px] top-7 bottom-1">
-        <img src={characterImage} alt="Character" className="w-[200px] h-[270px] mx-auto" />
-        {isFed && (
-          <button
-            className="absolute w-[100px] h-[48px] text-[14px] font-[Pretendard] font-semibold text-[#191919] rounded-[15px] bg-[#CEDAFF] shadow-custom inset-shadow-custom filter"
-            style={{
-              left: `${buttonPosition.x}px`,
-              top: `${buttonPosition.y}px`,
-              position: "absolute",
-              boxShadow: `0px 0px 20px 2px #EDEFFE inset, 0px 2px 5px -2px rgba(0, 0, 0, 0.25)`
-            }}
-            onMouseDown={handleMouseDown}
-          >
-            벌크 먹어주기
-          </button>
-        )}
-      </div>
+      <div className="relative w-full h-[370px]">
+
+      {/* 배경 이미지 */}
+      <img src={background} alt="Background" className="absolute top-0 left-0 w-full h-full object-cover" />
+        
+      {/* 캐릭터 이미지 */}
+      <img
+        src={characterImage}
+        alt="Character"
+        className="absolute top-1/2 left-1/2 w-[127px] h-[154px] transform -translate-x-[120px] -translate-y-[50px]"
+      />
+      {isFed && (
+        <button
+          className="absolute w-[50px] h-[48px] rounded-[15px] shadow-custom inset-shadow-custom filter"
+          style={{
+            left: `${buttonPosition.x}px`,
+            top: `${buttonPosition.y}px`,
+            position: "absolute",
+            backgroundImage: `url(${food})`, 
+            backgroundSize: "100% 100%",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat", 
+          }}
+          onMouseDown={handleMouseDown}
+        ></button>
+      )}
+    </div>
 
       {/* 하단 네비게이션 */}
-      <div className="fixed bottom-5 w-[393px] bg-[#EDEFFE] justify-center mt-[10%] rounded-t-lg">
-        <div className="flex justify-around items-center">
-          {/* 내 기록 */}
-          <button onClick={() => navigate('/record')} className="font-[Pretendard] flex flex-col items-center">
-            <img src={recordIcon} alt="Record Icon" className="w-[17px] h-[17px] mb-1" />
-            <div className="text-black text-sm">
-              내 기록
-            </div>
-          </button>
+      <div className="fixed bottom-0 w-full max-w-[393px] bg-[#F5F5F5] justify-center rounded-t-[30px] shadow-md">
+      <div
+        className="flex justify-around items-center py-3"
+      >
+        {/* 내 기록 */}
+        <button onClick={() => navigate('/record')} className="font-[Pretendard] flex flex-col items-center">
+          <img src={recordIcon} alt="Record Icon" className="w-[17px] h-[17px] mb-1" />
+          <div className="text-black text-sm">
+            내 기록
+          </div>
+        </button>
 
-          {/* 그룹 */}
-          <button onClick={() => navigate('/group')} className="font-[Pretendard] flex flex-col items-center">
-            <img src={groupIcon} alt="Group Icon" className="w-[21px] h-[18px] mb-1" />
-            <div className="text-black text-sm">
-              그룹
-            </div>
-          </button>
+        {/* 그룹 */}
+        <button onClick={() => navigate('/group')} className="font-[Pretendard] flex flex-col items-center">
+          <img src={groupIcon} alt="Group Icon" className="w-[21px] h-[18px] mb-1" />
+          <div className="text-black text-sm">
+            그룹
+          </div>
+        </button>
 
-          {/* 홈 */}
-          <button onClick={() => navigate('/home')} className="font-[Pretendard] flex flex-col items-center">
-            <img src={homeIcon} alt="Home Icon" className="w-[16px] h-[18px] mb-1" />
-            <div className="text-black text-sm">
-              홈
-            </div>
-          </button>
+        {/* 홈 */}
+        <button onClick={() => navigate('/home')} className="font-[Pretendard] flex flex-col items-center">
+          <img src={homeIcon} alt="Home Icon" className="w-[16px] h-[18px] mb-1" />
+          <div className="text-black text-sm">
+            홈
+          </div>
+        </button>
 
-          {/* 식단 */}
-          <button onClick={() => navigate('/diet')} className="font-[Pretendard] flex flex-col items-center">
-            <img src={dietIcon} alt="Diet Icon" className="w-[16px] h-[18px] mb-1" />
-            <div className="text-black text-sm">
-              식단
-            </div>
-          </button>
+        {/* 식단 */}
+        <button onClick={() => navigate('/diet')} className="font-[Pretendard] flex flex-col items-center">
+          <img src={dietIcon} alt="Diet Icon" className="w-[16px] h-[18px] mb-1" />
+          <div className="text-black text-sm">
+            식단
+          </div>
+        </button>
 
-          {/* 내 정보 */}
-          <button onClick={() => navigate('/mypage')} className="font-[Pretendard] flex flex-col items-center">
-            <img src={infoIcon} alt="Info Icon" className="w-[7px] h-[13px] mb-1" />
-            <div className="text-black text-sm">
-              내 정보
-            </div>
-          </button>
-        </div>
+        {/* 내 정보 */}
+        <button onClick={() => navigate('/mypage')} className="font-[Pretendard] flex flex-col items-center">
+          <img src={infoIcon} alt="Info Icon" className="w-[7px] h-[13px] mb-1" />
+          <div className="text-black text-sm">
+            내 정보
+          </div>
+        </button>
       </div>
+    </div>
     </div>
   );
 };
