@@ -14,6 +14,7 @@ import QuestionPage from './pages/Question/QuestionPage'
 import QuestionStart from './pages/Question/QuestionStart'
 import RecordMyself from './pages/Record/RecordMyself'
 import Suggestion from './pages/Suggestion/Suggestion'
+import SuggestionDetail from './pages/Suggestion/SuggestionDetail'
 import Splash from './pages/Splash/Splash'
 
 const router = createBrowserRouter([
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
       {
         path: 'suggestion',
         element: <Suggestion />,
+      },
+      {
+        path: 'suggestion/:id',
+        element: <SuggestionDetail />,
       },
       {
         path: 'splash',
