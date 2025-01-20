@@ -8,7 +8,7 @@ interface Meal {
   items: string[]
   nutrients: string[]
   Kcal: number
-  icon?: React.ReactNode
+  icon?: string
 }
 
 interface DayData {
@@ -25,7 +25,7 @@ const SuggestionDaysComponent: React.FC<SuggestionDaysComponentProps> = ({ data 
   const [selectedDay, setSelectedDay] = useState(data[0]?.day || '월') // 기본 선택 요일
 
   return (
-    <div className="flex flex-col gap-4 mb-[44px]">
+    <div className="flex flex-col gap-6 mb-[44px]">
       {/* 요일 선택 버튼 */}
       <div className="flex gap-2">
         {data.map((dayData) => (
@@ -46,27 +46,25 @@ const SuggestionDaysComponent: React.FC<SuggestionDaysComponentProps> = ({ data 
         .map((dayData) => (
           <div key={dayData.day} className="flex flex-col gap-2">
             {dayData.meals.map((meal) => (
-              <button key={meal.id} onClick={() => navigate(`/recommendation/${meal.id}`)} className="w-full">
-                <Box className="flex items-center gap-4 p-4 bg-white shadow-md rounded-lg cursor-pointer transition hover:shadow-lg">
-                  {/* 아이콘 */}
-                  {meal.icon && <div className="w-8 h-8 flex-shrink-0">{meal.icon}</div>}
-
-                  {/* 식사 정보 */}
-                  <div className="flex flex-col flex-1">
+              <button key={meal.id} onClick={() => navigate(`/suggestion/${meal.id}`)} className="w-full">
+                <Box className="flex items-center gap-4 p-4 bg-white shadow-md rounded-lg cursor-pointer transition hover:shadow-lg h-[100px] text-[#191919]">
+                  <div className="flex flex-col items-center justify-center relative">
+                    {/* 아이콘 */}
+                    {meal.icon && <img src={meal.icon} alt="아이콘" />}
                     {/* 제목 */}
-                    <div className="flex items-center gap-2">
-                      <span className="text-black text-[14px] font-bold">{meal.title}</span>
-                    </div>
-
-                    {/* 식사 항목 */}
-                    <p className="text-[12px] text-gray-600">{meal.items.join(', ')}</p>
-
-                    {/* 영양 정보 및 칼로리 */}
-                    <div className="flex justify-between text-[12px] text-gray-500 mt-1">
-                      <span>{meal.nutrients.join(' ')}</span>
-                      <span className="font-bold text-black">{meal.Kcal} kcal</span>
-                    </div>
+                    <div className="mt-1 text-center text-black text-[14px] font-bold">{meal.title}</div>
                   </div>
+                  {/* 식사 정보 */}
+                  <div className="flex flex-col flex-1 text-left gap-1">
+                    {/* 식사 항목 */}
+                    {/* 식사 항목 - 3개까지만 표시하고 '등' 추가 */}
+                    <p className="text-[16px] font-medium">
+                      {meal.items.length > 3 ? `${meal.items.slice(0, 3).join(', ')} 등` : meal.items.join(', ')}
+                    </p>
+                    <span className="text-[14px] font-light">{meal.nutrients.join(' ')}</span>
+                    <span className="text-[16px] font-semibold">{meal.Kcal} kcal</span>
+                  </div>
+                  <img src="/src/assets/back.svg" alt="back" />
                 </Box>
               </button>
             ))}
