@@ -9,7 +9,7 @@ export const questionData: Record<string, any> = {
   },
   '1_3': {
     type: 'button',
-    progress: 16.66,
+    progress: 25,
     bigQuestion: '맞춤 증량 계획을\n위해 알려주세요!',
     smallQuestion: '현재의 활동량은 어느 정도인가요?',
     options: [
@@ -22,7 +22,7 @@ export const questionData: Record<string, any> = {
   },
   '1_2': {
     type: 'input',
-    progress: 25,
+    progress: 16.66,
     bigQuestion: '맞춤 증량 계획을\n위해 알려주세요!',
     smallQuestion: '목표 몸무게를 알려주세요.',
     inputs: ['몸무게(kg)'],
@@ -105,7 +105,7 @@ export const questionData: Record<string, any> = {
     options: ['자주', '가끔', '거의 안함'],
     navigateTo: 'signup',
     specialButton: {
-      text: '나만의 식단 받아보기',
+      text: '다음',
       navigateTo: 'signup',
     },
   },

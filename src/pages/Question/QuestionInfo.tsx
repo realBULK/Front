@@ -10,7 +10,7 @@ interface QuestionInfoProps {
 
 const QuestionInfo: React.FC<QuestionInfoProps> = ({ progress, bigQuestion, smallQuestion, children }) => {
   return (
-    <div className="bg-[#EDEFFE] w-full min-h-screen flex flex-col items-start px-[4.07%] pt-[9.27vh]">
+    <div className="bg-[#F5F5F5] w-full min-h-screen flex flex-col items-start px-[4.07%] pt-[9.27vh] absolute relative w-full h-full overflow-hidden">
       <div className="w-full mb-[3.17vh]">
         <StepProgressBar progress={progress} />
       </div>
