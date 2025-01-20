@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import React from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import lunchSun from '@/assets/lunchSun.svg'
 import DietBox from '@/components/SuggestionDietDetailBox'
-import { Link } from 'react-router'
+import { useState } from 'react'
 
+// import useSuggestion from '@/hooks/useSuggestion'
 interface Diet {
   id: number // 고유 ID
   name: string
@@ -14,7 +16,11 @@ interface Diet {
   humanCount: number
 }
 
-const RecordEqual = () => {
+const SuggestionDetail = () => {
+  const { mealId } = useParams()
+  const navigate = useNavigate()
+  // const suggestion = useSuggestion(id)
+
   const [dietBoxes, setDietBoxes] = useState<Diet[]>([
     { id: 1, name: '현미밥', unit: '200g', carbon: 100, fat: 10, protien: 7, starCount: 3, humanCount: 5 },
     { id: 2, name: '닭가슴살', unit: '100g', carbon: 3, fat: 5, protien: 17, starCount: 4, humanCount: 7 },
@@ -27,20 +33,6 @@ const RecordEqual = () => {
     setDietBoxes((prev) => prev.filter((diet) => diet.id !== id))
   }
 
-  // 새로운 DietBox 추가
-  const addDietBox = () => {
-    const newDiet: Diet = {
-      id: Date.now(), // 고유 ID 생성
-      name: '새 음식',
-      unit: '1개',
-      carbon: 20,
-      fat: 5,
-      protien: 10,
-      starCount: 0,
-      humanCount: 0,
-    }
-    setDietBoxes((prev) => [...prev, newDiet])
-  }
   return (
     <div className="flex justify-center items-center flex-col mt-[30px] h-full">
       <div className="flex justify-center items-center flex-col mt-[30px] w-[80%]">
@@ -70,25 +62,19 @@ const RecordEqual = () => {
             key={diet.id}
             {...diet}
             onRemove={() => removeDietBox(diet.id)} // 삭제 함수 전달
+            height="h-[142px]"
           >
-            <></>
+            <button
+              className="shadow-whiteBox rounded-[15px] bg-[#D2E4E2CC] h-[35px] w-[289px] pb-2 pt-2 pl-5 pr-5 flex items-center justify-center text-[14px] font-medium text-[#191919] mt-[18px]"
+              onClick={() => navigate('/record/myself')}
+            >
+              변경
+            </button>
           </DietBox>
         ))}
-
-        <div className="flex flex-row gap-[7px] mb-[30px] justify-around w-full">
-          <button className="flex items-center justify-center py-4 bg-[#D1D1D1] rounded-base text-[14px] font-[500] w-1/2 h-[58px] border-[1px] border-solid border-[#EDEDED]">
-            직접 입력하기
-          </button>
-          <Link
-            to="/home"
-            className="flex items-center justify-center py-4 bg-[#D1D1D1] rounded-base text-[14px] font-[500] w-1/2  h-[58px] border-[1px] border-solid border-[#EDEDED]"
-          >
-            기록하기
-          </Link>
-        </div>
       </div>
     </div>
   )
 }
 
-export default RecordEqual
+export default SuggestionDetail

@@ -46,27 +46,30 @@ const SuggestionDaysComponent: React.FC<SuggestionDaysComponentProps> = ({ data 
         .map((dayData) => (
           <div key={dayData.day} className="flex flex-col gap-2">
             {dayData.meals.map((meal) => (
-              <button key={meal.id} onClick={() => navigate(`/suggestion/${meal.id}`)} className="w-full">
-                <Box className="flex items-center gap-4 p-4 bg-white shadow-md rounded-lg cursor-pointer transition hover:shadow-lg h-[100px] text-[#191919]">
-                  <div className="flex flex-col items-center justify-center relative">
-                    {/* 아이콘 */}
-                    {meal.icon && <img src={meal.icon} alt="아이콘" />}
-                    {/* 제목 */}
-                    <div className="mt-1 text-center text-black text-[14px] font-bold">{meal.title}</div>
-                  </div>
-                  {/* 식사 정보 */}
-                  <div className="flex flex-col flex-1 text-left gap-1">
-                    {/* 식사 항목 */}
-                    {/* 식사 항목 - 3개까지만 표시하고 '등' 추가 */}
-                    <p className="text-[16px] font-medium">
-                      {meal.items.length > 3 ? `${meal.items.slice(0, 3).join(', ')} 등` : meal.items.join(', ')}
-                    </p>
-                    <span className="text-[14px] font-light">{meal.nutrients.join(' ')}</span>
-                    <span className="text-[16px] font-semibold">{meal.Kcal} kcal</span>
-                  </div>
-                  <img src="/src/assets/back.svg" alt="back" />
-                </Box>
-              </button>
+              <Box
+                className=" h-[100px] shadow-whiteBox gap-4 cursor-pointer hover:shadow-lg text-[#191919]"
+                as="button"
+                onClick={() => navigate(`/suggestion/${meal.id}`)}
+                key={meal.id}
+              >
+                <div className="flex flex-col items-center justify-center relative">
+                  {/* 아이콘 */}
+                  {meal.icon && <img src={meal.icon} alt="아이콘" />}
+                  {/* 제목 */}
+                  <div className="mt-1 text-center text-black text-[14px] font-bold">{meal.title}</div>
+                </div>
+                {/* 식사 정보 */}
+                <div className="flex flex-col flex-1 text-left gap-1">
+                  {/* 식사 항목 */}
+                  {/* 식사 항목 - 3개까지만 표시하고 '등' 추가 */}
+                  <p className="text-[16px] font-medium">
+                    {meal.items.length > 3 ? `${meal.items.slice(0, 3).join(', ')} 등` : meal.items.join(', ')}
+                  </p>
+                  <span className="text-[14px] font-light">{meal.nutrients.join(' ')}</span>
+                  <span className="text-[16px] font-semibold">{meal.Kcal} kcal</span>
+                </div>
+                <img src="/src/assets/back.svg" alt="back" />
+              </Box>
             ))}
           </div>
         ))}
