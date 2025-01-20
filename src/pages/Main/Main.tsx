@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import ProgressBar from "../../components/MainProgressBar";
 
 import character from "/character.png";
-import character_eat from "/BULK_EAT.png";
-import recordIcon from "/Note.png";
-import groupIcon from "/Vector.png";
-import homeIcon from "/Home.png";
-import dietIcon from "/List.png";
-import infoIcon from "/Info.png";
+import character_eat from "/BULK_EAT.svg";
+import recordIcon from "/Note.svg";
+import groupIcon from "/Vector.svg";
+import homeIcon from "/Home.svg";
+import dietIcon from "/List.svg";
+import infoIcon from "/Info.svg";
 import background from "/background.svg";
 
 const Main = () => {
