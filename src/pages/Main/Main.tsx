@@ -72,6 +72,7 @@ const Main = () => {
         setButtonPosition({ x: 275, y: 40 });
 
         const timerEndTime = Date.now() + 10000; // 10초 타이머
+        console.log(timer);
         localStorage.setItem("timerEndTime", timerEndTime.toString());
 
         setTimer(
