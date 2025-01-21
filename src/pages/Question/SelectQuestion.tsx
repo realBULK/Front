@@ -85,7 +85,7 @@ const SelectionQuestion: FC<SelectionQuestionProps> = ({
                 {cat.title}
               </div>
               <div className="flex flex-wrap gap-[5px]">
-                {cat.items.map((item, idx2) => (
+                {cat.items.map((item) => (
                   <QuestionSmallButton
                     key={`${item}-${selectedItems.includes(item)}`}
                     text={item}

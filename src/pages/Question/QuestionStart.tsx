@@ -1,9 +1,6 @@
-import { useNavigate } from 'react-router-dom'
 import BlueGradButton from '../../components/BigGrayButton'
 
 const Question1_1 = () => {
-  const navigate = useNavigate()
-
   return (
     <div className="bg-[#EDEFFE] w-full min-h-screen flex flex-col items-start items-center">
       <div className="w-full text-black text-justify font-pretendard text-[22px] font-semibold leading-[121%] tracking-[-1px] px-[10%] pt-[22.18vh] pl-[21.89%]">
