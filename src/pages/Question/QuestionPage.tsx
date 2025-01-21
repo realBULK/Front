@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { questionData } from './QuestionData'
 import InputQuestion from './InputQuestion'
 import ButtonQuestion from './ButtonQuestion'

@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 interface QuestionComponentProps {
   placeholder: string
