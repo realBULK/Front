@@ -1,5 +1,4 @@
-import React from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import lunchSun from '@/assets/lunchSun.svg'
 import DietBox from '@/components/SuggestionDietDetailBox'
 import { useState } from 'react'
@@ -17,7 +16,7 @@ interface Diet {
 }
 
 const SuggestionDetail = () => {
-  const { mealId } = useParams()
+  // const { mealId } = useParams()
   const navigate = useNavigate()
   // const suggestion = useSuggestion(id)
 
