@@ -8,10 +8,10 @@ interface NutritionBarProps {
   color: string; 
 }
 
-const NutritionBar: React.FC<NutritionBarProps> = ({ label, progress, amount, color }) => (
+const NutritionBar: React.FC<NutritionBarProps> = ({ label, progress, amount}) => (
   <div className="flex flex-col items-start">
     <span className="font-[Pretendard] text-lg font-semibold mb-1">{label}</span>
-    <ProgressBar width={progress} color={color} />
+    <ProgressBar progress={parseFloat(progress)} height="8px" />
     <span className="font-[Pretendard] mt-1 text-sm text-[#000000]">{amount}</span>
   </div>
 );
