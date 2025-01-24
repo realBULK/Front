@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      
+
 
 jobs:
   deploy:
@@ -17,7 +17,7 @@ jobs:
       - name: Node 세팅
         uses: actions/setup-node@v3
         with:
-          node-version: '22.11.0'
+          node-version: '22.10.5'
           cache: 'yarn'
 
       - name: 의존성 설치
@@ -39,4 +39,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
 
-      
+      - name: S3로 파일 배포
+        run: |
+          aws s3 sync ./dist s3://www.bulkapp.site --delete
+
+      - name: CloudFront 캐시 무효화
+        run: |
+          aws cloudfront create-invalidation --distribution-id E3SKL51LT8O5KG --paths "/*"
