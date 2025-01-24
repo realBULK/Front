@@ -1,4 +1,3 @@
-import React from 'react'
 
 interface RatingProps {
   rating: number // 평가값 (0 ~ 5)
