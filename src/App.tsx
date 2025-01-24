@@ -15,6 +15,8 @@ import QuestionStart from './pages/Question/QuestionStart'
 import RecordMyself from './pages/Record/RecordMyself'
 import Suggestion from './pages/Suggestion/Suggestion'
 import Splash from './pages/Splash/Splash'
+import RecordReview from './pages/Record/RecordReview'
+import ReviewWrite from './pages/Record/ReviewWrite'
 
 const router = createBrowserRouter([
   {
@@ -49,6 +51,14 @@ const router = createBrowserRouter([
       {
         path: 'record/myself',
         element: <RecordMyself />,
+      },
+      {
+        path: 'record/review',
+        element: <RecordReview />,
+      },
+      {
+        path: 'record/review/write',
+        element: <ReviewWrite />,
       },
       {
         path: 'home',

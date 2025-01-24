@@ -28,19 +28,19 @@ const RecordEqual = () => {
   }
 
   // 새로운 DietBox 추가
-  const addDietBox = () => {
-    const newDiet: Diet = {
-      id: Date.now(), // 고유 ID 생성
-      name: '새 음식',
-      unit: '1개',
-      carbon: 20,
-      fat: 5,
-      protien: 10,
-      starCount: 0,
-      humanCount: 0,
-    }
-    setDietBoxes((prev) => [...prev, newDiet])
-  }
+  //   const addDietBox = () => {
+  //     const newDiet: Diet = {
+  //       id: Date.now(), // 고유 ID 생성
+  //       name: '새 음식',
+  //       unit: '1개',
+  //       carbon: 20,
+  //       fat: 5,
+  //       protien: 10,
+  //       starCount: 0,
+  //       humanCount: 0,
+  //     }
+  //     setDietBoxes((prev) => [...prev, newDiet])
+  //   }
   return (
     <div className="flex justify-center items-center flex-col mt-[30px] h-full">
       <div className="flex justify-center items-center flex-col mt-[30px] w-[80%]">
@@ -74,9 +74,12 @@ const RecordEqual = () => {
         ))}
 
         <div className="flex flex-row gap-[7px] mb-[30px] justify-around w-full">
-          <button className="flex items-center justify-center py-4 bg-[#D1D1D1] rounded-base text-[14px] font-[500] w-1/2 h-[58px] border-[1px] border-solid border-[#EDEDED]">
+          <Link
+            to="/record/myself"
+            className="flex items-center justify-center py-4 bg-[#D1D1D1] rounded-base text-[14px] font-[500] w-1/2 h-[58px] border-[1px] border-solid border-[#EDEDED]"
+          >
             직접 입력하기
-          </button>
+          </Link>
           <Link
             to="/home"
             className="flex items-center justify-center py-4 bg-[#D1D1D1] rounded-base text-[14px] font-[500] w-1/2  h-[58px] border-[1px] border-solid border-[#EDEDED]"
