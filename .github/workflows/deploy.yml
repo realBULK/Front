@@ -41,7 +41,7 @@ jobs:
 
       - name: S3로 파일 배포
         run: |
-          aws s3 sync ./dist s3://www.bulkapp.site --delete
+          aws s3 sync ./dist s3://bulkapp.site --delete
 
       - name: CloudFront 캐시 무효화
         run: |
