@@ -21,7 +21,7 @@ const Start = () => {
           }}
           onClick={() => navigate('/questionstart')}
         >
-          시작하기
+          맞춤 식단 받아보기
         </button>
 
         <div className="flex items-center w-[327px]">
