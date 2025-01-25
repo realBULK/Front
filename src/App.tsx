@@ -14,9 +14,12 @@ import QuestionPage from './pages/Question/QuestionPage'
 import QuestionStart from './pages/Question/QuestionStart'
 import RecordMyself from './pages/Record/RecordMyself'
 import Suggestion from './pages/Suggestion/Suggestion'
+import SuggestionDetail from './pages/Suggestion/SuggestionDetail'
 import Splash from './pages/Splash/Splash'
 import RecordReview from './pages/Record/RecordReview'
 import ReviewWrite from './pages/Record/ReviewWrite'
+
+import ResultPost from './pages/Question/ResultPost'
 
 const router = createBrowserRouter([
   {
@@ -85,9 +88,18 @@ const router = createBrowserRouter([
         element: <QuestionPage />,
       },
       {
+        path: 'question_post_test',
+        element: <ResultPost />,
+      },
+      {
         path: 'suggestion',
         element: <Suggestion />,
       },
+      {
+        path: 'suggestion/:mealId',
+        element: <SuggestionDetail />,
+      },
+
       {
         path: 'splash',
         element: <Splash />,

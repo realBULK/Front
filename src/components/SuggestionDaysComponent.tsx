@@ -1,10 +1,14 @@
-import React from 'react'
-import Box from '@/components/WhiteBox' // 준비된 Box 컴포넌트 import
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Box from '@/components/WhiteBox'
 
 interface Meal {
+  id: string
   title: string
   items: string[]
-  icon?: React.ReactNode
+  nutrients: string[]
+  Kcal: number
+  icon?: string
 }
 
 interface DayData {
@@ -17,38 +21,58 @@ interface SuggestionDaysComponentProps {
 }
 
 const SuggestionDaysComponent: React.FC<SuggestionDaysComponentProps> = ({ data }) => {
-  return (
-    <div className="flex flex-col gap-6 mb-[44px]">
-      {data.map((dayData) => (
-        <div key={dayData.day} className="flex flex-col gap-4">
-          {/* 요일 */}
-          <h2 className="text-black text-[32px] not-italic font-bold leading-[121%] font-[Pretendard]">
-            {dayData.day}
-          </h2>
+  const navigate = useNavigate()
+  const [selectedDay, setSelectedDay] = useState(data[0]?.day || '월') // 기본 선택 요일
 
-          {/* 식사 카드 */}
-          {dayData.meals.map((meal) => (
-            <Box key={meal.title} className="flex items-start gap-4">
-              {/* 아이콘 */}
-              {meal.icon && <div className="w-7 h-7 flex-shrink-0">{meal.icon}</div>}
-              {/* 제목 */}
-              <div className="text-black text-center text-sm not-italic font-bold leading-[121%] font-[Pretendard] flex-shrink-0 w-[30px] ">
-                {meal.title}
-              </div>
-              {/* 식사 정보 */}
-              <div className="flex-1">
-                <ul className="flex flex-wrap text-black text-[10px] not-italic font-light leading-[121%] font-[Pretendard]">
-                  {meal.items.map((item, index) => (
-                    <li key={index} className="w-[calc(100%/2)]">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Box>
-          ))}
-        </div>
-      ))}
+  return (
+    <div className="flex flex-col gap-5">
+      {/* 요일 선택 버튼 */}
+      <div className="flex gap-2">
+        {data.map((dayData) => (
+          <button
+            key={dayData.day}
+            onClick={() => setSelectedDay(dayData.day)}
+            className={`text-[16px] text-black text-center text-base not-italic font-bold leading-[121%] w-10 h-7 border shadow-[0px_2px_5px_-2px_rgba(0,0,0,0.25)] rounded-[15px] border-solid border-[#EDEDED] 
+              ${selectedDay === dayData.day ? 'bg-[#95BCB8CC]' : 'bg-white hover:bg-[#D2E4E2CC]'}`}
+          >
+            {dayData.day}
+          </button>
+        ))}
+      </div>
+
+      {/* 선택된 요일의 식단 리스트 */}
+      {data
+        .filter((dayData) => dayData.day === selectedDay) // 선택된 요일만 표시
+        .map((dayData) => (
+          <div key={dayData.day} className="flex flex-col gap-2">
+            {dayData.meals.map((meal) => (
+              <Box
+                className=" h-[100px] shadow-whiteBox gap-4 cursor-pointer hover:shadow-lg text-[#191919]"
+                as="button"
+                onClick={() => navigate(`/suggestion/${meal.id}`)}
+                key={meal.id}
+              >
+                <div className="flex flex-col items-center justify-center relative">
+                  {/* 아이콘 */}
+                  {meal.icon && <img src={meal.icon} alt="아이콘" />}
+                  {/* 제목 */}
+                  <div className="mt-1 text-center text-black text-[14px] font-bold">{meal.title}</div>
+                </div>
+                {/* 식사 정보 */}
+                <div className="flex flex-col flex-1 text-left gap-1">
+                  {/* 식사 항목 */}
+                  {/* 식사 항목 - 3개까지만 표시하고 '등' 추가 */}
+                  <p className="text-[16px] font-medium">
+                    {meal.items.length > 3 ? `${meal.items.slice(0, 3).join(', ')} 등` : meal.items.join(', ')}
+                  </p>
+                  <span className="text-[14px] font-light">{meal.nutrients.join(' ')}</span>
+                  <span className="text-[16px] font-semibold">{meal.Kcal} kcal</span>
+                </div>
+                <img src="/src/assets/back.svg" alt="back" />
+              </Box>
+            ))}
+          </div>
+        ))}
     </div>
   )
 }

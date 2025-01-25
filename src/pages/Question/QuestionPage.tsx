@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { questionData } from './QuestionData'
 import InputQuestion from './InputQuestion'
 import ButtonQuestion from './ButtonQuestion'
@@ -16,6 +16,8 @@ export default function QuestionPage() {
   if (q.type === 'input') {
     return (
       <InputQuestion
+        id={q.id}
+        datatype={q.datatype}
         progress={q.progress}
         bigQuestion={q.bigQuestion}
         smallQuestion={q.smallQuestion}
@@ -28,6 +30,7 @@ export default function QuestionPage() {
   if (q.type === 'button') {
     return (
       <ButtonQuestion
+        datatype={q.datatype}
         progress={q.progress}
         bigQuestion={q.bigQuestion}
         smallQuestion={q.smallQuestion}
@@ -41,6 +44,7 @@ export default function QuestionPage() {
   if (q.type === 'select') {
     return (
       <SelectQuestion
+        datatype={q.datatype}
         progress={q.progress}
         bigQuestion={q.bigQuestion}
         smallQuestion={q.smallQuestion}

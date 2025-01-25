@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import backButton from '../../assets/backButton.svg'
 import Rating from './Recordcomponents/Rating'
+import BigGrayButton from '@/components/BigGrayButton'
 
 const ReviewWrite = () => {
   const goBack = () => {
@@ -8,6 +9,10 @@ const ReviewWrite = () => {
   }
 
   const [rate, setRate] = useState<number>(0)
+
+  const postReview = () => {
+    console.log('postReview')
+  }
 
   return (
     <div className="flex flex-col h-screen pt-[28px] px-[20px]">
@@ -31,9 +36,10 @@ const ReviewWrite = () => {
         </div>
       </div>
       <textarea
-        className="h-[413px] bg-white rounded-[15px] shadow-whiteBox text-top ps-[22px] pt-[30px] text-[14px]"
+        className="h-[413px] bg-white rounded-[15px] shadow-whiteBox text-top ps-[22px] pt-[30px] text-[14px] mb-[16px]"
         placeholder="다른 사용자를 위해 의견을 적어주세요 (선택)"
       ></textarea>
+      <BigGrayButton text="후기 등록하기" navigateTo="home" onClick={() => postReview()} />
     </div>
   )
 }
