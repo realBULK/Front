@@ -1,5 +1,3 @@
-import React from 'react'
-
 const RecordUnequal = () => {
   return <div>RecordUnequal</div>
 }
