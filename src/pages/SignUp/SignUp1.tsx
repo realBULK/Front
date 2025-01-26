@@ -110,7 +110,7 @@ const SignUp1: React.FC = () => {
      {/* Next Button */}
 <div className="w-[327px] max-w-md mx-auto mt-auto mb-10">
   <button
-    className="w-[327px] h-[55px] font-[pretendard] bg-[#D1D1D1] 
+    className="w-[327px] h-[57px] font-[pretendard] bg-[#D1D1D1] 
       shadow-whiteBox rounded-base font-semibold text-[14px] text-[#191919] outline-none
       hover:bg-[#B8ADC0] active:bg-[#9B88A8]" 
     onClick={handleNext}
