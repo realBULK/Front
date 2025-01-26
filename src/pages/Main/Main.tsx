@@ -5,8 +5,6 @@ import NavBar from "../../components/NavBar";
 import character from "../../assets/character.svg";
 import character_eat from "../../assets/BULK_EAT.svg";
 import background from "../../assets/background.svg";
-import food from "../../assets/food.svg";
-
 
 const Main = () => {
 
@@ -206,9 +204,9 @@ const Main = () => {
         alt="Character"
         className="absolute top-1/2 left-1/2 w-[127px] h-[154px] transform -translate-x-[120px] -translate-y-[50px]"
       />
-              {isFed && (
+      {isFed && (
           <img
-            src={food}
+            src="https://raw.githubusercontent.com/realBULK/Front/465c88702a7cc401873ad7f0b390b21168eaa506/src/assets/food.svg"
             alt="Food"
             className="absolute w-[50px] h-[48px] cursor-pointer"
             style={{
