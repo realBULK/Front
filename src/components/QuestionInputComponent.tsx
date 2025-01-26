@@ -35,16 +35,6 @@ const QuestionInputComponent: React.FC<QuestionComponentProps> = ({ placeholder,
     }
   }
 
-  // useEffect(() => {
-  //   console.log('페이지전환')
-
-  //   const inputElement = document.querySelector('input')
-  //   if (inputElement) {
-  //     inputElement.value = ''
-  //   }
-  //   return () => {}
-  // }, [])
-
   return (
     <div>
       <input
