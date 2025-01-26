@@ -9,7 +9,6 @@ import bulkfood from "../../assets/BulkFood.svg";
 
 const Main = () => {
 
-  // 초기 색상 로드 (로컬 스토리지에 저장된 색상 사용)
   const colors = {
     orange: { bar: "#FF9163", background: "#F4E3DC" },
     purple: { bar: "#9A7EB1", background: "#DED1E8" },
@@ -28,7 +27,14 @@ const Main = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [characterImage, setCharacterImage] = useState(character);
-  const [isFed, setIsFed] = useState(() => localStorage.getItem("isFed") === "true");
+  const [isFed, setIsFed] = useState(() => {
+    const storedValue = localStorage.getItem("isFed");
+    if (storedValue === null) {
+      localStorage.setItem("isFed", "true"); // 기본값 설정
+      return true;
+    }
+    return storedValue === "true";
+  });
   const [timer, setTimer] = useState<number | null>(null);
 
   useEffect(() => {
