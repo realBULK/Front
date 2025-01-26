@@ -7,7 +7,7 @@ import quotes from '../../assets/quotes.svg'
 import plus from '../../assets/plusIcon.svg'
 import minus from '../../assets/minusIcon.svg'
 
-import CustomFoodBox from './recordComponents/CustomFoodBox'
+import CustomFoodBox from './Recordcomponents/CustomFoodBox'
 import { Link } from 'react-router'
 
 interface Diet {
