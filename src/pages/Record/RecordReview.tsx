@@ -2,8 +2,8 @@ import backButton from '../../assets/backButton.svg'
 import review from '../../assets/review.svg'
 import quotes from '../../assets/quotes.svg'
 import human from '../../assets/humanYellow.svg'
-import Rating from './Recordcomponents/Rating'
-import ReviewBox from './Recordcomponents/ReviewBox'
+import Rating from './recordComponents/Rating'
+import ReviewBox from './recordComponents/ReviewBox'
 import { useState } from 'react'
 import { Link } from 'react-router'
 
@@ -17,7 +17,7 @@ interface Review {
 }
 
 const RecordReview = () => {
-  const [reviewBox, setReviewBox] = useState<Review[]>([
+  const [reviewBox] = useState<Review[]>([
     {
       id: 1,
       count: 4,
