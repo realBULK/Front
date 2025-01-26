@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import backButton from '../../assets/backButton.svg'
-import Rating from './Recordcomponents/Rating'
+import Rating from './recordComponents/Rating'
 import BigGrayButton from '@/components/BigGrayButton'
 
 const ReviewWrite = () => {

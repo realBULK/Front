@@ -7,7 +7,7 @@ import quotes from '../../assets/quotes.svg'
 import plus from '../../assets/plusIcon.svg'
 import minus from '../../assets/minusIcon.svg'
 
-import CustomFoodBox from './Recordcomponents/CustomFoodBox'
+import CustomFoodBox from './recordComponents/CustomFoodBox'
 import { Link } from 'react-router'
 
 interface Diet {
@@ -28,13 +28,13 @@ interface ModalInfo {
 }
 
 const RecordMyself = () => {
-  const [customFoodBoxes, setCustomFoodBoxes] = useState<Diet[]>([
+  const [customFoodBoxes] = useState<Diet[]>([
     { id: 1, name: '현미밥', unit: '200g', starCount: 3, humanCount: 5 },
     { id: 2, name: '닭가슴살', unit: '100g', starCount: 4, humanCount: 7 },
     { id: 3, name: '계란후라이', unit: '1개', starCount: 5, humanCount: 4 },
     { id: 4, name: '채소 볶음', unit: '브로콜리, 당근', starCount: 2, humanCount: 9 },
   ])
-  const [modalInfo, setModalInfo] = useState<ModalInfo>({
+  const [modalInfo] = useState<ModalInfo>({
     name: '삶은 고구마',
     unit: 100,
     carbon: 45.85,
@@ -50,16 +50,16 @@ const RecordMyself = () => {
   const closeModal = () => {
     setIsOpen(false)
   }
-  const addDietBox = () => {
-    const newDiet: Diet = {
-      id: Date.now(), // 고유 ID 생성
-      name: '새 음식',
-      unit: '1개',
-      starCount: 0,
-      humanCount: 0,
-    }
-    setCustomFoodBoxes((prev) => [...prev, newDiet])
-  }
+  //   const addDietBox = () => {
+  //     const newDiet: Diet = {
+  //       id: Date.now(), // 고유 ID 생성
+  //       name: '새 음식',
+  //       unit: '1개',
+  //       starCount: 0,
+  //       humanCount: 0,
+  //     }
+  //     setCustomFoodBoxes((prev) => [...prev, newDiet])
+  //   }
 
   const [unitCount, setUnitCount] = useState<number>(1)
 
