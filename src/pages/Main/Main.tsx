@@ -5,6 +5,7 @@ import NavBar from "../../components/NavBar";
 import character from "../../assets/character.svg";
 import character_eat from "../../assets/BULK_EAT.svg";
 import background from "../../assets/background.svg";
+import bulkfood from "../../assets/BulkFood.svg";
 
 const Main = () => {
 
@@ -206,7 +207,7 @@ const Main = () => {
       />
       {isFed && (
           <img
-            src="https://raw.githubusercontent.com/realBULK/Front/465c88702a7cc401873ad7f0b390b21168eaa506/src/assets/food.svg"
+            src={bulkfood}
             alt="Food"
             className="absolute w-[50px] h-[48px] cursor-pointer"
             style={{
@@ -228,3 +229,4 @@ const Main = () => {
 };
 
 export default Main;
+
