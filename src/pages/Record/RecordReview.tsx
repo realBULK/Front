@@ -44,33 +44,6 @@ const RecordReview = () => {
     },
   ])
 
-  setReviewBox([
-    {
-      id: 1,
-      count: 4,
-      title: '대체로 만족스러웠어요 다시 먹고 싶어요',
-      userId: 'orum1223',
-      date: '2025.01.02',
-      content: '간단한게 한끼 식사에 포함 하기 너무 좋아요!',
-    },
-    {
-      id: 2,
-      count: 3,
-      title: '대체로 만족스러웠어요 다시 먹고 싶어요',
-      userId: 'orum1223',
-      date: '2025.01.02',
-      content: '간단한게 한끼 식사에 포함 하기 너무 좋아요!',
-    },
-    {
-      id: 3,
-      count: 5,
-      title: '대체로 만족스러웠어요 다시 먹고 싶어요',
-      userId: 'orum1223',
-      date: '2025.01.02',
-      content: '간단한게 한끼 식사에 포함 하기 너무 좋아요!',
-    },
-  ])
-
   const goBack = () => {
     window.history.back() // 뒤로 가기
   }
@@ -93,7 +66,7 @@ const RecordReview = () => {
       <div className="flex justify-center items-center py-4 bg-[#ffffff] rounded-base shadow-whiteBox h-[112px] border-[1px] border-solid border-[#EDEDED] opacity-80 mb-[41px]">
         <img src={human} />
         <p className="text-[16px] font-[500] ms-[5px] me-[7px]">2</p>
-        <Rating rating={3} />
+        <Rating rating={3} width={49} height={49} />
       </div>
       <h1 className="text-[24px] font-[700] mb-[10px]">실제 증량러들의 생생한 한줄평!</h1>
       {reviewBox.map((box) => (

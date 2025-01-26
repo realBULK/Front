@@ -1,4 +1,3 @@
-
 const RecordUnequal = () => {
   return <div>RecordUnequal</div>
 }

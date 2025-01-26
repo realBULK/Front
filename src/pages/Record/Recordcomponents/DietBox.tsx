@@ -1,4 +1,4 @@
-interface RecordComponentProps {
+interface DietBoxProps {
   name: string
   unit: string
   carbon: number
@@ -6,7 +6,7 @@ interface RecordComponentProps {
   protien: number
 }
 
-const DietBox = ({ name, unit, carbon, fat, protien }: RecordComponentProps) => {
+const DietBox = ({ name, unit, carbon, fat, protien }: DietBoxProps) => {
   return (
     <div className="box-border flex flex-col items-center w-[83%] h-[142px] bg-white rounded-base shadow-base border-[1px] border-solid border-[#EDEDED] px-[18px] mb-[25px] ">
       <h1 className="w-fit text-[24px] font-[700]  ">

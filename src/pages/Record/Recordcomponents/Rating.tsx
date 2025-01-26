@@ -1,16 +1,17 @@
-
 interface RatingProps {
   rating: number // 평가값 (0 ~ 5)
+  width: number
+  height: number
 }
 
-const Rating = ({ rating }: RatingProps) => {
+const Rating = ({ rating, width, height }: RatingProps) => {
   const stars = []
 
   // 별 5개 생성
   for (let i = 0; i < 5; i++) {
     const isFilled = i < rating // 평가값에 따라 별이 채워지는지 여부 확인
     stars.push(
-      <svg key={i} xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 49 49" fill="none">
+      <svg key={i} xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 49 49" fill="none">
         <mask
           id={`mask0_821_1436_${i}`}
           style={{ maskType: 'luminance' }}

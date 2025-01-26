@@ -34,14 +34,6 @@ const RecordMyself = () => {
     { id: 3, name: '계란후라이', unit: '1개', starCount: 5, humanCount: 4 },
     { id: 4, name: '채소 볶음', unit: '브로콜리, 당근', starCount: 2, humanCount: 9 },
   ])
-
-  setCustomFoodBoxes([
-    { id: 1, name: '현미밥', unit: '200g', starCount: 3, humanCount: 5 },
-    { id: 2, name: '닭가슴살', unit: '100g', starCount: 4, humanCount: 7 },
-    { id: 3, name: '계란후라이', unit: '1개', starCount: 5, humanCount: 4 },
-    { id: 4, name: '채소 볶음', unit: '브로콜리, 당근', starCount: 2, humanCount: 9 },
-  ])
-
   const [modalInfo, setModalInfo] = useState<ModalInfo>({
     name: '삶은 고구마',
     unit: 100,
@@ -50,16 +42,6 @@ const RecordMyself = () => {
     fat: 0.22,
     kcal: 128,
   })
-
-  setModalInfo({
-    name: '삶은 고구마',
-    unit: 100,
-    carbon: 45.85,
-    protien: 2.6,
-    fat: 0.22,
-    kcal: 128,
-  })
-
   const [isOpen, setIsOpen] = useState(false)
 
   const openModal = () => {
@@ -68,16 +50,16 @@ const RecordMyself = () => {
   const closeModal = () => {
     setIsOpen(false)
   }
-  //   const addDietBox = () => {
-  //     const newDiet: Diet = {
-  //       id: Date.now(), // 고유 ID 생성
-  //       name: '새 음식',
-  //       unit: '1개',
-  //       starCount: 0,
-  //       humanCount: 0,
-  //     }
-  //     setCustomFoodBoxes((prev) => [...prev, newDiet])
-  //   }
+  const addDietBox = () => {
+    const newDiet: Diet = {
+      id: Date.now(), // 고유 ID 생성
+      name: '새 음식',
+      unit: '1개',
+      starCount: 0,
+      humanCount: 0,
+    }
+    setCustomFoodBoxes((prev) => [...prev, newDiet])
+  }
 
   const [unitCount, setUnitCount] = useState<number>(1)
 
@@ -112,7 +94,7 @@ const RecordMyself = () => {
       </div>
       {/* DietBox 리스트 렌더링 */}
       {customFoodBoxes.map((diet) => (
-        <CustomFoodBox key={diet.id} {...diet} openMdoal={() => openModal} />
+        <CustomFoodBox key={diet.id} {...diet} openMdoal={() => openModal()} />
       ))}
 
       {isOpen && (
