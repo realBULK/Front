@@ -55,7 +55,7 @@ const Main = () => {
     localStorage.setItem("isFed", isFed.toString());
   }, [isFed]);
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLImageElement>) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsDragging(true);
     setOffset({
       x: e.clientX - buttonPosition.x,
@@ -87,10 +87,6 @@ const Main = () => {
         );
       }
     }
-  };
-
-  const handleDragStart = (e: React.DragEvent<HTMLImageElement>) => {
-    e.preventDefault(); // 기본 드래그 동작 방지
   };
 
   const handleMouseUp = () => {
@@ -212,19 +208,19 @@ const Main = () => {
         className="absolute top-1/2 left-1/2 w-[127px] h-[154px] transform -translate-x-[120px] -translate-y-[50px]"
       />
       {isFed && (
-          <img
-            src={bulkfood}
-            alt="Food"
-            className="absolute w-[50px] h-[48px] cursor-pointer"
-            style={{
-              left: `${buttonPosition.x}px`,
-              top: `${buttonPosition.y}px`,
-              transform: isDragging ? "scale(1.1)" : "scale(1)",
-              transition: isDragging ? "none" : "transform 0.2s ease",
-            }}
-            onMouseDown={handleMouseDown}
-            onDragStart={handleDragStart}
-          />
+        <button
+          className="absolute w-[50px] h-[48px] rounded-[15px] shadow-custom inset-shadow-custom filter"
+          style={{
+            left: `${buttonPosition.x}px`,
+            top: `${buttonPosition.y}px`,
+            position: "absolute",
+            backgroundImage: `url(${bulkfood})`, 
+            backgroundSize: "100% 100%",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat", 
+          }}
+          onMouseDown={handleMouseDown}
+        ></button>
       )}
     </div>
 
