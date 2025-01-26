@@ -7,8 +7,8 @@ import character_eat from "../../assets/BULK_EAT.svg";
 import background from "../../assets/background.svg";
 import bulkfood from "../../assets/BulkFood.svg";
 
-const Main = () => {
 
+const Main = () => {
   const colors = {
     orange: { bar: "#FF9163", background: "#F4E3DC" },
     purple: { bar: "#9A7EB1", background: "#DED1E8" },
@@ -55,43 +55,68 @@ const Main = () => {
     localStorage.setItem("isFed", isFed.toString());
   }, [isFed]);
 
+  // 드래그 시작 (데스크톱)
   const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
+    startDragging(e.clientX, e.clientY);
+  };
+
+  // 드래그 시작 (모바일)
+  const handleTouchStart = (e: React.TouchEvent<HTMLButtonElement>) => {
+    const touch = e.touches[0];
+    startDragging(touch.clientX, touch.clientY);
+  };
+
+  const startDragging = (clientX: number, clientY: number) => {
     setIsDragging(true);
     setOffset({
-      x: e.clientX - buttonPosition.x,
-      y: e.clientY - buttonPosition.y,
+      x: clientX - buttonPosition.x,
+      y: clientY - buttonPosition.y,
     });
   };
 
+  // 드래그 이동 (데스크톱)
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isDragging) {
-      const newX = e.clientX - offset.x;
-      const newY = e.clientY - offset.y;
-
-      setButtonPosition({ x: newX, y: newY });
-
-      if (newX >= 80 && newX <= 120 && newY >= 145 && newY <= 170) {
-        setCharacterImage(character_eat);
-        setIsFed(false);
-        setIsDragging(false);
-        setButtonPosition({ x: 275, y: 40 });
-
-        const timerEndTime = Date.now() + 10000; // 10초 타이머
-        console.log(timer);
-        localStorage.setItem("timerEndTime", timerEndTime.toString());
-
-        setTimer(
-          setTimeout(() => {
-            resetCharacterState();
-          }, 10000)
-        );
-      }
+      moveButton(e.clientX, e.clientY);
     }
   };
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
+  // 드래그 이동 (모바일)
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (isDragging) {
+      const touch = e.touches[0];
+      moveButton(touch.clientX, touch.clientY);
+    }
   };
+
+  const moveButton = (clientX: number, clientY: number) => {
+    const newX = clientX - offset.x;
+    const newY = clientY - offset.y;
+
+    setButtonPosition({ x: newX, y: newY });
+
+    // 캐릭터에 음식 도달 시 상태 변경
+    if (newX >= 80 && newX <= 120 && newY >= 145 && newY <= 170) {
+      setCharacterImage(character_eat);
+      setIsFed(false);
+      setIsDragging(false);
+      setButtonPosition({ x: 275, y: 40 });
+
+      const timerEndTime = Date.now() + 10000; // 10초 타이머
+      console.log(timer);
+      localStorage.setItem("timerEndTime", timerEndTime.toString());
+
+      setTimer(
+        setTimeout(() => {
+          resetCharacterState();
+        }, 10000)
+      );
+    }
+  };
+
+  // 드래그 종료 (데스크톱 + 모바일 공통)
+  const handleMouseUp = () => setIsDragging(false);
+  const handleTouchEnd = () => setIsDragging(false);
 
   const resetCharacterState = () => {
     setCharacterImage(character);
@@ -109,7 +134,9 @@ const Main = () => {
     <div
       className="flex flex-col items-center h-screen p-[15px]"
       onMouseMove={handleMouseMove}
+      onTouchMove={handleTouchMove}
       onMouseUp={handleMouseUp}
+      onTouchEnd={handleTouchEnd}
     >
       {/* 상단 레벨 표시 */}
       <div className="w-full flex flex-col mb-4">
@@ -220,6 +247,7 @@ const Main = () => {
             backgroundRepeat: "no-repeat", 
           }}
           onMouseDown={handleMouseDown}
+          onTouchStart={handleTouchStart}
         ></button>
       )}
     </div>
