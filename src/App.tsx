@@ -19,8 +19,6 @@ import Splash from './pages/Splash/Splash'
 import RecordReview from './pages/Record/RecordReview'
 import ReviewWrite from './pages/Record/ReviewWrite'
 
-import ResultPost from './pages/Question/ResultPost'
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -86,10 +84,6 @@ const router = createBrowserRouter([
       {
         path: '/question/:id',
         element: <QuestionPage />,
-      },
-      {
-        path: 'question_post_test',
-        element: <ResultPost />,
       },
       {
         path: 'suggestion',
