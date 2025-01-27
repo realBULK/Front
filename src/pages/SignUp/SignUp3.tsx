@@ -3,8 +3,18 @@ import { useNavigate } from "react-router-dom";
 import KakaoIcon from "../../assets/kakao.svg";
 import AppleIcon from '../../assets/apple.svg'
 
+const CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID;
+const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
+
 const SignUp3: React.FC = () => {
   const navigate = useNavigate();
+
+  const handleKakaoLogin = () => {
+    // Kakao 로그인 URL 생성
+    const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
+    // 해당 URL로 리다이렉트
+    window.location.href = kakaoLoginUrl;
+  };
 
   const handleNavigation = (navigateTo: string) => {
     navigate(`/${navigateTo}`);
@@ -39,7 +49,7 @@ const SignUp3: React.FC = () => {
       style={{
         border: "1px solid #FFEB01",
       }}
-      onClick={() => handleNavigation("kakao")}
+      onClick={handleKakaoLogin}
     >
       <img
         src={KakaoIcon}

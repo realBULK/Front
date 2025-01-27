@@ -4,8 +4,18 @@ import KakaoIcon from '../../assets/kakao.svg'
 import AppleIcon from '../../assets/apple.svg'
 import BigWhiteButton from '../../components/BigWhiteButton'
 
+const CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID;
+const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
+
 const Start = () => {
   const navigate = useNavigate()
+
+  const handleKakaoLogin = () => {
+    // Kakao 로그인 URL 생성
+    const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
+    // 해당 URL로 리다이렉트
+    window.location.href = kakaoLoginUrl;
+  };
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -26,7 +36,7 @@ const Start = () => {
             style={{
               border: '1px solid #FFEB01',
             }}
-            onClick={() => navigate('kakao')}
+            onClick={handleKakaoLogin}
           >
             <img src={KakaoIcon} alt="Kakao Icon" className="w-5 h-5" />
             카카오로 계속하기
