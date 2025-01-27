@@ -18,6 +18,7 @@ import SuggestionDetail from './pages/Suggestion/SuggestionDetail'
 import Splash from './pages/Splash/Splash'
 import RecordReview from './pages/Record/RecordReview'
 import ReviewWrite from './pages/Record/ReviewWrite'
+import Report from './pages/Report/Report'
 
 const router = createBrowserRouter([
   {
@@ -97,6 +98,10 @@ const router = createBrowserRouter([
       {
         path: 'splash',
         element: <Splash />,
+      },
+      {
+        path: 'report',
+        element: <Report />,
       },
     ],
   },
