@@ -31,7 +31,7 @@ const NavBar = () => {
         </button>
 
         {/* 식단 */}
-        <button onClick={() => navigate('/diet')} className="font-[Pretendard] flex flex-col items-center">
+        <button onClick={() => navigate('/suggestion')} className="font-[Pretendard] flex flex-col items-center">
           <img src={dietIcon} alt="Diet Icon" className="w-[16px] h-[18px] mb-1" />
           <div className="text-black text-sm">식단</div>
         </button>
