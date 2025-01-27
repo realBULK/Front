@@ -44,7 +44,7 @@ const NutrientsBox: React.FC = () => {
             {item.title}
           </div>
           <div className="text-[16px] text-black text-center text-base not-italic font-normal leading-[121%]">
-            {item.quantity}
+            {item.quantity.toLocaleString('ko-KR')}
             {item.unit}
           </div>
         </div>
