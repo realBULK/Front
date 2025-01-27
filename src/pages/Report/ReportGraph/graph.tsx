@@ -1,4 +1,3 @@
-import React from 'react'
 import Box from '@/components/WhiteBox'
 import starCurrent from '/src/assets/graph_star_current.svg'
 import starGoal from '/src/assets/graph_star_goal.svg'
