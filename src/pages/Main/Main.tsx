@@ -37,6 +37,13 @@ const Main = () => {
   });
   const [timer, setTimer] = useState<number | null>(null);
 
+  // 터치 이동 방지
+  useEffect(() => {
+    const preventScroll = (e: TouchEvent) => e.preventDefault();
+    document.addEventListener("touchmove", preventScroll, { passive: false });
+    return () => document.removeEventListener("touchmove", preventScroll);
+  }, []);
+
   useEffect(() => {
     const timerEndTime = localStorage.getItem("timerEndTime");
     if (timerEndTime) {
