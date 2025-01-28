@@ -2,7 +2,12 @@ import Box from '@/components/WhiteBox'
 import starCurrent from '/src/assets/graph_star_current.svg'
 import starGoal from '/src/assets/graph_star_goal.svg'
 
-const WeightProgressGraph = () => {
+interface WeightProgressGraphProps {
+  currentWeight: number
+  goalWeight: number
+}
+
+const WeightProgressGraph: React.FC<WeightProgressGraphProps> = ({ currentWeight, goalWeight }) => {
   return (
     <Box className="relative h-[258px] flex flex-col justify-between items-center shadow-whiteBox">
       {/* 배경선 (미관용) */}
@@ -53,7 +58,7 @@ const WeightProgressGraph = () => {
             fontWeight="bold"
             className="text-[#191919] text-center text-base not-italic font-medium leading-[100%] tracking-[-0.32px]"
           >
-            53kg
+            {currentWeight}kg
           </text>
 
           {/* 목표 몸무게 포인트 */}
@@ -66,7 +71,7 @@ const WeightProgressGraph = () => {
             fontWeight="bold"
             className="text-[#191919] text-center text-base not-italic font-medium leading-[100%] tracking-[-0.32px]"
           >
-            61kg
+            {goalWeight}kg
           </text>
         </svg>
       </div>
