@@ -10,7 +10,7 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="fixed bottom-0 w-full max-w-[393px] bg-[#F5F5F5] justify-center rounded-t-[30px] shadow-md">
+    <div className="fixed bottom-0 w-full max-w-[393px] bg-[#F5F5F5] justify-center rounded-t-[30px] shadow-md border-t border-gray-300">
       <div className="flex justify-around items-center py-3">
         {/* 내 기록 */}
         <button onClick={() => navigate('/record')} className="font-[Pretendard] flex flex-col items-center">
@@ -31,7 +31,7 @@ const NavBar = () => {
         </button>
 
         {/* 식단 */}
-        <button onClick={() => navigate('/diet')} className="font-[Pretendard] flex flex-col items-center">
+        <button onClick={() => navigate('/suggestion')} className="font-[Pretendard] flex flex-col items-center">
           <img src={dietIcon} alt="Diet Icon" className="w-[16px] h-[18px] mb-1" />
           <div className="text-black text-sm">식단</div>
         </button>

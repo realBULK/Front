@@ -1,8 +1,10 @@
+import { useState} from "react";
 import logo from '../../assets/BULK.svg'
 import { useNavigate } from 'react-router-dom'
 import KakaoIcon from '../../assets/kakao.svg'
 import AppleIcon from '../../assets/apple.svg'
 import BigWhiteButton from '../../components/BigWhiteButton'
+import SkeletonStart from "./SkeletonStart";
 
 const CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID;
 const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
@@ -10,12 +12,18 @@ const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
 const Start = () => {
   const navigate = useNavigate()
 
+  const [isLoading] = useState(false);
+
   const handleKakaoLogin = () => {
     // Kakao 로그인 URL 생성
     const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
     // 해당 URL로 리다이렉트
     window.location.href = kakaoLoginUrl;
   };
+  
+  if (isLoading) {
+    return <SkeletonStart/>;
+  }
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -32,9 +40,9 @@ const Start = () => {
 
         <div className="mt-[35px] flex flex-col gap-2 w-full max-w-xs">
           <button
-            className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold text-[#000000] text-center rounded-[200px] bg-[#FAE100] active:bg-[#998C17] flex items-center justify-center gap-1"
+            className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold text-[#000000] text-center rounded-[200px] bg-[#FAE100] active:bg-[#998C17] flex items-center justify-center gap-1 hover:bg-[#ffd900]"
             style={{
-              border: '1px solid #FFEB01',
+              border: '1px solid #FAE100',
             }}
             onClick={handleKakaoLogin}
           >
@@ -43,7 +51,7 @@ const Start = () => {
           </button>
 
           <button
-            className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold text-[#FFFFFF] text-center rounded-[200px] bg-[#000000] flex items-center justify-center gap-1"
+            className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold text-[#FFFFFF] text-center rounded-[200px] bg-[#000000] flex items-center justify-center gap-1 hover:bg-[#212121]"
             style={{
               border: '1px solid #000000',
             }}
