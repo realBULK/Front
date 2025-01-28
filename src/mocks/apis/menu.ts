@@ -63,3 +63,34 @@ export const menu = http.get('/api/menu', () => {
     },
   )
 })
+
+export const menuDetail = http.get('/api/menu/:mealId/:mealType', ({ params }) => {
+  const { mealId, mealType } = params
+  return HttpResponse.json(
+    // 서버에서 반환된 데이터 예시
+    {
+      message: `식단 (${mealId}, ${mealType})이 성공적으로 업데이트되었습니다.`,
+    },
+  )
+})
+
+export const menuChange = http.put('/api/menu/:mealId/:mealType', async ({ params, request }) => {
+  const { mealId, mealType } = params
+  const body = await request.json() // 요청 데이터 추출
+
+  if (!body || Object.keys(body).length === 0) {
+    return HttpResponse.json(
+      {
+        isSuccess: false,
+        code: '400',
+        message: '변경할 데이터가 없습니다.',
+        status: 'BAD_REQUEST',
+      },
+      { status: 400 },
+    )
+  }
+  return HttpResponse.json(
+    // 서버에서 반환된 데이터 예시
+    { message: `식단 (${mealId}, ${mealType})이 성공적으로 업데이트되었습니다.` },
+  )
+})
