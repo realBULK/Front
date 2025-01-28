@@ -1,37 +1,37 @@
 import Box from '@/components/WhiteBox'
 
-// interface NutrientItem {
-//   icon: string
-//   title: string
-//   quantity: number
-//   unit: string
-// }
+interface Nutrient {
+  calories: number
+  carbos: number
+  proteins: number
+  fats: number
+}
 
-const NutrientsBox: React.FC = () => {
+const NutrientsBox: React.FC<Nutrient> = ({ calories, carbos, proteins, fats }) => {
   const itemData = [
     {
       icon: '🍚',
       title: '칼로리',
-      quantity: 1500,
+      quantity: calories,
       unit: 'kcal',
     },
 
     {
       icon: '🍞',
       title: '탄수화물',
-      quantity: 300,
+      quantity: carbos,
       unit: 'g',
     },
     {
       icon: '🥩',
       title: '단백질',
-      quantity: 700,
+      quantity: proteins,
       unit: 'g',
     },
     {
       icon: '🥛',
       title: '지방',
-      quantity: 500,
+      quantity: fats,
       unit: 'g',
     },
   ]
