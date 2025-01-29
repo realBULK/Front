@@ -19,6 +19,7 @@ import Splash from './pages/Splash/Splash'
 import RecordReview from './pages/Record/RecordReview'
 import ReviewWrite from './pages/Record/ReviewWrite'
 import Report from './pages/Report/Report'
+import Diet from './pages/Diet/Diet'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -105,6 +106,10 @@ const router = createBrowserRouter([
       {
         path: 'report',
         element: <Report />,
+      },
+      {
+        path: 'diet',
+        element: <Diet />,
       },
     ],
   },
