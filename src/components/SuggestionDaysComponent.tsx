@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Box from '@/components/WhiteBox'
+import DietBox from '@/components/DietBox'
 
 interface Meal {
   id: string
@@ -21,7 +20,6 @@ interface SuggestionDaysComponentProps {
 }
 
 const SuggestionDaysComponent: React.FC<SuggestionDaysComponentProps> = ({ data }) => {
-  const navigate = useNavigate()
   const [selectedDay, setSelectedDay] = useState(data[0]?.day || '월') // 기본 선택 요일
 
   return (
@@ -46,30 +44,14 @@ const SuggestionDaysComponent: React.FC<SuggestionDaysComponentProps> = ({ data 
         .map((dayData) => (
           <div key={dayData.day} className="flex flex-col gap-2">
             {dayData.meals.map((meal) => (
-              <Box
-                className=" h-[100px] shadow-whiteBox gap-4 cursor-pointer hover:shadow-lg text-[#191919]"
-                as="button"
-                onClick={() => navigate(`/suggestion/${meal.id}`)}
-                key={meal.id}
-              >
-                <div className="flex flex-col items-center justify-center relative">
-                  {/* 아이콘 */}
-                  {meal.icon && <img src={meal.icon} alt="아이콘" />}
-                  {/* 제목 */}
-                  <div className="mt-1 text-center text-black text-[14px] font-bold">{meal.title}</div>
-                </div>
-                {/* 식사 정보 */}
-                <div className="flex flex-col flex-1 text-left gap-1">
-                  {/* 식사 항목 */}
-                  {/* 식사 항목 - 3개까지만 표시하고 '등' 추가 */}
-                  <p className="text-[16px] font-medium">
-                    {meal.items.length > 3 ? `${meal.items.slice(0, 3).join(', ')} 등` : meal.items.join(', ')}
-                  </p>
-                  <span className="text-[14px] font-light">{meal.nutrients.join(' ')}</span>
-                  <span className="text-[16px] font-semibold">{meal.Kcal} kcal</span>
-                </div>
-                <img src="/src/assets/back.svg" alt="back" />
-              </Box>
+              <DietBox
+                id={meal.id}
+                title={meal.title}
+                items={meal.items}
+                nutrients={meal.nutrients}
+                Kcal={meal.Kcal}
+                icon={meal.icon}
+              />
             ))}
           </div>
         ))}
