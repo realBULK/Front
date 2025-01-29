@@ -8,9 +8,10 @@ interface MealProps {
   nutrients: string[]
   Kcal: number
   icon?: string
+  isDetail?: boolean
 }
 
-const DietBox: React.FC<MealProps> = ({ id, title, items, nutrients, Kcal, icon }) => {
+const DietBox: React.FC<MealProps> = ({ id, title, items, nutrients, Kcal, icon, isDetail }) => {
   const navigate = useNavigate()
 
   return (
@@ -36,7 +37,7 @@ const DietBox: React.FC<MealProps> = ({ id, title, items, nutrients, Kcal, icon 
         <span className="text-[14px] font-light">{nutrients.join(' ')}</span>
         <span className="text-[16px] font-semibold">{Kcal} kcal</span>
       </div>
-      <img src="/src/assets/back.svg" alt="back" />
+      {isDetail ? <img src="/src/assets/back.svg" alt="back" /> : null}
     </Box>
   )
 }

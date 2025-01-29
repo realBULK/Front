@@ -51,6 +51,7 @@ const SuggestionDaysComponent: React.FC<SuggestionDaysComponentProps> = ({ data 
                 nutrients={meal.nutrients}
                 Kcal={meal.Kcal}
                 icon={meal.icon}
+                isDetail={true}
               />
             ))}
           </div>
