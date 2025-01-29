@@ -5,8 +5,22 @@ import HoveringHeart from '../assets/HoveringHeart.svg';
 import PressingHeart from '../assets/PressingHeart.svg';
 import { useState } from 'react';
 
+// 가상의 사용자 데이터 (회원가입 시 가져온 데이터)
+const mockUsers = [
+  { id: 1, nickname: 'user1' },
+  { id: 2, nickname: 'user2' },
+  { id: 3, nickname: 'user3' },
+  { id: 4, nickname: 'user4' },
+  { id: 5, nickname: 'user5' },
+  { id: 6, nickname: 'user6' },
+  { id: 7, nickname: 'user7' },
+  { id: 8, nickname: 'user8' },
+  { id: 9, nickname: 'user9' },
+  { id: 10, nickname: 'user10' },
+];
+
 const Member = () => {
-  const length = 10; // 팀원 수 나타내는 변수
+  const length = mockUsers.length; // 팀원 수
   const [likes, setLikes] = useState<number[]>(Array(length).fill(0)); 
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
@@ -19,7 +33,7 @@ const Member = () => {
   };
 
   return (
-    <div className="bg-[#F5F5F5] min-h-screen flex flex-col items-center pt-[50px] mb-[80px]">
+    <div className="bg-[#F5F5F5] flex flex-col items-center pt-[50px]">
       <div className="w-[327px]">
         <h2 className="text-[24px] font-bold text-[#000000] font-[pretendard] ml-2 text-left">오늘의 팀원</h2>
       </div>
@@ -27,9 +41,9 @@ const Member = () => {
         className="w-[327px] h-[226px] grid grid-cols-5 gap-x-2 bg-white/80 rounded-base border border-[#EDEDED] shadow-whiteBoxDeepShadow p-4"
       >
         {/* 팀원 리스트 */}
-        {Array.from({ length }).map((_, index) => (
+        {mockUsers.map((user, index) => (
           <div
-            key={index}
+            key={user.id}
             className="flex flex-col items-center w-[60px] h-[100px]"
           >
             <div className="w-[42px] h-[42px] rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
@@ -40,7 +54,8 @@ const Member = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <p className="text-[8px] font-[pretendard] text-[#000000] mt-1">abaegopa12</p>
+            {/* 사용자 닉네임 */}
+            <p className="text-[9px] font-[pretendard] text-[#000000] mt-1">{user.nickname}</p>
             <div
               className="flex items-center mt-1"
               onMouseEnter={() => setHoverIndex(index)}
