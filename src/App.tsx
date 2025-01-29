@@ -19,6 +19,7 @@ import Splash from './pages/Splash/Splash'
 import RecordReview from './pages/Record/RecordReview'
 import ReviewWrite from './pages/Record/ReviewWrite'
 import Report from './pages/Report/Report'
+import SharePage from './pages/Share/Share'
 
 const router = createBrowserRouter([
   {
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
       {
         path: 'report',
         element: <Report />,
+      },
+      {
+        path: 'group',
+        element: <SharePage/>,
       },
     ],
   },
