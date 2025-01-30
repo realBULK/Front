@@ -11,7 +11,7 @@ const ViewAllButton: React.FC<ViewAllButtonProps> = ({ onClick }) => {
       onClick={onClick}
     >
       전체보기
-      <img src="/src/assets/back.svg" alt="back" className="w-5 h-5" />
+      <img src="/src/assets/back.svg" alt="back" className="w-3 h-3" />
     </button>
   )
 }
