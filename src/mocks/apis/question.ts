@@ -27,23 +27,26 @@ export const userData = http.patch('/api/user/question', () => {
   )
 })
 
-export const userDuplicate = http.get('/api/user/question/isDuplicated/:nickname', ({ params }) => {
-  const { nickname } = params
 
-  return HttpResponse.json(
-    // 서버에서 반환된 데이터 예시
-    {
-      isSuccess: true,
-      code: '200',
-      message: '요청에 성공했습니다.',
-      status: 'OK',
-      data: {
-        nickname: nickname,
-        duplicated: true,
-      },
+export const userDuplicate = http.get("/api/user/question/isDuplicated/:nickname", ({ params }) => {
+  const nickname = typeof params.nickname === "string" ? params.nickname : ""; 
+
+  const duplicatedNicknames = ["중복된닉네임", "테스트닉네임"];
+  const isDuplicated = duplicatedNicknames.includes(nickname); 
+
+  return HttpResponse.json({
+    isSuccess: true,
+    code: "200",
+    message: isDuplicated ? "중복된 닉네임입니다." : "사용 가능한 닉네임입니다.",
+    status: "OK",
+    data: {
+      duplicated: isDuplicated,
     },
-  )
-})
+  });
+});
+
+
+
 
 export const userReport = http.get('/api/user/question/report', () => {
   return HttpResponse.json(
@@ -65,6 +68,9 @@ export const userReport = http.get('/api/user/question/report', () => {
     },
   )
 })
+
+
+
 
 export const userReportPatch = http.patch('/api/user/question/report', async ({ request }) => {
   const body = await request.json() // 요청 데이터 추출
