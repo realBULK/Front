@@ -33,7 +33,7 @@ const Member = () => {
   };
 
   return (
-    <div className="bg-[#F5F5F5] flex flex-col items-center pt-[50px]">
+    <div className="bg-[#F5F5F5] flex flex-col items-center pt-[2px]">
       <div className="w-[327px]">
         <h2 className="text-[24px] font-bold text-[#000000] font-[pretendard] ml-2 text-left">오늘의 팀원</h2>
       </div>

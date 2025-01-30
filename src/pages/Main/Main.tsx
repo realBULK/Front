@@ -8,6 +8,37 @@ import bulkfood from "../../assets/BulkFood.svg";
 import CalorieCard from "../../components/main/CalorieCard";
 import CharacterArea from "../../components/main/CharacterArea";
 
+interface CharacterData {
+  id: number;
+  name: string;
+  level: number;
+  point: number;
+}
+
+interface FoodSetting {
+  calories: number;
+  carbohydrates: number;
+  protein: number;
+  fat: number;
+}
+
+interface DailyFoodData {
+  calories: number;
+  carbohydrates: number;
+  protein: number;
+  fat: number;
+}
+
+interface UserFoodData {
+  setting: FoodSetting;
+  dailyyFoodData: DailyFoodData;
+}
+
+interface ApiResponse {
+  characterData: CharacterData;
+  userFoodData: UserFoodData;
+}
+
 const Main = () => {
   const colors = {
     orange: { bar: "#FF9163", background: "#F4E3DC" },
@@ -22,6 +53,10 @@ const Main = () => {
     return storedColor ? JSON.parse(storedColor) : colors.orange;
   };
 
+  const [apiData, setApiData] = useState<ApiResponse | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [, setIsEating] = useState(false);
   const [selectedColor, setSelectedColor] = useState(getInitialColor);
   const [buttonPosition, setButtonPosition] = useState({ x: 275, y: 40 });
   const [isDragging, setIsDragging] = useState(false);
@@ -35,7 +70,25 @@ const Main = () => {
     }
     return storedValue === "true";
   });
-  const [timer, setTimer] = useState<number | null>(null);
+  const [, setTimer] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/home/info");
+        const result = await response.json();
+        if (result.isSuccess) {
+          setApiData(result.data);
+        }
+      } catch (error) {
+        console.error("API 요청 실패:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // 터치 이동 방지
   useEffect(() => {
@@ -99,20 +152,30 @@ const Main = () => {
   const moveButton = (clientX: number, clientY: number) => {
     const newX = clientX - offset.x;
     const newY = clientY - offset.y;
-
+  
     setButtonPosition({ x: newX, y: newY });
-
-    // 캐릭터에 음식 도달 시 상태 변경
+  
+    // 음식이 캐릭터 근처에 도달했을 때
     if (newX >= 80 && newX <= 120 && newY >= 145 && newY <= 170) {
-      setCharacterImage(character_eat);
       setIsFed(false);
       setIsDragging(false);
       setButtonPosition({ x: 275, y: 40 });
-
-      const timerEndTime = Date.now() + 10000; // 10초 타이머
-      console.log(timer);
+  
+      setIsEating(true);
+  
+      const eatTimer = setInterval(() => {
+        setCharacterImage((prev) => (prev === character ? character_eat : character));
+      }, 300); // 0.3초 간격으로 이미지 변경
+  
+      setTimeout(() => {
+        clearInterval(eatTimer); // 3초 후 애니메이션 정지
+        setIsEating(false);
+        setCharacterImage(character_eat); // 원래 이미지로
+      }, 3000);
+  
+      const timerEndTime = Date.now() + 10000; // 10초 후 먹이 상태 복구
       localStorage.setItem("timerEndTime", timerEndTime.toString());
-
+  
       setTimer(
         setTimeout(() => {
           resetCharacterState();
@@ -171,12 +234,18 @@ const Main = () => {
             </svg>
           </div>
           <h1 className="text-[40px] font-[GmarketSansWeight] text-black leading-[1.21]">
-            LV.12
+            LV. {apiData?.characterData.level ?? "??"}
           </h1>
         </div>
 
         {/* 칼로리 카드 */}
-        <CalorieCard selectedColor={selectedColor} colors={colors} onColorChange={handleColorChange} />
+        <CalorieCard
+          selectedColor={selectedColor}
+          colors={colors}
+          onColorChange={handleColorChange}
+          apiData={apiData}
+          isLoading={isLoading}
+        />
       </div>
 
       {/* 캐릭터 영역 */}
