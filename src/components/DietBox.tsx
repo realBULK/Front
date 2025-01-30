@@ -14,11 +14,16 @@ interface MealProps {
 const DietBox: React.FC<MealProps> = ({ id, title, items, nutrients, Kcal, icon, isDetail }) => {
   const navigate = useNavigate()
 
+  const onClickHandler = () => {
+    if (isDetail) {
+      navigate(`/suggestion/${id}`)
+    }
+  }
   return (
     <Box
       className=" h-[100px] shadow-whiteBox gap-4 cursor-pointer hover:shadow-lg text-[#191919]"
       as="button"
-      onClick={() => navigate(`/suggestion/${id}`)}
+      onClick={onClickHandler}
       key={id}
     >
       <div className="flex flex-col items-center justify-center relative">
