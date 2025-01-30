@@ -16,8 +16,8 @@ const SignUp1: React.FC = () => {
 
   const { data, isLoading, refetch } = useCheckNickname(nickname);
 
-  useEffect(() => {
-    if (data) {
+  /*useEffect(() => {
+    if (data && !isLoading) {
       if (data.data.duplicated) {
         setError("중복된 닉네임입니다.");
         setIsNicknameValid(false);
@@ -26,17 +26,30 @@ const SignUp1: React.FC = () => {
         setIsNicknameValid(true);
       }
     }
-  }, [data]);
+  }, [data, isLoading]);*/
 
+  useEffect(() => {
+    if (data && !isLoading) {
+      if (data.data.duplicated) {
+        setError("중복된 닉네임입니다.");
+        setIsNicknameValid(false);
+      } else {
+        setError(null);
+        setIsNicknameValid(true);
+      }
+    }
+  }, [data, isLoading]);
+  
   const handleNicknameChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.trim();
-    setNickname(value || ""); // 값이 없을 경우 안전하게 빈 문자열 처리
+    setNickname(value || "");
     localStorage.setItem("nickname", value || "");
+  
+    setError(null);
+    setIsNicknameValid(true);
   
     try {
       await nicknameSchema.validate(value, { abortEarly: true });
-      setError(null);
-      setIsNicknameValid(true);
   
       if (value) {
         refetch(); // 닉네임 중복 확인 요청
@@ -48,6 +61,9 @@ const SignUp1: React.FC = () => {
       }
     }
   };
+  
+
+  
   
 
   const handleNext = async () => {
