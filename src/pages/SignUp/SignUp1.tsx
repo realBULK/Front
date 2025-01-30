@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
-
 const SignUp1: React.FC = () => {
   const navigate = useNavigate();
-  const [nickname, setNickname] = useState("");
+  const [nickname, setNickname] = useState(() => localStorage.getItem("nickname") || "");
   const [error, setError] = useState<string | null>(null);
 
   const nicknameSchema = yup
     .string()
-    .required("") 
+    .required("닉네임을 입력해주세요.") 
     .max(10, "닉네임은 10자 이내로 설정해주세요");
 
   const handleNicknameChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setNickname(value);
+    localStorage.setItem("nickname", JSON.stringify(value));
 
     try {
       await nicknameSchema.validate(value, { abortEarly: true });
@@ -43,15 +43,15 @@ const SignUp1: React.FC = () => {
     try {
       await nicknameSchema.validate(nickname);
       setError(null);
-
-      // 중복된 닉네임인지 확인 
+      
+      // 중복된 닉네임인지 확인
       const isDuplicate = false;
-
       if (isDuplicate) {
         setError("사용이 불가능한 닉네임입니다.");
         return;
       }
 
+      localStorage.setItem("nickname", JSON.stringify(nickname)); // Store in localStorage
       navigate("/signup2", { state: { nickname } });
     } catch (err) {
       if (err instanceof yup.ValidationError) {
@@ -73,54 +73,50 @@ const SignUp1: React.FC = () => {
       </div>
 
       <div className="w-[327px] mx-auto mt-4">
-  <input
-    type="text"
-    id="nickname-input"
-    placeholder="예: 홍길동"
-    className={`w-[327px] h-[55px] font-[pretendard] bg-[#EDEDEDCC] border-[#FFFFFF] border 
-      shadow-whiteBox rounded-base px-4 text-[14px] outline-none 
-      placeholder-[#BDBDBD] ${error ? "text-[#F81919]" : "text-gray-800"}
-      hover:bg-[#DED1E8CC] hover:border-[#DED1E8]
-      active:bg-[#EDEDEDCC] active:border-[#FFFFFF]"`} 
-    value={nickname}
-    onChange={handleNicknameChange}
-    onKeyDown={handleKeyPress}
-  />
-  {error && (
-    <p
-      className="mt-2"
-      style={{
-        color: "#F81919",
-        textAlign: "right",
-        fontFamily: "Pretendard",
-        fontSize: "10px",
-        fontStyle: "normal",
-        fontWeight: 500,
-        lineHeight: "10px",
-        letterSpacing: "-0.2px",
-      }}
-    >
-      {error}
-    </p>
-  )}
-</div>
+        <input
+          type="text"
+          id="nickname-input"
+          placeholder="예: 홍길동"
+          className={`w-[327px] h-[55px] font-[pretendard] bg-[#EDEDEDCC] border-[#FFFFFF] border 
+            shadow-whiteBox rounded-base px-4 text-[14px] outline-none 
+            placeholder-[#BDBDBD] ${error ? "text-[#F81919]" : "text-gray-800"}
+            hover:bg-[#DED1E8CC] hover:border-[#DED1E8]
+            active:bg-[#EDEDEDCC] active:border-[#FFFFFF]"`} 
+          value={nickname}
+          onChange={handleNicknameChange}
+          onKeyDown={handleKeyPress}
+        />
+        {error && (
+          <p
+            className="mt-2"
+            style={{
+              color: "#F81919",
+              textAlign: "right",
+              fontFamily: "Pretendard",
+              fontSize: "10px",
+              fontStyle: "normal",
+              fontWeight: 500,
+              lineHeight: "10px",
+              letterSpacing: "-0.2px",
+            }}
+          >
+            {error}
+          </p>
+        )}
+      </div>
 
-
-
-     {/* Next Button */}
-<div className="w-[327px] max-w-md mx-auto mt-auto mb-10">
-  <button
-    className="w-[327px] h-[57px] font-[pretendard] bg-[#D1D1D1] 
-      shadow-whiteBox rounded-base font-semibold text-[14px] text-[#191919] outline-none
-      hover:bg-[#B8ADC0] active:bg-[#9B88A8]" 
-    onClick={handleNext}
-    disabled={!nickname.trim() || !!error} // 닉네임이 없거나 에러가 있으면 비활성화
-  >
-    다음
-  </button>
-</div>
-
-
+      {/* Next Button */}
+      <div className="w-[327px] max-w-md mx-auto mt-auto mb-10">
+        <button
+          className="w-[327px] h-[57px] font-[pretendard] bg-[#D1D1D1] 
+            shadow-whiteBox rounded-base font-semibold text-[14px] text-[#191919] outline-none
+            hover:bg-[#B8ADC0] active:bg-[#9B88A8]" 
+          onClick={handleNext}
+          disabled={!nickname.trim() || !!error} // 닉네임이 없거나 에러가 있으면 비활성화
+        >
+          다음
+        </button>
+      </div>
     </div>
   );
 };
