@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import KakaoIcon from "../../assets/kakao.svg";
 import AppleIcon from "../../assets/apple.svg";
@@ -24,8 +24,12 @@ interface LocalData {
 const SignUp3: React.FC = () => {
   const navigate = useNavigate();
   const mutation = useUserData();
+  const hasPatched = useRef(false); // 요청 중복 방지를 위한 플래그
 
   useEffect(() => {
+    if (hasPatched.current) return; // 이미 실행된 경우, 더 이상 실행하지 않음
+    hasPatched.current = true;
+
     // 로컬 스토리지에서 데이터 불러오기
     const data: LocalData = {
       nickname: localStorage.getItem("nickname") || null,
@@ -41,7 +45,7 @@ const SignUp3: React.FC = () => {
       favoriteFood: localStorage.getItem("favorite_food") || null,
     };
 
-    console.log("로컬 데이터 로드:", data); // 디버깅용 로그
+    console.log("로컬 데이터 로드:", data);
 
     // 데이터가 유효할 경우 API 호출
     mutation.mutate(data, {
