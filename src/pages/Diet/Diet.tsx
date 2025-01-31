@@ -2,6 +2,7 @@ import NavBar from '@/components/NavBar'
 import ViewAllButton from './component/viewAllBtn'
 import DietSlider from './component/slider'
 import ScrollMenu from './component/scrollMenu'
+import { useNavigate } from 'react-router'
 // import { useDietMenuDaily } from '@/hooks/useDietMenu'
 
 // interface MealItem {
@@ -18,6 +19,7 @@ import ScrollMenu from './component/scrollMenu'
 // }
 
 const Diet: React.FC = (): JSX.Element => {
+  const navigate = useNavigate()
   // const getFormattedDate = (date: Date) => {
   //   return date.toISOString().split('T')[0] // '2025-01-30' 같은 형식
   // }
@@ -134,7 +136,7 @@ const Diet: React.FC = (): JSX.Element => {
         <div className="flex justify-center flex-col mt-[30px]">
           <div className="flex items-center justify-between pl-4 pr-4 text-black text-center text-[32px] not-italic font-bold leading-[100%] tracking-[-0.64px]">
             오늘 식단
-            <ViewAllButton />
+            <ViewAllButton onClick={() => navigate('/diet/today')} />
           </div>
           <DietSlider dietItem={data} />
         </div>
