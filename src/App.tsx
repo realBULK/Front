@@ -19,10 +19,12 @@ import Splash from './pages/Splash/Splash'
 import RecordReview from './pages/Record/RecordReview'
 import ReviewWrite from './pages/Record/ReviewWrite'
 import Report from './pages/Report/Report'
+import Diet from './pages/Diet/Diet'
 import SharePage from './pages/Share/Share'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import TodayDiet from './pages/Diet/TodayDiet'
 
 const router = createBrowserRouter([
   {
@@ -108,8 +110,18 @@ const router = createBrowserRouter([
         element: <Report />,
       },
       {
+
+        path: 'diet',
+        element: <Diet />,
+      },
+      {
+        path: 'diet/today',
+        element: <TodayDiet />,
+      },
+      {
         path: 'group',
         element: <SharePage/>,
+
       },
     ],
   },

@@ -1,13 +1,13 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 
-import recordIcon from "../assets/Note.svg";
-import groupIcon from "../assets/Vector.svg";
-import homeIcon from "../assets/Home.svg";
-import dietIcon from "../assets/List.svg";
-import infoIcon from "../assets/Info.svg";
+import recordIcon from '../assets/Note.svg'
+import groupIcon from '../assets/Vector.svg'
+import homeIcon from '../assets/Home.svg'
+import dietIcon from '../assets/List.svg'
+import infoIcon from '../assets/Info.svg'
 
 const NavBar = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <div className="fixed bottom-0 w-full max-w-[393px] bg-[#F5F5F5] justify-center rounded-t-[30px] shadow-md border-t border-gray-300">
@@ -31,7 +31,8 @@ const NavBar = () => {
         </button>
 
         {/* 식단 */}
-        <button onClick={() => navigate('/suggestion')} className="font-[GmarketSansMedium] flex flex-col items-center">
+        <button onClick={() => navigate('/diet')} className="font-[GmarketSansMedium] flex flex-col items-center">
+
           <img src={dietIcon} alt="Diet Icon" className="w-[16px] h-[18px] mb-1" />
           <div className="text-black text-[10px] mt-[8px]">식단</div>
         </button>
@@ -43,7 +44,7 @@ const NavBar = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar

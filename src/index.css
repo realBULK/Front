@@ -22,3 +22,59 @@
   font-weight: 800;
   src: url('./fonts/GmarketSansBold.woff2') format('woff');
 }
+
+.test-css {
+  bottom: -25px;
+  width: 100%;
+  list-style: none;
+  text-align: center; /* 중앙 정렬 */
+  position: absolute;
+  right: 0; /* 기존의 right: 15px; 제거 */
+  left: 0; /* 좌우 균형 맞추기 */
+  padding: 0;
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+}
+
+.test-css li {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  /*margin: 1px;*/
+  padding: 0;
+  cursor: pointer;
+}
+
+.test-css li button {
+  font-size: 0;
+  line-height: 0;
+  display: block;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  cursor: pointer;
+  color: transparent;
+  border: 0;
+  outline: 0;
+  background: 0 0;
+}
+
+.test-css li button:before {
+  font-size: 2.7rem;
+  line-height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  content: '•';
+  text-align: center;
+  opacity: 0.75;
+  color: #d9d9d9;
+}
+
+.test-css li.slick-active button:before {
+  opacity: 0.75;
+  color: #ff9163;
+}
