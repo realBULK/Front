@@ -1,8 +1,8 @@
-import { http, HttpResponse } from 'msw'
+import { http, HttpResponse } from "msw";
 
-export const userData = http.patch('/api/user/question', () => {
+export const userData = http.patch('/api/user/question?id=2', () => {
   return HttpResponse.json(
-    // 서버에서 반환된 데이터 예시
+
     {
       isSuccess: true,
       code: '200',
@@ -26,6 +26,8 @@ export const userData = http.patch('/api/user/question', () => {
     },
   )
 })
+
+
 
 
 export const userDuplicate = http.get("/api/user/question/isDuplicated/:nickname", ({ params }) => {
