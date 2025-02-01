@@ -13,6 +13,9 @@ const QuestionInputComponent: React.FC<QuestionComponentProps> = ({ placeholder,
 
   const validationSchema = Yup.object().shape({
     number: Yup.number()
+      .transform((value, originalValue) => {
+        return originalValue.trim() === '' ? null : value
+      })
       .typeError('숫자만 입력하세요.')
       .required('값을 입력해야 합니다.')
       .test('decimal-places', '소수점 첫째 자리까지만 입력 가능합니다.', (value) => {
