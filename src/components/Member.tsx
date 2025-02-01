@@ -1,9 +1,10 @@
+import { useState } from 'react';
 import Box from '../components/WhiteBox';
 import mask from '../assets/Maskgroup.svg';
 import DefaultHeart from '../assets/DefaultHeart.svg';
 import HoveringHeart from '../assets/HoveringHeart.svg';
 import PressingHeart from '../assets/PressingHeart.svg';
-import { useState } from 'react';
+import level from '../assets/level.svg';
 
 // 가상의 사용자 데이터 (회원가입 시 가져온 데이터)
 const mockUsers = [
@@ -21,21 +22,21 @@ const mockUsers = [
 
 const Member = () => {
   const length = mockUsers.length; // 팀원 수
-  const [likes, setLikes] = useState<number[]>(Array(length).fill(0)); 
+  const [likes, setLikes] = useState<number[]>(Array(length).fill(0));
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
   const handleHeartClick = (index: number) => {
     setLikes((prevLikes) =>
-      prevLikes.map((like, i) =>
-        i === index ? (like > 0 ? 0 : 1) : like // 눌린 상태 토글 
-      )
+      prevLikes.map((like, i) => (i === index ? (like > 0 ? 0 : 1) : like)) // 눌린 상태 토글
     );
   };
 
   return (
     <div className="bg-[#F5F5F5] flex flex-col items-center pt-[2px]">
       <div className="w-[327px]">
-        <h2 className="text-[24px] font-bold text-[#000000] font-[pretendard] ml-2 text-left">오늘의 팀원</h2>
+        <h2 className="text-[24px] font-bold text-[#000000] font-[pretendard] ml-2 text-left">
+          오늘의 팀원
+        </h2>
       </div>
       <Box
         className="w-[327px] h-[226px] grid grid-cols-5 gap-x-2 bg-white/80 rounded-base border border-[#EDEDED] shadow-whiteBoxDeepShadow p-4"
@@ -46,16 +47,26 @@ const Member = () => {
             key={user.id}
             className="flex flex-col items-center w-[60px] h-[100px]"
           >
-            <div className="w-[42px] h-[42px] rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
-              {/* 이미지 자리 */}
+            <div className="relative w-[42px] h-[42px]">
+              {/* Level 테두리 */}
               <img
-                src={mask}
-                alt="Group Mask"
-                className="w-full h-full object-cover"
+                src={level}
+                alt="Level"
+                className="absolute top-0 left-0 w-full h-full"
               />
+              {/* 프로필 이미지 */}
+              <div className="w-full h-full rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                <img
+                  src={mask}
+                  alt="Group Mask"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
             {/* 사용자 닉네임 */}
-            <p className="text-[9px] font-[pretendard] text-[#000000] mt-1">{user.nickname}</p>
+            <p className="text-[9px] font-[pretendard] text-[#000000] mt-1">
+              {user.nickname}
+            </p>
             <div
               className="flex items-center mt-1"
               onMouseEnter={() => setHoverIndex(index)}
@@ -80,7 +91,9 @@ const Member = () => {
                 />
               </button>
               {/* 좋아요 수 */}
-              <p className="text-[10px] font-[pretendard] text-[#000000]">{likes[index]}</p>
+              <p className="text-[10px] font-[pretendard] text-[#000000]">
+                {likes[index]}
+              </p>
             </div>
           </div>
         ))}
