@@ -110,7 +110,6 @@ const router = createBrowserRouter([
         element: <Report />,
       },
       {
-
         path: 'diet',
         element: <Diet />,
       },
@@ -120,8 +119,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'group',
-        element: <SharePage/>,
-
+        element: <SharePage />,
       },
     ],
   },
