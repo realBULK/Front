@@ -279,20 +279,23 @@ const Suggestion: React.FC = () => {
   ]
 
   return (
-    <div className="flex h-screen pr-8 pl-8 pt-9 pb-9 flex-col gap-5">
-      <div className="flex w-[300px] h-[89px] flex-col justify-center shrink-0 text-black text-[40px] font-medium leading-[121%] font-[GmarketSansWeight]">
-        일주일 식단이<br></br>만들어 졌어요!
+    <div className="pr-8 pl-8 pt-9 pb-9 ">
+      <div className="w-[327px] max-w-md mx-auto mt-auto mb-10 gap-5 flex flex-col">
+        <div className="flex w-[300px] h-[89px] flex-col text-black text-[40px] font-medium leading-[121%] font-[GmarketSansWeight]">
+          일주일 식단이<br></br>만들어 졌어요!
+        </div>
+        <div>
+          <SuggestionDaysComponent data={data} />
+        </div>
+        <div className="shadow-[0px_2px_4px_0px_rgba(0,0,0,0.25)] rounded-[50px] bg-[#D2E4E2CC] w-[327px] pb-2 pt-2 pl-5 pr-5 flex items-center justify-center ">
+          <p className="font-bold text-[15px]">{totalKcal[0].Kcal}kcal</p>
+          <p className="ml-2 font-medium text-[13px] text-[#9E9E9E]">탄수화물 {totalKcal[0].Carbohydrate}g</p>
+          <p className="ml-2 font-medium text-[13px] text-[#9E9E9E]">단백질 {totalKcal[0].Protein}g</p>
+          <p className="ml-2 font-medium text-[13px] text-[#9E9E9E]">지방 {totalKcal[0].Fat}g</p>
+        </div>
       </div>
-      <div>
-        <SuggestionDaysComponent data={data} />
-      </div>
-      <div className="shadow-[0px_2px_4px_0px_rgba(0,0,0,0.25)] rounded-[50px] bg-[#D2E4E2CC] w-[327px] pb-2 pt-2 pl-5 pr-5 flex items-center justify-center ">
-        <p className="font-bold text-[15px]">{totalKcal[0].Kcal}kcal</p>
-        <p className="ml-2 font-medium text-[13px] text-[#9E9E9E]">탄수화물 {totalKcal[0].Carbohydrate}g</p>
-        <p className="ml-2 font-medium text-[13px] text-[#9E9E9E]">단백질 {totalKcal[0].Protein}g</p>
-        <p className="ml-2 font-medium text-[13px] text-[#9E9E9E]">지방 {totalKcal[0].Fat}g</p>
-      </div>
-      <div className="w-[327px] max-w-md mx-auto mt-auto mb-10">
+
+      <div className="w-[327px] max-w-md mx-auto mt-auto">
         <button
           className="w-[327px] h-[55px] font-[pretendard] bg-[#D1D1D1] 
       shadow-whiteBox rounded-base font-semibold text-[14px] text-[#191919] outline-none mb-9"
