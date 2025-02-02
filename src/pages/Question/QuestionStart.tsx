@@ -3,7 +3,7 @@ import BigWhiteButton from '../../components/BigWhiteButton'
 const QuestionStart = () => {
   return (
     <div className="bg-[#F5F5F5] w-full min-h-screen flex flex-col items-center">
-      <div className="text-black text-[16px] text-center font-[pretendard] text-base  leading-[1.2] mt-[25.4vh]">
+      <div className="text-black text-[16px] text-center font-[pretendard] text-base  leading-[1.2] mt-[25.4vh] ">
         BULK는 몇가지 질문들을 통해
         <br />
         여러분을 위한 맞춤 증량 계획을 제공합니다!
