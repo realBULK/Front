@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router'
 //   mealFats: number
 // }
 
-const Diet: React.FC = (): JSX.Element => {
+const Diet: React.FC = () => {
   const navigate = useNavigate()
   // const getFormattedDate = (date: Date) => {
   //   return date.toISOString().split('T')[0] // '2025-01-30' 같은 형식
