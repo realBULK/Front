@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import NavBar from "../../components/NavBar";
+import { useNavigate } from "react-router-dom";
 
 import character from "../../assets/character.svg";
 import character_eat from "../../assets/BULK_EAT.svg";
-import background from "../../assets/background.svg";
+import background1 from "../../assets/background1.svg";
+import background2 from "../../assets/background2.svg";
+import background3 from "../../assets/background3.svg";
+import background4 from "../../assets/background4.svg";
+import background5 from "../../assets/background5.svg";
 import bulkfood from "../../assets/BulkFood.svg";
 import CalorieCard from "../../components/main/CalorieCard";
 import CharacterArea from "../../components/main/CharacterArea";
+import LevelProgress from "../../components/main/LevelProgress";
 
 interface CharacterData {
   id: number;
@@ -40,12 +46,23 @@ interface ApiResponse {
 }
 
 const Main = () => {
+
+  const navigate = useNavigate();
+
+  const backgroundImages = {
+    orange: background1,
+    purple: background2,
+    teal: background3,
+    blue: background4,
+    green: background5,
+  };
+
   const colors = {
     orange: { bar: "#FF9163", background: "#F4E3DC" },
     purple: { bar: "#9A7EB1", background: "#DED1E8" },
     teal: { bar: "#447982", background: "#BEE2DE" },
     blue: { bar: "#6FA9EC", background: "#BBD5F3" },
-    yellow: { bar: "#AEE88B", background: "#FFFAD4" },
+    green: { bar: "#AEE88B", background: "#FFFAD4" },
   };
 
   const getInitialColor = () => {
@@ -58,6 +75,7 @@ const Main = () => {
 
   const [, setIsEating] = useState(false);
   const [selectedColor, setSelectedColor] = useState(getInitialColor);
+  const [backgroundImage, setBackgroundImage] = useState(backgroundImages.orange);
   const [buttonPosition, setButtonPosition] = useState({ x: 275, y: 40 });
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -71,6 +89,20 @@ const Main = () => {
     return storedValue === "true";
   });
   const [, setTimer] = useState<number | null>(null);
+
+  useEffect(() => {
+    setBackgroundImage(backgroundImages[getColorKey(selectedColor)]);
+  }, [selectedColor]);
+
+  // 색상의 키를 찾는 함수
+  const getColorKey = (colorObj: { bar: string; background: string }): keyof typeof colors => {
+    return (
+      (Object.keys(colors) as (keyof typeof colors)[]).find(
+        (key) => colors[key].bar === colorObj.bar
+      ) || "orange"
+    );
+  };
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -171,7 +203,12 @@ const Main = () => {
         clearInterval(eatTimer); // 3초 후 애니메이션 정지
         setIsEating(false);
         setCharacterImage(character_eat); // 원래 이미지로
-      }, 3000);
+
+        // ✅ 3초 후 "/record" 페이지로 이동
+        setTimeout(() => {
+          navigate("/record");
+        })
+      }, 2000);
   
       const timerEndTime = Date.now() + 10000; // 10초 후 먹이 상태 복구
       localStorage.setItem("timerEndTime", timerEndTime.toString());
@@ -197,6 +234,7 @@ const Main = () => {
 
   const handleColorChange = (color: { bar: string; background: string }) => {
     setSelectedColor(color);
+    setBackgroundImage(backgroundImages[getColorKey(color)]);
     localStorage.setItem("selectedColor", JSON.stringify(color));
   };
 
@@ -212,29 +250,10 @@ const Main = () => {
       <div className="w-full flex flex-col mb-4">
         <div className="flex items-center">
           <div className="relative w-10 h-10 mr-3">
-            <svg className="absolute top-0 left-0 w-[90%] h-full" viewBox="0 0 36 36">
-              <path
-                className="text-gray-200"
-                d="M18 2.0845
-                  a 15.9155 15.9155 0 0 1 0 31.831
-                  a 15.9155 15.9155 0 0 1 0 -31.831"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></path>
-              <path
-                d="M18 2.0845
-                  a 15.9155 15.9155 0 0 1 0 31.831
-                  a 15.9155 15.9155 0 0 1 0 -31.831"
-                fill="none"
-                stroke={selectedColor.bar} // 진행 색상 변경
-                strokeDasharray="75, 100"
-                strokeWidth="4"
-              ></path>
-            </svg>
+            <LevelProgress progressColor={selectedColor.bar} progressPercentage={apiData?.characterData.point ?? 0} />
           </div>
           <h1 className="text-[40px] font-[GmarketSansWeight] text-black leading-[1.21]">
-            LV. {apiData?.characterData.level ?? "??"}
+            LV. {apiData?.characterData.level ?? "1"}
           </h1>
         </div>
 
@@ -250,7 +269,8 @@ const Main = () => {
 
       {/* 캐릭터 영역 */}
       <CharacterArea
-        background={background}
+        // background={background}
+        background={backgroundImage}
         characterImage={characterImage}
         bulkfood={bulkfood}
         buttonPosition={buttonPosition}

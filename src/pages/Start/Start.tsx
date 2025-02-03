@@ -29,9 +29,7 @@ const Start = () => {
     <div className="flex items-center justify-center h-screen">
       <div className="flex flex-col items-center">
         <img src={logo} alt="Logo" className="w-[252px] h-[135px] mb-[75px] mt-[15%]" />
-
         <BigWhiteButton text="맞춤 식단 받아보기" navigateTo="questionstart"></BigWhiteButton>
-
         <div className="flex items-center w-[327px]">
           <hr className="flex-1 border-[#535353]" />
           <span className="mx-4 text-[14px] text-[#535353]">또는</span>
