@@ -124,7 +124,7 @@ export const questionData: Record<string, any> = {
     navigateTo: 'signup',
     specialButton: {
       text: '다음',
-      navigateTo: 'question_post_test',
+      navigateTo: 'signup',
     },
   },
 }
