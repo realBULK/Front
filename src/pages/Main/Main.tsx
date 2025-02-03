@@ -43,9 +43,9 @@ const Main = () => {
   const colors = {
     orange: { bar: "#FF9163", background: "#F4E3DC" },
     purple: { bar: "#9A7EB1", background: "#DED1E8" },
-    teal: { bar: "#82DED7", background: "#B1CAC8" },
-    blue: { bar: "#83B2E8", background: "#BBD5F3" },
-    yellow: { bar: "#BBDB50", background: "#FFFAD4" },
+    teal: { bar: "#447982", background: "#BEE2DE" },
+    blue: { bar: "#6FA9EC", background: "#BBD5F3" },
+    yellow: { bar: "#AEE88B", background: "#FFFAD4" },
   };
 
   const getInitialColor = () => {

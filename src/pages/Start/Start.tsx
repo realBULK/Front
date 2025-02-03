@@ -28,7 +28,7 @@ const Start = () => {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="flex flex-col items-center">
-        <img src={logo} alt="Logo" className="w-[334.21px] h-[178.66px] mb-[75px] mt-[15%]" />
+        <img src={logo} alt="Logo" className="w-[252px] h-[135px] mb-[75px] mt-[15%]" />
 
         <BigWhiteButton text="맞춤 식단 받아보기" navigateTo="questionstart"></BigWhiteButton>
 
@@ -38,7 +38,7 @@ const Start = () => {
           <hr className="flex-1 border-[#535353]" />
         </div>
 
-        <div className="mt-[35px] flex flex-col gap-2 w-full max-w-xs">
+        <div className="mt-[35px] flex flex-col gap-2 w-full">
           <button
             className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold text-[#000000] text-center rounded-[200px] bg-[#FAE100] active:bg-[#998C17] flex items-center justify-center gap-1 hover:bg-[#ffd900]"
             style={{
