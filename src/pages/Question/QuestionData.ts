@@ -4,7 +4,8 @@ export const questionData: Record<string, any> = {
     datatype: 'height&weight',
     type: 'input',
     progress: 8.33,
-    bigQuestion: '맞춤 증량 계획을\n위해 알려주세요!',
+    bigQuestion: `맞춤 증량 계획을
+위해 알려주세요!`,
     smallQuestion: '키와 몸무게를 입력해주세요.',
     inputs: ['키(cm)', '몸무게(kg)'],
     navigateTo: 'question/1_2',
@@ -14,7 +15,8 @@ export const questionData: Record<string, any> = {
     datatype: 'goal_weight',
     type: 'input',
     progress: 16.66,
-    bigQuestion: '맞춤 증량 계획을\n위해 알려주세요!',
+    bigQuestion: `맞춤 증량 계획을
+위해 알려주세요!`,
     smallQuestion: '목표 몸무게를 알려주세요.',
     inputs: ['몸무게(kg)'],
     navigateTo: 'question/1_3',
@@ -24,7 +26,8 @@ export const questionData: Record<string, any> = {
     datatype: 'activity_level',
     type: 'button',
     progress: 25,
-    bigQuestion: '맞춤 증량 계획을\n위해 알려주세요!',
+    bigQuestion: `맞춤 증량 계획을
+위해 알려주세요!`,
     smallQuestion: '현재의 활동량은 어느 정도인가요?',
     options: [
       '낮음 (운동 거의 안함)',
@@ -39,7 +42,8 @@ export const questionData: Record<string, any> = {
     datatype: 'meal_number',
     type: 'button',
     progress: 37.5,
-    bigQuestion: '식습관에 대해\n알려주세요!',
+    bigQuestion: `식습관에 대해
+알려주세요!`,
     smallQuestion: '평소 식사를 몇 끼 하시나요?',
     options: ['1끼', '2끼', '3끼', '4끼'],
     navigateTo: 'question/2_2',
@@ -49,7 +53,8 @@ export const questionData: Record<string, any> = {
     datatype: 'favorite_food',
     type: 'select',
     progress: 50,
-    bigQuestion: '식습관에 대해\n알려주세요!',
+    bigQuestion: `식습관에 대해
+알려주세요!`,
     smallQuestion: '평소 즐겨 먹는 음식을 알려주세요.',
     categories: [
       {
@@ -80,7 +85,8 @@ export const questionData: Record<string, any> = {
     datatype: 'meal_time',
     type: 'button',
     progress: 62.5,
-    bigQuestion: '라이프스타일에\n대해 알려주세요!',
+    bigQuestion: `라이프스타일에  
+대해 알려주세요!`,
     smallQuestion: '식사 시간이 항상 규칙적인 편인가요?',
     options: [
       '매우 규칙적 (아침, 점심, 저녁 시간을 항상 일정하게 지킴)',
@@ -94,7 +100,8 @@ export const questionData: Record<string, any> = {
     datatype: 'eating-out',
     type: 'button',
     progress: 75,
-    bigQuestion: '라이프스타일에\n대해 알려주세요!',
+    bigQuestion: `라이프스타일에  
+대해 알려주세요!`,
     smallQuestion: '주기적으로 밖에서 식사를 하는 상황이 있나요?',
     options: [
       '거의 없음 (대부분 집이나 회사에서 식사)',
@@ -108,7 +115,8 @@ export const questionData: Record<string, any> = {
     datatype: 'cook_time',
     type: 'button',
     progress: 87.5,
-    bigQuestion: '요리 습관에 대해\n알려주세요!',
+    bigQuestion: `요리 습관에 대해
+알려주세요!`,
     smallQuestion: '요리를 할 시간이 얼마나 있나요?',
     options: ['10분 이내', '10-30분', '30분 이상', '요리를 거의 하지 않음'],
     navigateTo: 'question/4_2',
@@ -118,7 +126,8 @@ export const questionData: Record<string, any> = {
     datatype: 'delivery_num',
     type: 'button',
     progress: 100,
-    bigQuestion: '요리 습관에 대해\n알려주세요!',
+    bigQuestion: `요리 습관에 대해
+알려주세요!`,
     smallQuestion: '배달 음식을 자주 이용하나요?',
     options: ['자주', '가끔', '거의 안함'],
     navigateTo: 'signup',

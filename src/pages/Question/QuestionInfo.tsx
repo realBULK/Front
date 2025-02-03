@@ -14,11 +14,11 @@ const QuestionInfo: React.FC<QuestionInfoProps> = ({ progress, bigQuestion, smal
         <StepProgressBar progress={progress} />
       </div>
 
-      <div className="flex flex-col justify-center max-w-[320px] min-h-[89px] text-black font-[GmarketSansWeight] text-[40px] font-medium leading-[121%] mb-[4.05vh] text-left">
+      <div className="whitespace-pre-line flex flex-col justify-center max-w-[320px] min-h-[89px] text-black font-[GmarketSansWeight] text-[40px] font-medium leading-[121%] mb-[4.05vh] text-left">
         {bigQuestion}
       </div>
 
-      <div className=" text-left text-[#191919] font-semibold text-[16px] font-[pretendard] leading-[100%] tracking-[-0.32px] mb-[2.23vh] ">
+      <div className="whitespace-pre-line text-left text-[#191919] font-semibold text-[16px] font-[pretendard] leading-[100%] tracking-[-0.32px] mb-[2.23vh] ">
         {smallQuestion}
       </div>
 
