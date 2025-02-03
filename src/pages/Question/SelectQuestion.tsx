@@ -18,6 +18,10 @@ interface SelectionQuestionProps {
   navigateTo: string
 }
 
+function strCut(str: string) {
+  return str.replace(/\[|\]|"/g, '')
+}
+
 const SelectionQuestion: FC<SelectionQuestionProps> = ({
   datatype,
   progress,
@@ -48,7 +52,9 @@ const SelectionQuestion: FC<SelectionQuestionProps> = ({
       return
     }
     setErrorMessage('')
-    localStorage.setItem(datatype, JSON.stringify(selectedItems))
+    const stringified = JSON.stringify(selectedItems)
+    const finalStr = strCut(stringified)
+    localStorage.setItem(datatype, finalStr)
     navigate(`/${navigateTo}`)
   }
 

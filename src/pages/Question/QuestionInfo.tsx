@@ -18,7 +18,7 @@ const QuestionInfo: React.FC<QuestionInfoProps> = ({ progress, bigQuestion, smal
         {bigQuestion}
       </div>
 
-      <div className="text-[#191919] font-semibold text-[16px] font-[pretendard] leading-[100%] tracking-[-0.32px] mb-[2.23vh] text-left">
+      <div className=" text-left text-[#191919] font-semibold text-[16px] font-[pretendard] leading-[100%] tracking-[-0.32px] mb-[2.23vh] ">
         {smallQuestion}
       </div>
 
