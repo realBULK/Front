@@ -51,23 +51,30 @@ const ButtonQuestion: FC<ButtonQuestionProps> = ({
   }
 
   return (
-    <QuestionInfo progress={progress} bigQuestion={bigQuestion} smallQuestion={smallQuestion}>
-      <div className="relative flex flex-col gap-[2.35vh] min-h-[400px] w-full">
-        {options?.map((option, idx) => (
-          <QuestionButtonComponent
-            key={idx}
-            text={option}
-            isSelected={idx === selectedIndex}
-            onClick={() => handleButtonClick(idx, option)}
-          />
-        ))}
+    <div className="bg-[#F5F5F5] min-h-screen flex flex-col">
+      <QuestionInfo progress={progress} bigQuestion={bigQuestion} smallQuestion={smallQuestion}>
+        <div className="flex flex-col gap-[2.35vh] px-4 pt-4">
+          {options?.map((option, idx) => (
+            <QuestionButtonComponent
+              key={idx}
+              text={option}
+              isSelected={idx === selectedIndex}
+              onClick={() => handleButtonClick(idx, option)}
+            />
+          ))}
+        </div>
+      </QuestionInfo>
+
+      <div className="absolute bottom-[10px] left-0 w-full flex justify-center py-4 z-10">
         {specialButton && (
-          <div className="absolute bottom-[10px] left-0 w-full flex justify-center py-4 z-10">
-            <BigGrayButton text={specialButton.text} navigateTo={specialButton.navigateTo} />
-          </div>
+          <BigGrayButton
+            text={specialButton.text}
+            navigateTo={specialButton.navigateTo}
+            disabled={selectedIndex === -1}
+          />
         )}
       </div>
-    </QuestionInfo>
+    </div>
   )
 }
 

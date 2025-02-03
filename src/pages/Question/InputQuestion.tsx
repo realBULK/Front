@@ -46,7 +46,6 @@ const InputQuestion: React.FC<InputQuestionProps> = ({
   }
 
   const handleClick = () => {
-    console.log('입력된 값:', inputValues)
     if (id === 1) {
       localStorage.setItem('height', inputValues[0] || '')
       localStorage.setItem('weight', inputValues[1] || '')
@@ -59,23 +58,25 @@ const InputQuestion: React.FC<InputQuestionProps> = ({
   const isFormValid = validStates.every((valid) => valid === true)
 
   return (
-    <QuestionInfo progress={progress} bigQuestion={bigQuestion} smallQuestion={smallQuestion}>
-      <div className="flex flex-col min-h-[400px] gap-[2.35vh] flex-grow">
-        {inputs.map((placeholder, idx) => (
-          <QuestionInputComponent
-            key={idx}
-            placeholder={placeholder}
-            value={inputValues[idx]}
-            onChange={(value) => handleInputChange(idx, value)}
-            setValid={(isValid) => handleValidationChange(idx, isValid)}
-          />
-        ))}
-      </div>
+    <div className="bg-[#F5F5F5] min-h-screen flex flex-col">
+      <QuestionInfo progress={progress} bigQuestion={bigQuestion} smallQuestion={smallQuestion}>
+        <div className="flex flex-col gap-[2.35vh]">
+          {inputs.map((placeholder, idx) => (
+            <QuestionInputComponent
+              key={idx}
+              placeholder={placeholder}
+              value={inputValues[idx]}
+              onChange={(value) => handleInputChange(idx, value)}
+              setValid={(isValid) => handleValidationChange(idx, isValid)}
+            />
+          ))}
+        </div>
+      </QuestionInfo>
 
       <div className="absolute bottom-[10px] left-0 w-full flex justify-center py-4 z-10">
         <BigGrayButton text="다음" navigateTo={nextPage} onClick={handleClick} disabled={!isFormValid} />
       </div>
-    </QuestionInfo>
+    </div>
   )
 }
 
