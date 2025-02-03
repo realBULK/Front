@@ -9,12 +9,12 @@ interface QuestionInfoProps {
 
 const QuestionInfo: React.FC<QuestionInfoProps> = ({ progress, bigQuestion, smallQuestion, children }) => {
   return (
-    <div className="bg-[#F5F5F5] w-full min-h-screen flex flex-col items-center justify-center px-[4.07%] absolute inset-0 overflow-hidden">
-      <div className="w-full flex justify-center mb-[3.17vh]">
+    <div className="bg-[#F5F5F5] min-h-screen flex flex-col items-center px-[4.07%] overflow-y-auto">
+      <div className="flex justify-center mb-[3.17vh] mt-6">
         <StepProgressBar progress={progress} />
       </div>
 
-      <div className="flex flex-col justify-center max-w-[320px] w-full h-[89px] flex-shrink-0 text-black font-[GmarketSansWeight] text-[40px] font-medium leading-[121%] mb-[4.05vh] text-center">
+      <div className="flex flex-col justify-center max-w-[320px] min-h-[89px] text-black font-[GmarketSansWeight] text-[40px] font-medium leading-[121%] mb-[4.05vh] text-center">
         {bigQuestion}
       </div>
 

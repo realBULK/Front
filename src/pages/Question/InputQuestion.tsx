@@ -55,7 +55,7 @@ const InputQuestion: React.FC<InputQuestionProps> = ({
 
   return (
     <QuestionInfo progress={progress} bigQuestion={bigQuestion} smallQuestion={smallQuestion}>
-      <div className="flex flex-col w-full min-h-[400px] gap-[2.35vh] flex-grow">
+      <div className="flex flex-col min-h-[400px] gap-[2.35vh] flex-grow">
         {inputs.map((placeholder, idx) => (
           <QuestionInputComponent
             key={idx}
@@ -67,7 +67,7 @@ const InputQuestion: React.FC<InputQuestionProps> = ({
         ))}
       </div>
 
-      <div className="absolute bottom-[3.87vh] w-full flex-row justify-center">
+      <div className="absolute bottom-[10px] left-0 w-full flex justify-center py-4 z-10">
         <BigGrayButton text="다음" navigateTo={nextPage} onClick={handleClick} disabled={!isFormValid} />
       </div>
     </QuestionInfo>
