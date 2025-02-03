@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import QuestionInfo from './QuestionInfo'
 import QuestionInputComponent from './../../components/QuestionInputComponent'
 import BigGrayButton from './../../components/BigGrayButton'
@@ -23,6 +23,11 @@ const InputQuestion: React.FC<InputQuestionProps> = ({
 }) => {
   const [inputValues, setInputValues] = useState<string[]>(Array(inputs.length).fill(''))
   const [validStates, setValidStates] = useState<boolean[]>(Array(inputs.length).fill(false))
+
+  useEffect(() => {
+    setInputValues(Array(inputs.length).fill(''))
+    setValidStates(Array(inputs.length).fill(false))
+  }, [id])
 
   const handleInputChange = (index: number, value: string) => {
     setInputValues((prevValues) => {
