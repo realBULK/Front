@@ -115,7 +115,7 @@ const CalorieCard: React.FC<CalorieCardProps> = ({
 
   return (
     <div
-      className="w-[100%] rounded-[20px] p-4 shadow-md mx-auto mt-[11px]"
+      className="w-[100%] h-[100%] rounded-[20px] p-4 shadow-md mx-auto mt-[11px]"
       style={{ backgroundColor: selectedColor.background }}
     >
       <div className="flex justify-between items-center mb-3">
