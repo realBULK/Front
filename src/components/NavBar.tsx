@@ -39,7 +39,7 @@ const NavBar = () => {
 
         {/* 내 정보 */}
         <button onClick={() => navigate('/mypage')} className="font-[GmarketSansMedium] flex flex-col items-center">
-          <img src={infoIcon} alt="Info Icon" className="w-[7px] h-[13px] mb-1" />
+          <img src={infoIcon} alt="Info Icon" className="w-[16px] h-[13px] mb-1" />
           <div className="text-black text-[10px] mt-[12px]">내 정보</div>
         </button>
       </div>
