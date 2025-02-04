@@ -33,7 +33,13 @@ const Member = () => {
   };
 
   return (
-    <div className="bg-[#F5F5F5] flex flex-col items-center pt-[2px]">
+    <div
+      className="
+        bg-[#F5F5F5] flex flex-col items-center pt-[2%] 
+        overflow-hidden 
+        [@media(max-width:400px)]:overflow-y-auto
+      "
+    >
       <div className="w-[100%] max-w-[460px]">
         <h2 className="text-[24px] font-bold text-[#000000] font-[pretendard] ml-2 text-left">
           오늘의 팀원
@@ -46,9 +52,12 @@ const Member = () => {
     shadow-whiteBoxDeepShadow p-4
     grid
     grid-cols-5 gap-x-2
-    [@media(max-width:400px)]:grid-cols-3
+    h-[80%] 
+    [@media(max-width:400px)]:grid-cols-3 
+    [@media(max-width:400px)]:h-auto
   "
 >
+
 
         {/* 팀원 리스트 */}
         {mockUsers.map((user, index) => (
