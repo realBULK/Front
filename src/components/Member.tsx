@@ -5,6 +5,7 @@ import DefaultHeart from '../assets/DefaultHeart.svg';
 import HoveringHeart from '../assets/HoveringHeart.svg';
 import PressingHeart from '../assets/PressingHeart.svg';
 import level from '../assets/level.svg';
+import levelbg from '../assets/level_bg.svg';
 
 // 가상의 사용자 데이터 (회원가입 시 가져온 데이터)
 const mockUsers = [
@@ -48,6 +49,12 @@ const Member = () => {
             className="flex flex-col items-center w-[60px] h-[100px]"
           >
             <div className="relative w-[42px] h-[42px]">
+              {/* Level 배경 */}
+              <img
+                src={levelbg}
+                alt="Level Background"
+                className="absolute top-0 left-0 w-full h-full"
+              />
               {/* Level 테두리 */}
               <img
                 src={level}
