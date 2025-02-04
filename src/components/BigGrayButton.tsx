@@ -24,7 +24,14 @@ const BigGrayButton: React.FC<QuestionButtonComponentProps> = ({
 
   return disabled === false ? (
     <button
-      className="w-[327px] h-[58px] text-[16px] font-[Pretendard] font-semibold text-[#191919] text-center rounded-[15px] bg-[#D1D1D1] shadow-[0px_2px_5px_-2px_rgba(0,0,0,0.25)] filter-none mb-3 transition-colors hover:bg-[#DAE6CB]"
+      className="
+        w-[327px] h-[58px] text-[16px] font-[Pretendard] font-semibold 
+        text-[#191919] text-center rounded-[15px] bg-[#D1D1D1] 
+        shadow-[0px_2px_5px_-2px_rgba(0,0,0,0.25)] filter-none mb-3 
+        transition-colors 
+        hover:bg-[#DAE6CB] 
+        active:bg-[#ACB99C]
+      "
       style={{ boxShadow: `0px 2px 5px -2px rgba(0, 0, 0, 0.25)` }}
       onClick={handleClick}
     >
@@ -32,7 +39,12 @@ const BigGrayButton: React.FC<QuestionButtonComponentProps> = ({
     </button>
   ) : (
     <button
-      className="w-[327px] h-[58px] text-[16px] font-[Pretendard] font-semibold text-[#191919] text-center rounded-[15px] bg-[#D1D1D1] shadow-[0px_2px_5px_-2px_rgba(0,0,0,0.25)] filter-none mb-3 transition-colors"
+      className="
+        w-[327px] h-[58px] text-[16px] font-[Pretendard] font-semibold 
+        text-[#191919] text-center rounded-[15px] bg-[#D1D1D1] 
+        shadow-[0px_2px_5px_-2px_rgba(0,0,0,0.25)] filter-none mb-3 
+        transition-colors
+      "
       style={{ boxShadow: `0px 2px 5px -2px rgba(0, 0, 0, 0.25)` }}
     >
       {text}
