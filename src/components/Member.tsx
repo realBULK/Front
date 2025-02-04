@@ -5,6 +5,7 @@ import DefaultHeart from '../assets/DefaultHeart.svg';
 import HoveringHeart from '../assets/HoveringHeart.svg';
 import PressingHeart from '../assets/PressingHeart.svg';
 import level from '../assets/level.svg';
+import levelbg from '../assets/level_bg.svg';
 
 // 가상의 사용자 데이터 (회원가입 시 가져온 데이터)
 const mockUsers = [
@@ -32,15 +33,32 @@ const Member = () => {
   };
 
   return (
-    <div className="bg-[#F5F5F5] flex flex-col items-center pt-[2px]">
-      <div className="w-[327px]">
+    <div
+      className="
+        bg-[#F5F5F5] flex flex-col items-center pt-[2%] 
+        overflow-hidden 
+        [@media(max-width:400px)]:overflow-y-auto
+      "
+    >
+      <div className="w-[100%] max-w-[460px]">
         <h2 className="text-[24px] font-bold text-[#000000] font-[pretendard] ml-2 text-left">
           오늘의 팀원
         </h2>
       </div>
       <Box
-        className="w-[327px] h-[226px] grid grid-cols-5 gap-x-2 bg-white/80 rounded-base border border-[#EDEDED] shadow-whiteBoxDeepShadow p-4"
-      >
+  className="
+    w-[100%] max-w-[460px]
+    bg-white/80 rounded-base border border-[#EDEDED]
+    shadow-whiteBoxDeepShadow p-4
+    grid
+    grid-cols-5 gap-x-2
+    h-[80%] 
+    [@media(max-width:400px)]:grid-cols-3 
+    [@media(max-width:400px)]:h-auto
+  "
+>
+
+
         {/* 팀원 리스트 */}
         {mockUsers.map((user, index) => (
           <div
@@ -48,6 +66,12 @@ const Member = () => {
             className="flex flex-col items-center w-[60px] h-[100px]"
           >
             <div className="relative w-[42px] h-[42px]">
+              {/* Level 배경 */}
+              <img
+                src={levelbg}
+                alt="Level Background"
+                className="absolute top-0 left-0 w-full h-full"
+              />
               {/* Level 테두리 */}
               <img
                 src={level}
