@@ -39,7 +39,7 @@ const ReviewWrite = () => {
         className="h-[413px] bg-white rounded-[15px] shadow-whiteBox text-top ps-[22px] pt-[30px] text-[14px] mb-[16px]"
         placeholder="다른 사용자를 위해 의견을 적어주세요 (선택)"
       ></textarea>
-      <BigGrayButton text="후기 등록하기" navigateTo="home" onClick={() => postReview()} />
+      <BigGrayButton text="후기 등록하기" navigateTo="home" isPink={true} onClick={() => postReview()} />
     </div>
   )
 }
