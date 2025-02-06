@@ -4,18 +4,20 @@ import 'slick-carousel/slick/slick-theme.css'
 import React from 'react'
 import DietBox from '@/components/DietBox'
 
-interface DietSliderProps {
-  id: string
-  title: string
-  items: string[]
-  nutrients: string[]
-  Kcal: number
-  icon?: string
-  isDetail?: boolean
+interface MealItems {
+  name: string
+}
+interface Meal {
+  type: string //아침점심저녁간식
+  mealItems: MealItems[]
+  mealCalories: number
+  mealCarbos: number
+  mealProteins: number
+  mealFats: number
 }
 
 interface Diet {
-  dietItem: DietSliderProps[]
+  dietItem: Meal[]
 }
 
 const DietSlider: React.FC<Diet> = ({ dietItem }) => {
@@ -32,52 +34,26 @@ const DietSlider: React.FC<Diet> = ({ dietItem }) => {
 
   return (
     <div className="mt-4">
-      <Slider {...settings} dotsClass="test-css">
-        <div>
-          <DietBox
-            id={dietItem[0].id}
-            title={dietItem[0].title}
-            items={dietItem[0].items}
-            nutrients={dietItem[0].nutrients}
-            Kcal={dietItem[0].Kcal}
-            icon={dietItem[0].icon}
-            isDetail={false}
-          />
-        </div>
-        <div>
-          <DietBox
-            id={dietItem[1].id}
-            title={dietItem[1].title}
-            items={dietItem[1].items}
-            nutrients={dietItem[1].nutrients}
-            Kcal={dietItem[1].Kcal}
-            icon={dietItem[1].icon}
-            isDetail={false}
-          />
-        </div>
-        <div>
-          <DietBox
-            id={dietItem[2].id}
-            title={dietItem[2].title}
-            items={dietItem[2].items}
-            nutrients={dietItem[2].nutrients}
-            Kcal={dietItem[2].Kcal}
-            icon={dietItem[2].icon}
-            isDetail={false}
-          />
-        </div>
-        <div>
-          <DietBox
-            id={dietItem[3].id}
-            title={dietItem[3].title}
-            items={dietItem[3].items}
-            nutrients={dietItem[3].nutrients}
-            Kcal={dietItem[3].Kcal}
-            icon={dietItem[3].icon}
-            isDetail={false}
-          />
-        </div>
-      </Slider>
+      {dietItem.length > 0 ? (
+        <Slider {...settings} dotsClass="test-css">
+          {dietItem.map((meal, index) => (
+            <div key={index}>
+              <DietBox
+                id={index.toString()}
+                type={meal.type}
+                items={meal.mealItems}
+                mealCalories={meal.mealCalories}
+                mealCarbos={meal.mealCarbos}
+                mealProteins={meal.mealProteins}
+                mealFats={meal.mealFats}
+                isDetail={false}
+              />
+            </div>
+          ))}
+        </Slider>
+      ) : (
+        <p className="text-center text-gray-500">식단 정보가 없습니다.</p>
+      )}
     </div>
   )
 }
