@@ -253,7 +253,7 @@ const Main = () => {
             <LevelProgress progressColor={selectedColor.bar} progressPercentage={apiData?.characterData.point ?? 0} />
           </div>
           <h1 className="text-[40px] font-[GmarketSansWeight] text-black leading-[1.21]">
-            LV. {apiData?.characterData.level ?? "1"}
+            LV. {apiData?.characterData.level ?? "0"}
           </h1>
         </div>
 

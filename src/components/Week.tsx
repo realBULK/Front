@@ -1,58 +1,28 @@
 import { useState, useEffect, useRef } from "react";
 
 const Week = () => {
-  // const [filledCircles, setFilledCircles] = useState<number>(0);
-  // const scrollRef = useRef<HTMLDivElement | null>(null);
-
-  // useEffect(() => {
-
-  //   const today = new Date();
-  //   const dayOfWeek = today.getDay(); // 0(일) ~ 6(토)
-  
-  //   // 이번 주 월요일 날짜 구하기
-  //   const daysSinceMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-  //   const monday = new Date(today);
-  //   monday.setDate(today.getDate() - daysSinceMonday);
-  
-  //   // 현재 날짜에서 월요일까지의 경과 일수 계산 (최대 14일까지)
-  //   const diffInDays = Math.floor((today.getTime() - monday.getTime()) / (1000 * 60 * 60 * 24));
-  
-  //   // 오늘 포함하여 filledCircles 반영
-  //   if (diffInDays >= 0 && diffInDays < 14) {
-  //     setFilledCircles(diffInDays + 1);
-  //   } else {
-  //     setFilledCircles(0);
-  //   }
-  // }, []);
-
-  // const getFillColor = (index: number, filledCircles: number): string => {
-  //   return index < filledCircles ? "#FFBC9F" : "#CCCCCC";
-  // };
-
-  // useEffect(() => {
-  //   if (scrollRef.current) {
-  //     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-  //   }
-  // }, []);
 
   const [filledCircles, setFilledCircles] = useState<number>(0);
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const today = new Date();
-    const dayOfWeek = today.getDay(); // 0(일요일) ~ 6(토요일)
-
-    // 지난 월요일의 날짜를 계산
-    const daysSinceMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // 월요일이 기준
+    const dayOfWeek = today.getDay(); // 0(일) ~ 6(토)
+  
+    // 2주 전 월요일 찾기
+    const daysSinceMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
     const lastMonday = new Date(today);
-    lastMonday.setDate(today.getDate() - daysSinceMonday);
-
-    // 지난 월요일부터 오늘까지 경과한 일수를 계산
-    const diffInDays = Math.floor((today.getTime() - lastMonday.getTime()) / (1000 * 60 * 60 * 24));
-
-    // 최대 14일까지 `filledCircles` 설정
-    setFilledCircles(diffInDays + 1);
+    lastMonday.setDate(today.getDate() - daysSinceMonday - 7); // 2주 전 월요일
+  
+    // 2주 전 월요일부터 오늘까지 경과한 일수 계산 (최대 14일)
+    const diffInDays = Math.min(
+      Math.floor((today.getTime() - lastMonday.getTime()) / (1000 * 60 * 60 * 24)) + 1,
+      14
+    );
+  
+    setFilledCircles(diffInDays);
   }, []);
+  
 
   const getFillColor = (index: number, filledCircles: number): string => {
     return index < filledCircles ? "#FFBC9F" : "#CCCCCC";
