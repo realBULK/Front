@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Box from '../components/WhiteBox';
 import mask from '../assets/Maskgroup.svg';
 import DefaultHeart from '../assets/DefaultHeart.svg';
@@ -6,119 +6,111 @@ import HoveringHeart from '../assets/HoveringHeart.svg';
 import PressingHeart from '../assets/PressingHeart.svg';
 import level from '../assets/level.svg';
 import levelbg from '../assets/level_bg.svg';
+import useFetchGroupMembers from '../hooks/useFetchGroupMembers';
 
-// 가상의 사용자 데이터 (회원가입 시 가져온 데이터)
-const mockUsers = [
-  { id: 1, nickname: 'user1' },
-  { id: 2, nickname: 'user2' },
-  { id: 3, nickname: 'user3' },
-  { id: 4, nickname: 'user4' },
-  { id: 5, nickname: 'user5' },
-  { id: 6, nickname: 'user6' },
-  { id: 7, nickname: 'user7' },
-  { id: 8, nickname: 'user8' },
-  { id: 9, nickname: 'user9' },
-  { id: 10, nickname: 'user10' },
-];
+const groupId = 1;
 
 const Member = () => {
-  const length = mockUsers.length; // 팀원 수
-  const [likes, setLikes] = useState<number[]>(Array(length).fill(0));
+  const { members, loading, error } = useFetchGroupMembers(groupId);
+  const [likes, setLikes] = useState<number[]>([]);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
-  const handleHeartClick = (index: number) => {
+  /*const handleHeartClick = (index: number) => {
     setLikes((prevLikes) =>
-      prevLikes.map((like, i) => (i === index ? (like > 0 ? 0 : 1) : like)) // 눌린 상태 토글
+      prevLikes.map((like, i) => (i === index ? (like > 0 ? 0 : 1) : like)) 
     );
-  };
+  };*/
+
+  useEffect(() => {
+    if (members.length > 0) {
+      setLikes(Array(members.length).fill(0)); // 데이터가 로드되면 likes 배열 초기화
+      console.log("👥 팀원 데이터:", members); // 팀원 데이터 로그
+    }
+  }, [members]);
+
+  if (loading) {
+    console.log("⏳ 팀원 데이터를 불러오는 중...");
+    return <div className="text-center text-gray-500">⏳ 데이터 로딩 중...</div>;
+  }
+
+  if (error) {
+    console.error("❌ API 오류 발생:", error);
+    return <div className="text-center text-red-500">⚠️ {error}</div>;
+  }
 
   return (
     <div
       className="
         bg-[#F5F5F5] flex flex-col items-center pt-[2%] 
-        overflow-hidden 
         [@media(max-width:400px)]:overflow-y-auto
       "
     >
-      <div className="w-[100%] max-w-[460px]">
+      <div className="w-[100%] max-w-[470px]">
         <h2 className="text-[24px] font-bold text-[#000000] font-[pretendard] ml-2 text-left">
           오늘의 팀원
         </h2>
       </div>
       <Box
-  className="
-    w-[100%] max-w-[460px]
-    bg-white/80 rounded-base border border-[#EDEDED]
-    shadow-whiteBoxDeepShadow p-4
-    grid
-    grid-cols-5 gap-x-2
-    h-[80%] 
-    [@media(max-width:400px)]:grid-cols-3 
-    [@media(max-width:400px)]:h-auto
-  "
->
-
-
+        className="
+          w-[100%] max-w-[460px] 
+          bg-white/80 rounded-base border border-[#EDEDED]
+          shadow-whiteBoxDeepShadow p-4
+          grid
+          grid-cols-5 gap-x-2
+          h-[90%] 
+         h-auto
+          [@media(max-width:400px)]:grid-cols-3 
+          [@media(max-width:400px)]:h-auto
+        "
+      >
         {/* 팀원 리스트 */}
-        {mockUsers.map((user, index) => (
-          <div
-            key={user.id}
-            className="flex flex-col items-center w-[60px] h-[100px]"
-          >
+        {members.map((user, index) => (
+          <div key={user.userId} className="flex flex-col items-center w-[60px] h-[100px]">
             <div className="relative w-[42px] h-[42px]">
-              {/* Level 배경 */}
-              <img
-                src={levelbg}
-                alt="Level Background"
-                className="absolute top-0 left-0 w-full h-full"
-              />
-              {/* Level 테두리 */}
-              <img
-                src={level}
-                alt="Level"
-                className="absolute top-0 left-0 w-full h-full"
-              />
-              {/* 프로필 이미지 */}
+              <img src={levelbg} alt="레벨 배경" className="absolute top-0 left-0 w-full h-full" />
+              <img src={level} alt="레벨" className="absolute top-0 left-0 w-full h-full" />
               <div className="w-full h-full rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
-                <img
-                  src={mask}
-                  alt="Group Mask"
-                  className="w-full h-full object-cover"
-                />
+                <img src={mask} alt="프로필" className="w-full h-full object-cover" />
               </div>
             </div>
             {/* 사용자 닉네임 */}
-            <p className="text-[9px] font-[pretendard] text-[#000000] mt-1">
-              {user.nickname}
-            </p>
+            <p className="text-[9px] font-[pretendard] text-[#000000] mt-1">{user.nickname}</p>
+
+            {/* 좋아요 버튼 */}
             <div
               className="flex items-center mt-1"
               onMouseEnter={() => setHoverIndex(index)}
               onMouseLeave={() => setHoverIndex(null)}
             >
-              {/* 하트 버튼 */}
               <button
                 type="button"
                 className="w-[15px] h-[15px] mr-1"
-                onClick={() => handleHeartClick(index)}
+                //onClick={() => handleHeartClick(index)}
+                onClick={() => {
+                  setLikes((prevLikes) =>
+                    prevLikes.map((like, i) => (i === index ? (like > 0 ? 0 : 1) : like))
+                  );
+                  console.log(`❤️ ${user.nickname}의 좋아요 상태 변경: ${likes[index] > 0 ? 'OFF' : 'ON'}`);
+                }}
               >
                 <img
-                  src={
-                    likes[index] > 0
-                      ? PressingHeart
-                      : hoverIndex === index
-                      ? HoveringHeart
-                      : DefaultHeart
-                  }
-                  alt="Heart"
+                  src={likes[index] > 0 ? PressingHeart : hoverIndex === index ? HoveringHeart : DefaultHeart}
+                  alt="하트"
                   className="w-full h-full"
                 />
               </button>
-              {/* 좋아요 수 */}
-              <p className="text-[10px] font-[pretendard] text-[#000000]">
-                {likes[index]}
-              </p>
+              <p className="text-[10px] font-[pretendard] text-[#000000]">{likes[index]}</p>
             </div>
+
+            {/* 이모지 표시 <div className="flex flex-wrap gap-1 mt-1">
+              {user.emojis.map((emoji, i) => (
+                <div key={i} className="flex items-center">
+                  <span className="text-[12px]">{emoji.emojiType}</span>
+                  <span className="text-[10px] ml-1">x{emoji.count}</span>
+                </div>
+              ))}
+            </div>*/}
+            
           </div>
         ))}
       </Box>

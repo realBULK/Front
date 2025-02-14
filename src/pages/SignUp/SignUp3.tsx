@@ -24,9 +24,6 @@ const SignUp3: React.FC = () => {
   const mutation = useUserData();
   const hasPatched = useRef(false); // 요청 중복 방지를 위한 플래그
 
-  
-const CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID;
-const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
 
   useEffect(() => {
     if (hasPatched.current) return; // 이미 실행된 경우, 더 이상 실행하지 않음
@@ -61,7 +58,7 @@ const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
   }, [mutation]);
 
   const handleKakaoLogin = async () => {
-    const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
+    const kakaoLoginUrl = `http://43.200.218.42:8080`;
     window.location.href = kakaoLoginUrl; // 카카오 인증 URL로 리다이렉트
   };
 
