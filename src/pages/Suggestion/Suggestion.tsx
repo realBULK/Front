@@ -12,8 +12,6 @@ const Suggestion: React.FC = () => {
 
   const mealData = data?.data.dailyMeals
 
-  console.log(mealData)
-
   return (
     <div className="pr-8 pl-8 pt-9 pb-9 ">
       <div className="w-[327px] max-w-md mx-auto mt-auto mb-10 gap-5 flex flex-col">
