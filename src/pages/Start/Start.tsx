@@ -1,29 +1,45 @@
-import { useState} from "react";
+import { useState } from "react";
 import logo from '../../assets/BULK.svg'
 import { useNavigate } from 'react-router-dom'
 import KakaoIcon from '../../assets/kakao.svg'
 import AppleIcon from '../../assets/apple.svg'
 import BigWhiteButton from '../../components/BigWhiteButton'
-import SkeletonStart from "./SkeletonStart";
-
-const CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID;
-const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
 
 const Start = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [isLoading] = useState(false);
+  const CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID;
+  const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
+
+  const [showModal, setShowModal] = useState(false);
+
+  const checkUserData = () => {
+    const data = {
+      nickname: localStorage.getItem("nickname"),
+      height: localStorage.getItem("height"),
+      weight: localStorage.getItem("weight"),
+      goalWeight: localStorage.getItem("goal_weight"),
+      activityLevel: localStorage.getItem("activity_level"),
+      mealNumber: localStorage.getItem("meal_number"),
+      cookTime: localStorage.getItem("cook_time"),
+      deliveryNum: localStorage.getItem("delivery_num"),
+      mealTime: localStorage.getItem("meal_time"),
+      eatingOut: localStorage.getItem("eating-out"),
+      favoriteFood: localStorage.getItem("favorite_food"),
+    };
+
+    return Object.values(data).some(value => value === null || value === "null" || value === "0" || value === "");
+  };
 
   const handleKakaoLogin = () => {
-    // Kakao 로그인 URL 생성
+    if (checkUserData()) {
+      setShowModal(true); // 모달 표시
+      return;
+    }
+
     const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
-    // 해당 URL로 리다이렉트
     window.location.href = kakaoLoginUrl;
   };
-  
-  if (isLoading) {
-    return <SkeletonStart/>;
-  }
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -60,8 +76,37 @@ const Start = () => {
           </button>
         </div>
       </div>
-    </div>
-  )
-}
 
-export default Start
+      {/* 모달 */}
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-[320px] text-center relative">
+            {/* 닫기 버튼 */}
+            <button
+              className="absolute top-[1%] right-[4%] text-gray-500 hover:text-gray-700 text-xl"
+              onClick={() => setShowModal(false)}
+            >
+              &times;
+            </button>
+
+            <h2 className="font-[Pretendard] text-[20px] font-semibold">회원가입을 먼저 진행해주세요.</h2>
+            <p className="text-[14px] font-[Pretendard] mt-2 text-gray-600">카카오로 회원가입한 기록이 없습니다.</p>
+
+            <button
+              className="font-[Pretendard] mt-4 bg-[#FAE100] active:bg-[#998C17] text-black px-4 py-2 rounded-lg w-full font-semibold flex items-center justify-center gap-1"
+              style={{
+                border: '1px solid #FAE100',
+              }}
+              onClick={() => navigate("/questionstart")}
+            >
+              <img src={KakaoIcon} alt="Kakao Icon" className="w-5 h-5" />
+              카카오로 회원가입
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Start;

@@ -80,14 +80,15 @@ const Main = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [characterImage, setCharacterImage] = useState(character);
-  const [isFed, setIsFed] = useState(() => {
-    const storedValue = localStorage.getItem("isFed");
-    if (storedValue === null) {
-      localStorage.setItem("isFed", "true"); // 기본값 설정
-      return true;
-    }
-    return storedValue === "true";
-  });
+  // const [isFed, setIsFed] = useState(() => {
+  //   const storedValue = localStorage.getItem("isFed");
+  //   if (storedValue === null) {
+  //     localStorage.setItem("isFed", "true"); // 기본값 설정
+  //     return true;
+  //   }
+  //   return storedValue === "true";
+  // });
+  const [isFed, setIsFed] = useState(false);
   const [, setTimer] = useState<number | null>(null);
 
   useEffect(() => {
@@ -204,22 +205,67 @@ const Main = () => {
         setIsEating(false);
         setCharacterImage(character_eat); // 원래 이미지로
 
-        // ✅ 3초 후 "/record" 페이지로 이동
+        // // 3초 후 "/record" 페이지로 이동
+        // setTimeout(() => {
+        //   navigate("/record");
+        // })
+
+        setIsFed(true);
+        localStorage.setItem("lastFedTime", Date.now().toString());
+
+        setCharacterImage(character_eat);
         setTimeout(() => {
+          setCharacterImage(character);
           navigate("/record");
         })
       }, 2000);
   
-      const timerEndTime = Date.now() + 10000; // 10초 후 먹이 상태 복구
-      localStorage.setItem("timerEndTime", timerEndTime.toString());
+      // const timerEndTime = Date.now() + 10000; // 10초 후 먹이 상태 복구
+      // localStorage.setItem("timerEndTime", timerEndTime.toString());
   
-      setTimer(
-        setTimeout(() => {
-          resetCharacterState();
-        }, 10000)
-      );
+      // setTimer(
+      //   setTimeout(() => {
+      //     resetCharacterState();
+      //   }, 10000)
+      // );
     }
   };
+
+  useEffect(() => {
+    const currentTime = new Date();
+    const hours = currentTime.getHours();
+
+    const allowedTimeRanges = [
+      [6, 11],
+      [12, 15],
+      [17, 21],
+    ];
+
+    const isAllowedTime = allowedTimeRanges.some(([start, end]) => hours >= start && hours <= end);
+
+    const lastFedTime = localStorage.getItem("lastFedTime");
+    let canShowFood = isAllowedTime;
+
+    if (lastFedTime) {
+      const lastFedHour = new Date(parseInt(lastFedTime, 10)).getHours();
+      canShowFood = allowedTimeRanges.some(
+        ([start, end]) => hours >= start && hours <= end && lastFedHour < start
+      );
+    }
+
+    setIsFed(canShowFood);
+  }, []);
+
+  // const handleFeed = () => {
+  //   setIsFed(true);
+  //   localStorage.setItem("lastFedTime", Date.now().toString());
+
+  //   setCharacterImage(character_eat);
+  //   setTimeout(() => {
+  //     setCharacterImage(character);
+  //     navigate("/record");
+  //   }, 2000);
+  // };
 
   // 드래그 종료 (데스크톱 + 모바일 공통)
   const handleMouseUp = () => setIsDragging(false);
@@ -277,6 +323,7 @@ const Main = () => {
         isFed={isFed}
         handleMouseDown={handleMouseDown}
         handleTouchStart={handleTouchStart}
+        // handleFeed={handleFeed}
       />
 
       {/* 하단 네비게이션 */}
