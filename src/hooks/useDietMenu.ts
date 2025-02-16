@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { api } from '@/apis/axiosInstance'
+import api from '@/apis/axiosInstance'
 
 // 특정 날짜에 해당하는 dailyMeals만 필터링
 const fetchDietMenuDaily = async (date: string) => {
