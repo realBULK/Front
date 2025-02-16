@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { api } from '@/apis/axiosInstance'
+import api from '@/apis/axiosInstance'
 
 const fetchSuggestionMenu = async () => {
   try {

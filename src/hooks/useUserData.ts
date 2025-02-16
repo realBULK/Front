@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { api } from '@/apis/axiosInstance'
+import api from '@/apis/axiosInstance'
 
 type UserDataPayload = {
   nickname: string | null
