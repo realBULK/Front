@@ -236,9 +236,9 @@ const Main = () => {
     const hours = currentTime.getHours();
 
     const allowedTimeRanges = [
-      [6, 11],
-      [12, 15],
-      [17, 21],
+      [6, 10],
+      [12, 14],
+      [17, 20],
     ];
 
     const isAllowedTime = allowedTimeRanges.some(([start, end]) => hours >= start && hours <= end);
