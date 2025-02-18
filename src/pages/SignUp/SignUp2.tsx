@@ -1,74 +1,70 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import DefaultCircle from "../../assets/defaultCircle.svg";
-import HalfCircle from "../../assets/halfCircle.svg";
-import FullCircle from "../../assets/fullCircle.svg";
-import Check from "../../assets/check.svg";
+import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import DefaultCircle from '../../assets/defaultCircle.svg'
+import HalfCircle from '../../assets/halfCircle.svg'
+import FullCircle from '../../assets/fullCircle.svg'
+import Check from '../../assets/check.svg'
 
 const SignUp2: React.FC = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { nickname = "회원" } = location.state || {};
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { nickname = '회원' } = location.state || {}
 
-  const [progress, setProgress] = useState(0);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [progress, setProgress] = useState(0)
+  const [currentStep, setCurrentStep] = useState(0)
 
   const getCircleIcon = (step: number) => {
     if (step < currentStep) {
-      return FullCircle;
+      return FullCircle
     } else if (step === currentStep) {
-      return HalfCircle;
+      return HalfCircle
     }
-    return DefaultCircle;
-  };
+    return DefaultCircle
+  }
 
   const renderStepIcon = (step: number) => {
-    const isFull = step < currentStep;
+    const isFull = step < currentStep
 
     return (
       <div className="relative w-4 h-4">
-        <img
-          src={getCircleIcon(step)}
-          alt="Progress Icon"
-          className="w-full h-full"
-        />
+        <img src={getCircleIcon(step)} alt="Progress Icon" className="w-full h-full" />
         {isFull && (
           <img
             src={Check}
             alt="Check Icon"
             className="absolute w-2 h-2"
-            style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+            style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
           />
         )}
       </div>
-    );
-  };
+    )
+  }
 
   useEffect(() => {
-    let currentProgress = 0;
+    let currentProgress = 0
 
     const interval = setInterval(() => {
-      currentProgress += 1; // 진행률 증가
-      setProgress(currentProgress);
+      currentProgress += 1 // 진행률 증가
+      setProgress(currentProgress)
 
       // 단계별 업데이트
       if (currentProgress >= 33.33 && currentProgress < 66.66) {
-        setCurrentStep(1);
+        setCurrentStep(1)
       } else if (currentProgress >= 66.66 && currentProgress < 99) {
-        setCurrentStep(2); 
+        setCurrentStep(2)
       } else if (currentProgress >= 99) {
-        setCurrentStep(3); 
-        clearInterval(interval); 
+        setCurrentStep(3)
+        clearInterval(interval)
         setTimeout(() => {
-          navigate("/signup3"); 
-        }, 2500);
+          navigate('/signup3')
+        }, 2500)
       }
-    }, 30); 
+    }, 30)
 
     return () => {
-      clearInterval(interval);
-    };
-  }, [navigate]);
+      clearInterval(interval)
+    }
+  }, [navigate])
 
   return (
     <div className="h-screen flex flex-col items-center bg-[#F5F5F5] font-pretendard px-6">
@@ -79,7 +75,7 @@ const SignUp2: React.FC = () => {
             className="absolute bottom-0 left-0 w-full bg-[#DED1E8]"
             style={{
               height: `${progress}%`,
-              transition: "height 0.2s linear",
+              transition: 'height 0.2s linear',
             }}
           ></div>
         </div>
@@ -88,7 +84,7 @@ const SignUp2: React.FC = () => {
       {/* Title */}
       <div className="text-center mt-8 w-full max-w-md">
         <h1 className="text-[#191919] text-center font-[GmarketSansWeight] text-[24px] leading-[39px] whitespace-pre-wrap">
-          {nickname}님을 위한 맞춤형{"\n"}증량 식단을 준비하고 있습니다.
+          {nickname}님을 위한 맞춤형{'\n'}증량 식단을 준비하고 있습니다.
         </h1>
       </div>
 
@@ -112,13 +108,11 @@ const SignUp2: React.FC = () => {
         {/* 세 번째 항목 */}
         <div className="flex items-center gap-3">
           {renderStepIcon(3)}
-          <p className="font-[pretendard] text-gray-700 text-[14px] font-semibold">
-            맞춤형 식단을 최적화 하여 준비 중
-          </p>
+          <p className="font-[pretendard] text-gray-700 text-[14px] font-semibold">맞춤형 식단을 최적화 하여 준비 중</p>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SignUp2;
+export default SignUp2

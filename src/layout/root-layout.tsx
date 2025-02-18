@@ -2,17 +2,18 @@ import { useMediaQuery } from 'react-responsive'
 import { Outlet } from 'react-router-dom'
 import bulkLogo from './../assets/BULK.svg'
 import React from 'react'
+import background from './../assets/backgroundLogoNo.svg'
 
 const RootLayout = () => {
-  const isDesktop = useMediaQuery({ query: '(min-width: 599px)' })
-  const isMobile = useMediaQuery({ query: '(max-width: 600px)' })
+  const isDesktop = useMediaQuery({ query: '(min-width: 699px)' })
+  const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
 
   const containerStyle: React.CSSProperties = {
     width: '100vw',
     minHeight: '100vh',
     overflowX: 'hidden',
     overflowY: 'hidden',
-    background: 'linear-gradient(rgba(200,200,200,0.8), rgba(70, 70, 70, 0.8)), url("/path/to/your-image.jpg")',
+    background: `url(${background})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -25,7 +26,7 @@ const RootLayout = () => {
     return (
       <div style={containerStyle}>
         <div style={{ display: 'flex' }}>
-          <img src={bulkLogo} alt="벌크캐릭터" className="pr-[100px]" />
+          <img src={bulkLogo} alt="벌크캐릭터" className="pr-[5vw] invisible" />
           <div
             style={{
               width: '460px',
