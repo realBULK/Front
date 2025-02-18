@@ -2,24 +2,58 @@ import { useMediaQuery } from 'react-responsive'
 import { Outlet } from 'react-router-dom'
 
 const RootLayout = () => {
-  const isMobile = useMediaQuery({ query: '(max-width:460px)' })
-  const isDesktop = useMediaQuery({ query: '(min-width:461px)' })
+  const isDesktop = useMediaQuery({ query: '(min-width: 621px)' })
+  const isMobile = useMediaQuery({ query: '(max-width: 620px)' })
 
-  const getWidth = () => {
-    if (isMobile) {
-      return '100%'
-    } else if (isDesktop) {
-      return '460px'
-    }
+  if (isDesktop) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>
+        <div
+          style={{
+            width: '150px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#EEE',
+            padding: '10px',
+          }}
+        >
+          화면커짐
+        </div>
+
+        <div
+          style={{
+            width: '460px',
+            height: '100%',
+            backgroundColor: '#F5F5F5',
+            overflowY: 'auto',
+          }}
+        >
+          <Outlet />
+        </div>
+      </div>
+    )
   }
 
-  return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <div style={{ width: getWidth(), height: '100%', backgroundColor: '#F5F5F5', overflowY: 'auto' }}>
-        <Outlet />
+  if (isMobile) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>
+        <div
+          style={{
+            width: '100%',
+            maxWidth: '460px',
+            height: '100%',
+            backgroundColor: '#F5F5F5',
+            overflowY: 'auto',
+          }}
+        >
+          <Outlet />
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
+
+  return null
 }
 
 export default RootLayout
