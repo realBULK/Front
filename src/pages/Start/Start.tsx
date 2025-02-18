@@ -111,37 +111,18 @@
 
 // export default Start;
 
-import { useState} from "react";
 import logo from '../../assets/BULK.svg'
-import { useNavigate } from 'react-router-dom'
-import KakaoIcon from '../../assets/kakao.svg'
-import AppleIcon from '../../assets/apple.svg'
 import BigWhiteButton from '../../components/BigWhiteButton'
-import SkeletonStart from "./SkeletonStart";
 
 const Start = () => {
-  const navigate = useNavigate()
-
-  const CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID;
-  const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
-
-  const [isLoading] = useState(false);
-
-  const handleKakaoLogin = async () => {
-    const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
-    window.location.href = kakaoLoginUrl; // 카카오 인증 URL로 리다이렉트
-  };
-  
-  if (isLoading) {
-    return <SkeletonStart/>;
-  }
 
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="flex flex-col items-center">
         <img src={logo} alt="Logo" className="w-[252px] h-[135px] mb-[36px] mt-[15%]" />
         <BigWhiteButton text="맞춤 식단 받아보기" navigateTo="questionstart"></BigWhiteButton>
-        <div className="flex items-center w-[327px]">
+        <BigWhiteButton text="로그인" navigateTo="login"></BigWhiteButton>
+        {/* <div className="flex items-center w-[327px]">
           <hr className="flex-1 border-[#A4A4A4]" />
           <span className="mx-4 text-[14px] text-[#A4A4A4]">또는</span>
           <hr className="flex-1 border-[#A4A4A4]" />
@@ -153,7 +134,7 @@ const Start = () => {
             style={{
               border: '1px solid #FAE100',
             }}
-            onClick={handleKakaoLogin}
+            onClick={handleLogin}
           >
             <img src={KakaoIcon} alt="Kakao Icon" className="w-5 h-5" />
             카카오로 계속하기
@@ -169,7 +150,7 @@ const Start = () => {
             <img src={AppleIcon} alt="Apple Icon" className="w-5 h-5" />
             Apple로 계속하기
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   )

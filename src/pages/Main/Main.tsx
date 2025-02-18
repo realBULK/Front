@@ -13,37 +13,30 @@ import bulkfood from "../../assets/BulkFood.svg";
 import CalorieCard from "../../components/main/CalorieCard";
 import CharacterArea from "../../components/main/CharacterArea";
 import LevelProgress from "../../components/main/LevelProgress";
+// import API from "@/mocks/api";
 
-interface CharacterData {
-  id: number;
+interface CharacterDTO {
   name: string;
   level: number;
   point: number;
 }
 
-interface FoodSetting {
-  calories: number;
-  carbohydrates: number;
-  protein: number;
-  fat: number;
+interface NutritionDTO {
+  curCalories: number;
+  curFats: number;
+  curProteins: number;
+  curCarbos: number;
+  calories: number | null;
+  fats: number | null;
+  proteins: number | null;
+  carbos: number | null;
 }
 
-interface DailyFoodData {
-  calories: number;
-  carbohydrates: number;
-  protein: number;
-  fat: number;
+interface HomeResponse {
+  characterDTO: CharacterDTO;
+  nutritionDTO: NutritionDTO;
 }
 
-interface UserFoodData {
-  setting: FoodSetting;
-  dailyyFoodData: DailyFoodData;
-}
-
-interface ApiResponse {
-  characterData: CharacterData;
-  userFoodData: UserFoodData;
-}
 
 const Main = () => {
 
@@ -70,8 +63,10 @@ const Main = () => {
     return storedColor ? JSON.parse(storedColor) : colors.orange;
   };
 
-  const [apiData, setApiData] = useState<ApiResponse | null>(null);
+  const [characterData, setCharacterData] = useState<CharacterDTO | null>(null);
+  const [nutritionData, setNutritionData] = useState<NutritionDTO | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  // const [error, setError] = useState(null);
 
   const [, setIsEating] = useState(false);
   const [selectedColor, setSelectedColor] = useState(getInitialColor);
@@ -103,25 +98,81 @@ const Main = () => {
       ) || "orange"
     );
   };
-  
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchToken = async () => {
       try {
-        const response = await fetch("/api/home/info");
-        const result = await response.json();
-        if (result.isSuccess) {
-          setApiData(result.data);
-        }
+        console.log("✅ 토큰 직접 저장 중...");
+        
+        // ✅ 토큰 직접 저장
+        localStorage.setItem("accessToken", "NGVUtSoJ48zeHe9ZbfiDxOwUGiDOQZb4AAAAAQo9c00AAAGVGP-iOrG7d-HwzTGR");
+  
+        console.log("✅ 토큰 저장 완료");
+        
+        // ✅ 홈 화면으로 이동
+        navigate("/home");
       } catch (error) {
-        console.error("API 요청 실패:", error);
+        console.error("토큰 저장 중 오류 발생:", error);
+        navigate("/home"); // ❌ 에러 발생 시 홈으로 이동
       } finally {
         setIsLoading(false);
       }
     };
+  
+    fetchToken();
+  }, [navigate]);
+  
 
-    fetchData();
+  const fetchHomeData = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        console.error("❌ 토큰이 없습니다. 로그인 필요!");
+        navigate("/login");
+        return;
+      }
+  
+      const response = await fetch("http://43.200.218.42:8080/home/info", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // ✅ 토큰 추가
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error("홈 데이터 요청 실패");
+      }
+  
+      const data = await response.json();
+      console.log("✅ 홈 데이터:", data);
+    } catch (error) {
+      console.error("❌ 홈 데이터 요청 실패:", error);
+    }
+  };
+  
+  useEffect(() => {
+    fetchHomeData();
   }, []);
+  
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch("/home/info");
+  //       const result = await response.json();
+  //       if (result.isSuccess) {
+  //         setApiData(result.data);
+  //       }
+  //     } catch (error) {
+  //       console.error("API 요청 실패:", error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   // 터치 이동 방지
   useEffect(() => {
@@ -296,10 +347,10 @@ const Main = () => {
       <div className="w-full flex flex-col mb-4">
         <div className="flex items-center">
           <div className="relative w-10 h-10 mr-3">
-            <LevelProgress progressColor={selectedColor.bar} progressPercentage={apiData?.characterData.point ?? 0} />
+            <LevelProgress progressColor={selectedColor.bar} progressPercentage={characterData?.point ?? 0} />
           </div>
           <h1 className="text-[40px] font-[GmarketSansWeight] text-black leading-[1.21]">
-            LV. {apiData?.characterData.level ?? "0"}
+            LV. {characterData?.level ?? "에러"}
           </h1>
         </div>
 
@@ -308,7 +359,7 @@ const Main = () => {
           selectedColor={selectedColor}
           colors={colors}
           onColorChange={handleColorChange}
-          apiData={apiData}
+          apiData={{ nutritionData }}
           isLoading={isLoading}
         />
       </div>
