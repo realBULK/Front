@@ -8,7 +8,7 @@ const RootLayout = () => {
   const containerStyle = {
     width: '100vw',
     height: '100vh',
-    background: 'linear-gradient(rgb(200, 200, 200), rgba(62, 62, 62, 0.59)), url("/path/to/your-image.jpg")',
+    background: 'linear-gradient(rgb(206, 206, 206), rgba(62, 62, 62, 0.59)), url("/path/to/your-image.jpg")',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
