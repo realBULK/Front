@@ -65,7 +65,8 @@ const ButtonQuestion: FC<ButtonQuestionProps> = ({
         </div>
       </QuestionInfo>
 
-      <div className="absolute bottom-[10px] left-0 w-full flex justify-center py-4 z-10">
+      <div className="flex-grow overflow-y-auto" />
+      <div className="absolute bottom-[10px] left-0 right-0 flex justify-center">
         {specialButton && (
           <BigGrayButton
             text={specialButton.text}

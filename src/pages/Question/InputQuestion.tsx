@@ -58,7 +58,7 @@ const InputQuestion: React.FC<InputQuestionProps> = ({
   const isFormValid = validStates.every((valid) => valid === true)
 
   return (
-    <div className="bg-[#F5F5F5] min-h-screen flex flex-col">
+    <div className="bg-[#F5F5F5] min-h-screen flex flex-col overflow-x-hidden relative">
       <QuestionInfo progress={progress} bigQuestion={bigQuestion} smallQuestion={smallQuestion}>
         <div className="flex flex-col gap-[2.35vh]">
           {inputs.map((placeholder, idx) => (
@@ -73,7 +73,7 @@ const InputQuestion: React.FC<InputQuestionProps> = ({
         </div>
       </QuestionInfo>
 
-      <div className="absolute bottom-[10px] left-0 w-full flex justify-center py-4 z-10">
+      <div className="absolute bottom-[10px] w-full flex justify-center">
         <BigGrayButton text="다음" navigateTo={nextPage} onClick={handleClick} disabled={!isFormValid} />
       </div>
     </div>
