@@ -1,32 +1,34 @@
 import { useMediaQuery } from 'react-responsive'
 import { Outlet } from 'react-router-dom'
 import bulkLogo from './../assets/BULK.svg'
-const RootLayout = () => {
-  const isDesktop = useMediaQuery({ query: '(min-width: 610px)' })
-  const isMobile = useMediaQuery({ query: '(max-width: 609px)' })
+import React from 'react'
 
-  const containerStyle = {
+const RootLayout = () => {
+  const isDesktop = useMediaQuery({ query: '(min-width: 599px)' })
+  const isMobile = useMediaQuery({ query: '(max-width: 600px)' })
+
+  const containerStyle: React.CSSProperties = {
     width: '100vw',
-    height: '100vh',
-    background: 'linear-gradient(rgb(206, 206, 206), rgba(62, 62, 62, 0.59)), url("/path/to/your-image.jpg")',
+    minHeight: '100vh',
+    overflowX: 'hidden',
+    overflowY: 'hidden',
+    background: 'linear-gradient(rgba(200,200,200,0.8), rgba(70, 70, 70, 0.8)), url("/path/to/your-image.jpg")',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   }
 
   if (isDesktop) {
     return (
       <div style={containerStyle}>
         <div style={{ display: 'flex' }}>
-          <img src={bulkLogo} alt="벌크캐릭터" className="pr-[50px]"></img>
-
+          <img src={bulkLogo} alt="벌크캐릭터" className="pr-[100px]" />
           <div
             style={{
               width: '460px',
-              height: '100%',
               backgroundColor: '#F5F5F5',
               overflowY: 'auto',
             }}
@@ -45,7 +47,6 @@ const RootLayout = () => {
           style={{
             width: '100%',
             maxWidth: '460px',
-            height: '100%',
             backgroundColor: '#F5F5F5',
             overflowY: 'auto',
           }}
