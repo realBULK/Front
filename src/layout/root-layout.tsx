@@ -43,7 +43,7 @@ const RootLayout = () => {
 
   if (isMobile) {
     return (
-      <div style={containerStyle}>
+      <div>
         <div
           style={{
             width: '100%',
