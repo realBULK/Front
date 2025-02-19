@@ -61,7 +61,7 @@ const SignupForm: React.FC = () => {
   
     try {
       // confirmPassword 제외하고 백엔드로 데이터 전송
-      await API.post("/signup", {
+      await API.post("api/user/signup", {
         email: formData.email,
         password: formData.password,
       });

@@ -18,7 +18,7 @@ const LoginForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await API.post("/login", formData);
+      const response = await API.post("/api/user/login", formData);
       console.log("로그인 응답 데이터:", response.data);
 
       if (!response.data.data) {

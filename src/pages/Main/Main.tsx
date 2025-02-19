@@ -63,8 +63,8 @@ const Main = () => {
     return storedColor ? JSON.parse(storedColor) : colors.orange;
   };
 
-  const [characterData, setCharacterData] = useState<CharacterDTO | null>(null);
-  const [nutritionData, setNutritionData] = useState<NutritionDTO | null>(null);
+  const [characterData] = useState<CharacterDTO | null>(null);
+  const [nutritionData] = useState<NutritionDTO | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   // const [error, setError] = useState(null);
 
