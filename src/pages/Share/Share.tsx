@@ -1,5 +1,5 @@
 import Member from "@/components/Member";
-import Week from "@/components/Week";
+import Week from "@/components/group/Week";
 import NavBar from "@/components/NavBar";
 
 const Share = () => {

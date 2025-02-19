@@ -2,13 +2,17 @@ import { useMediaQuery } from 'react-responsive'
 import { Outlet } from 'react-router-dom'
 import bulkLogo from './../assets/BULK.svg'
 import React from 'react'
+
 import background from './../assets/mainBackground.svg'
+
 
 const RootLayout = () => {
   const isDesktop = useMediaQuery({ query: '(min-width: 699px)' })
   const isMobile = useMediaQuery({ query: '(max-width: 700px)' })
 
+
   const containerStyleDesktop: React.CSSProperties = {
+
     width: '100vw',
     minHeight: '100vh',
     overflowX: 'hidden',
@@ -21,6 +25,7 @@ const RootLayout = () => {
     justifyContent: 'center',
     alignItems: 'flex-start',
   }
+
 
   const containerStyleMobile: React.CSSProperties = {
     width: '100vw',
@@ -36,6 +41,7 @@ const RootLayout = () => {
   if (isDesktop) {
     return (
       <div style={containerStyleDesktop}>
+
         <div style={{ display: 'flex' }}>
           <img src={bulkLogo} alt="벌크캐릭터" className="pr-[5vw] invisible" />
           <div
@@ -54,7 +60,9 @@ const RootLayout = () => {
 
   if (isMobile) {
     return (
+
       <div style={containerStyleMobile}>
+
         <div
           style={{
             width: '100%',

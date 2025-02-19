@@ -75,7 +75,7 @@ const SignupForm: React.FC = () => {
   
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 font-[Pretendard]">
       <div className="w-full max-w-[85%] p-6 bg-white rounded-xl shadow-md text-center">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">회원가입</h2>
 
@@ -123,7 +123,7 @@ const SignupForm: React.FC = () => {
 
           <button
             type="submit"
-            className="w-full p-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+            className="w-full p-3 bg-[#DAE6CB] text-white rounded-lg hover:bg-[#ACB99C] transition"
           >
             회원가입
           </button>
@@ -131,7 +131,7 @@ const SignupForm: React.FC = () => {
 
         <div className="mt-4 mb-[5px] text-gray-500 text-sm">이미 회원이신가요?</div>
 
-        <Link to="/login" className="text-green-500 hover:text-green-600 transition">
+        <Link to="/login" className="text-green-600 hover:text-green-500 transition">
           로그인 하러가기
         </Link>
       </div>
