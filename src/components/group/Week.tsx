@@ -1,27 +1,47 @@
+import API from "@/apis/axiosInstance";
 import { useState, useEffect, useRef } from "react";
 
 const Week = () => {
 
   const [filledCircles, setFilledCircles] = useState<number>(0);
+  const [, setIsLoading] = useState<boolean>(true);
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const today = new Date();
-    const dayOfWeek = today.getDay(); // 0(일) ~ 6(토)
-  
-    // 2주 전 월요일 찾기
-    const daysSinceMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-    const lastMonday = new Date(today);
-    lastMonday.setDate(today.getDate() - daysSinceMonday - 7); // 2주 전 월요일
-  
-    // 2주 전 월요일부터 오늘까지 경과한 일수 계산 (최대 14일)
-    const diffInDays = Math.min(
-      Math.floor((today.getTime() - lastMonday.getTime()) / (1000 * 60 * 60 * 24)) + 1,
-      14
-    );
-  
-    setFilledCircles(diffInDays);
+    const fetchData = async () => {
+      try {
+        const response = await API.get("/groups/map");
+
+        if (response.data && response.data.isSuccess) {
+          setFilledCircles(response.data.data.currentStage);
+        }
+      } catch (error) {
+        console.error("데이터를 불러오는 중 오류 발생:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   const today = new Date();
+  //   const dayOfWeek = today.getDay(); // 0(일) ~ 6(토)
+  
+  //   // 2주 전 월요일 찾기
+  //   const daysSinceMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+  //   const lastMonday = new Date(today);
+  //   lastMonday.setDate(today.getDate() - daysSinceMonday - 7); // 2주 전 월요일
+  
+  //   // 2주 전 월요일부터 오늘까지 경과한 일수 계산 (최대 14일)
+  //   const diffInDays = Math.min(
+  //     Math.floor((today.getTime() - lastMonday.getTime()) / (1000 * 60 * 60 * 24)) + 1,
+  //     14
+  //   );
+  
+  //   setFilledCircles(diffInDays);
+  // }, []);
   
 
   const getFillColor = (index: number, filledCircles: number): string => {
