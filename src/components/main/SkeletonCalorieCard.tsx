@@ -3,9 +3,9 @@ const SkeletonCalorieCard = () => {
     <div
       className="w-[100%] h-[200px] rounded-[20px] p-4 shadow-md mx-auto mt-[11px] bg-gray-200 animate-pulse"
     >
-      <div className="flex justify-between items-center mb-3 w-[330px]">
+      <div className="flex justify-between items-center mb-3 width-[100%]">
         {/* 제목 스켈레톤 */}
-        <div className="h-6 bg-gray-300 rounded w-[100px]"></div>
+        <div className="h-6 bg-gray-300 rounded w-[100px] mr-[10%]"></div>
 
         {/* 색상 버튼 스켈레톤 */}
         <div className="flex space-x-2 mb-5">
@@ -22,19 +22,19 @@ const SkeletonCalorieCard = () => {
       <div className="w-full mt-10">
         <div className="flex justify-between mt-2">
           {/* 탄수화물 */}
-          <div className="flex flex-col items-start w-[30%]">
-            <div className="w-[90px] h-6 bg-gray-300 rounded mb-1"></div>
-            <div className="w-[90px] h-4 bg-gray-300 rounded"></div>
+          <div className="flex flex-col items-start">
+            <div className="w-[100px] h-6 bg-gray-300 rounded mb-1"></div>
+            <div className="w-[100px] h-4 bg-gray-300 rounded"></div>
           </div>
           {/* 단백질 */}
-          <div className="flex flex-col items-start w-[30%]">
-            <div className="w-[90px] h-6 bg-gray-300 rounded mb-1"></div>
-            <div className="w-[90px] h-4 bg-gray-300 rounded"></div>
+          <div className="flex flex-col items-start">
+            <div className="w-[100px] h-6 bg-gray-300 rounded mb-1"></div>
+            <div className="w-[100px] h-4 bg-gray-300 rounded"></div>
           </div>
           {/* 지방 */}
-          <div className="flex flex-col items-start w-[30%]">
-            <div className="w-[90px] h-6 bg-gray-300 rounded mb-1"></div>
-            <div className="w-[90px] h-4 bg-gray-300 rounded"></div>
+          <div className="flex flex-col items-start">
+            <div className="w-[100px] h-6 bg-gray-300 rounded mb-1"></div>
+            <div className="w-[100px] h-4 bg-gray-300 rounded"></div>
           </div>
         </div>
       </div>
