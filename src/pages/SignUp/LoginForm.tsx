@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import API from "../../apis/api";
+import API from "../../apis/axiosInstance";
 
 interface FormData {
-  userId: string;
+  email: string;  
   password: string;
 }
 
 const LoginForm: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({ userId: "", password: "" });
+  const [formData, setFormData] = useState<FormData>({ email: "", password: "" });
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,34 +18,38 @@ const LoginForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await API.post("/api/user/login", formData);
+      const response = await API.post("api/user/login", {
+        email: formData.email,
+        password: formData.password,
+      });
       console.log("로그인 응답 데이터:", response.data);
-
+  
       if (!response.data.data) {
         console.error("response.data.data가 없습니다!", response.data);
         alert("서버 응답 오류 발생. 다시 시도해주세요.");
         return;
       }
-
-      const { token } = response.data.data;
-      console.log("받은 토큰:", token);
-
-      if (!token) {
-        console.error("로그인 응답에서 `token`이 없습니다!", response.data.data);
-        alert("서버에서 토큰 값을 반환하지 않습니다. 백엔드 API 확인 필요!");
+  
+      const { accessToken } = response.data.data;  // ✅ accessToken 사용
+      console.log("받은 액세스 토큰:", accessToken);
+  
+      if (!accessToken) {
+        console.error("로그인 응답에서 `accessToken`이 없습니다!", response.data.data);
+        alert("서버에서 액세스 토큰을 반환하지 않습니다. 백엔드 API 확인 필요!");
         return;
       }
-
-      localStorage.setItem("token", token);
-
+  
+      localStorage.setItem("access_token", accessToken);  // ✅ 저장되는 key는 동일하게 유지
+  
       alert("로그인 성공!");
-      navigate("/main");
-
+      navigate("/report");
+  
     } catch (error: any) {
       console.error("로그인 실패:", error.response?.data || error);
       alert("로그인 실패: " + (error.response?.data?.message || "서버 오류 발생"));
     }
   };
+  
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -57,9 +61,9 @@ const LoginForm: React.FC = () => {
             <label className="block text-sm font-medium text-gray-600 mb-[3px]">이메일</label>
             <input
               type="text"
-              name="userId"
+              name="email"
               placeholder="이메일을 입력하세요"
-              value={formData.userId}
+              value={formData.email}
               onChange={handleChange}
               required
               className="w-full p-3 border border-gray-300 rounded-lg"

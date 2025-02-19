@@ -179,7 +179,7 @@
 import React, { useEffect, useState } from "react";
 import ProgressBar from "../MainProgressBar";
 import SkeletonCalorieCard from "./SkeletonCalorieCard";
-import API from "../../apis/api"; 
+import API from "../../apis/axiosInstance"; 
 
 interface Color {
   bar: string;
