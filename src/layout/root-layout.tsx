@@ -2,7 +2,7 @@ import { useMediaQuery } from 'react-responsive'
 import { Outlet } from 'react-router-dom'
 import bulkLogo from './../assets/BULK.svg'
 import React from 'react'
-import background from './../assets/backgroundLogoNo.svg'
+import background from './../assets/backgroundLogoYes.svg'
 
 const RootLayout = () => {
   const isDesktop = useMediaQuery({ query: '(min-width: 699px)' })
