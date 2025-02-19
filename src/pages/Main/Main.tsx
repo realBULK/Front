@@ -13,7 +13,7 @@ import bulkfood from "../../assets/BulkFood.svg";
 import CalorieCard from "../../components/main/CalorieCard";
 import CharacterArea from "../../components/main/CharacterArea";
 import LevelProgress from "../../components/main/LevelProgress";
-// import API from "@/mocks/api";
+import API from "@/apis/axiosInstance";
 
 interface CharacterDTO {
   name: string;
@@ -26,17 +26,11 @@ interface NutritionDTO {
   curFats: number;
   curProteins: number;
   curCarbos: number;
-  calories: number | null;
-  fats: number | null;
-  proteins: number | null;
-  carbos: number | null;
+  calories: number;
+  fats: number;
+  proteins: number;
+  carbos: number;
 }
-
-interface HomeResponse {
-  characterDTO: CharacterDTO;
-  nutritionDTO: NutritionDTO;
-}
-
 
 const Main = () => {
 
@@ -63,8 +57,8 @@ const Main = () => {
     return storedColor ? JSON.parse(storedColor) : colors.orange;
   };
 
-  const [characterData] = useState<CharacterDTO | null>(null);
-  const [nutritionData] = useState<NutritionDTO | null>(null);
+  const [characterData, setCharacterData] = useState<CharacterDTO | null>(null);
+  const [nutritionData, setNutritionData] = useState<NutritionDTO | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   // const [error, setError] = useState(null);
 
@@ -75,14 +69,6 @@ const Main = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [characterImage, setCharacterImage] = useState(character);
-  // const [isFed, setIsFed] = useState(() => {
-  //   const storedValue = localStorage.getItem("isFed");
-  //   if (storedValue === null) {
-  //     localStorage.setItem("isFed", "true"); // 기본값 설정
-  //     return true;
-  //   }
-  //   return storedValue === "true";
-  // });
   const [isFed, setIsFed] = useState(false);
   const [, setTimer] = useState<number | null>(null);
 
@@ -99,80 +85,25 @@ const Main = () => {
     );
   };
 
+
   useEffect(() => {
-    const fetchToken = async () => {
+    const fetchData = async () => {
       try {
-        console.log("✅ 토큰 직접 저장 중...");
-        
-        // ✅ 토큰 직접 저장
-        localStorage.setItem("accessToken", "NGVUtSoJ48zeHe9ZbfiDxOwUGiDOQZb4AAAAAQo9c00AAAGVGP-iOrG7d-HwzTGR");
-  
-        console.log("✅ 토큰 저장 완료");
-        
-        // ✅ 홈 화면으로 이동
-        navigate("/home");
+        const response = await API.get("/home/info");
+
+        if (response.data && response.data.isSuccess) {
+          setCharacterData(response.data.data.characterDTO);
+          setNutritionData(response.data.data.nutritionDTO);
+        }
       } catch (error) {
-        console.error("토큰 저장 중 오류 발생:", error);
-        navigate("/home"); // ❌ 에러 발생 시 홈으로 이동
+        console.error("데이터를 불러오는 중 오류 발생:", error);
       } finally {
         setIsLoading(false);
       }
     };
-  
-    fetchToken();
-  }, [navigate]);
-  
 
-  const fetchHomeData = async () => {
-    try {
-      const token = localStorage.getItem("accessToken");
-      if (!token) {
-        console.error("❌ 토큰이 없습니다. 로그인 필요!");
-        navigate("/login");
-        return;
-      }
-  
-      const response = await fetch("http://43.200.218.42:8080/home/info", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ✅ 토큰 추가
-        },
-      });
-  
-      if (!response.ok) {
-        throw new Error("홈 데이터 요청 실패");
-      }
-  
-      const data = await response.json();
-      console.log("✅ 홈 데이터:", data);
-    } catch (error) {
-      console.error("❌ 홈 데이터 요청 실패:", error);
-    }
-  };
-  
-  useEffect(() => {
-    fetchHomeData();
+    fetchData();
   }, []);
-  
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch("/home/info");
-  //       const result = await response.json();
-  //       if (result.isSuccess) {
-  //         setApiData(result.data);
-  //       }
-  //     } catch (error) {
-  //       console.error("API 요청 실패:", error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   // 터치 이동 방지
   useEffect(() => {
@@ -256,11 +187,6 @@ const Main = () => {
         setIsEating(false);
         setCharacterImage(character_eat); // 원래 이미지로
 
-        // // 3초 후 "/record" 페이지로 이동
-        // setTimeout(() => {
-        //   navigate("/record");
-        // })
-
         setIsFed(true);
         localStorage.setItem("lastFedTime", Date.now().toString());
 
@@ -270,15 +196,6 @@ const Main = () => {
           navigate("/record");
         })
       }, 2000);
-  
-      // const timerEndTime = Date.now() + 10000; // 10초 후 먹이 상태 복구
-      // localStorage.setItem("timerEndTime", timerEndTime.toString());
-  
-      // setTimer(
-      //   setTimeout(() => {
-      //     resetCharacterState();
-      //   }, 10000)
-      // );
     }
   };
 
@@ -306,17 +223,6 @@ const Main = () => {
 
     setIsFed(canShowFood);
   }, []);
-
-  // const handleFeed = () => {
-  //   setIsFed(true);
-  //   localStorage.setItem("lastFedTime", Date.now().toString());
-
-  //   setCharacterImage(character_eat);
-  //   setTimeout(() => {
-  //     setCharacterImage(character);
-  //     navigate("/record");
-  //   }, 2000);
-  // };
 
   // 드래그 종료 (데스크톱 + 모바일 공통)
   const handleMouseUp = () => setIsDragging(false);
@@ -359,8 +265,8 @@ const Main = () => {
           selectedColor={selectedColor}
           colors={colors}
           onColorChange={handleColorChange}
-          apiData={{ nutritionData }}
-          isLoading={isLoading}
+          apiData={nutritionData}  
+          isLoading={isLoading}         
         />
       </div>
 
