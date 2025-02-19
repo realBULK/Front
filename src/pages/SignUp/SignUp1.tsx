@@ -1,77 +1,59 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import * as yup from 'yup'
-import { useCheckNickname } from '@/hooks/useCheckNickname'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
+import { useCheckNickname } from '@/hooks/useCheckNickname';
 
 const SignUp1: React.FC = () => {
-  const navigate = useNavigate()
-  const [nickname, setNickname] = useState(() => localStorage.getItem('nickname') || '')
-  const [error, setError] = useState<string | null>(null)
-  const [isNicknameValid, setIsNicknameValid] = useState(true)
-
-  const nicknameSchema = yup.string().required('닉네임을 입력해주세요.').max(10, '닉네임은 10자 이내로 설정해주세요.')
-
-  const { data, isLoading, refetch } = useCheckNickname(nickname)
-
-  /*useEffect(() => {
-    if (data && !isLoading) {
-      if (data.data.duplicated) {
-        setError("중복된 닉네임입니다.");
-        setIsNicknameValid(false);
-      } else {
-        setError(null);
-        setIsNicknameValid(true);
-      }
-    }
-  }, [data, isLoading]);*/
+  const navigate = useNavigate();
+  const [nickname, setNickname] = useState(() => localStorage.getItem('nickname') || '');
+  const [error, setError] = useState<string | null>(null);
+  const [isNicknameValid, setIsNicknameValid] = useState(true);
+  const nicknameSchema = yup.string().required('닉네임을 입력해주세요.').max(10, '닉네임은 10자 이내로 설정해주세요.');
+  
+  const { data, isLoading, refetch } = useCheckNickname(nickname);
 
   useEffect(() => {
-    if (data && !isLoading) {
-      if (data.data.duplicated) {
-        setError('중복된 닉네임입니다.')
-        setIsNicknameValid(false)
-      } else {
-        setError(null)
-        setIsNicknameValid(true)
-      }
+    if (!data || isLoading) return;
+    if (data.isSuccess && data.data.duplicated) {
+      setError('중복된 닉네임입니다.');
+      setIsNicknameValid(false);
+    } else {
+      setError(null);
+      setIsNicknameValid(true);
     }
-  }, [data, isLoading])
+  }, [data, isLoading]);
 
   const handleNicknameChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value.trim()
-    setNickname(value || '')
-    localStorage.setItem('nickname', value || '')
+    const value = event.target.value.trim();
+    setNickname(value);
+    localStorage.setItem('nickname', value);
 
-    setError(null)
-    setIsNicknameValid(true)
+    setError(null);
+    setIsNicknameValid(true);
 
     try {
-      await nicknameSchema.validate(value, { abortEarly: true })
-
-      if (value) {
-        refetch() // 닉네임 중복 확인 요청
-      }
+      await nicknameSchema.validate(value);
+      if (value) refetch(); // 닉네임 중복 확인 요청
     } catch (err) {
       if (err instanceof yup.ValidationError) {
-        setError(err.message)
-        setIsNicknameValid(false)
+        setError(err.message);
+        setIsNicknameValid(false);
       }
     }
-  }
+  };
 
   const handleNext = async () => {
     try {
-      await nicknameSchema.validate(nickname)
-      if (!isNicknameValid || error || isLoading) return
-
-      localStorage.setItem('nickname', nickname)
-      navigate('/signup2', { state: { nickname } })
+      await nicknameSchema.validate(nickname);
+      if (!isNicknameValid || error || isLoading) return;
+      localStorage.setItem('nickname', nickname);
+      navigate('/signup2', { state: { nickname } });
     } catch (err) {
       if (err instanceof yup.ValidationError) {
-        setError(err.message)
+        setError(err.message);
       }
     }
-  }
+  };
 
   return (
     <div className="h-screen flex flex-col items-center bg-[#F5F5F5] font-pretendard px-6">
@@ -116,7 +98,7 @@ const SignUp1: React.FC = () => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SignUp1
+export default SignUp1;

@@ -22,34 +22,62 @@ const LoginForm: React.FC = () => {
         email: formData.email,
         password: formData.password,
       });
+
       console.log("로그인 응답 데이터:", response.data);
-  
+
       if (!response.data.data) {
         console.error("response.data.data가 없습니다!", response.data);
         alert("서버 응답 오류 발생. 다시 시도해주세요.");
         return;
       }
-  
+
       const { accessToken } = response.data.data;  // ✅ accessToken 사용
       console.log("받은 액세스 토큰:", accessToken);
-  
+
       if (!accessToken) {
         console.error("로그인 응답에서 `accessToken`이 없습니다!", response.data.data);
         alert("서버에서 액세스 토큰을 반환하지 않습니다. 백엔드 API 확인 필요!");
         return;
       }
-  
-      localStorage.setItem("access_token", accessToken);  // ✅ 저장되는 key는 동일하게 유지
-  
+
+      // ✅ 토큰 저장
+      localStorage.setItem("access_token", accessToken);
+
+      // ✅ 로그인 후 질문 데이터 백엔드로 전송
+      await sendUserQuestionData();
+
       alert("로그인 성공!");
       navigate("/report");
-  
+
     } catch (error: any) {
       console.error("로그인 실패:", error.response?.data || error);
       alert("로그인 실패: " + (error.response?.data?.message || "서버 오류 발생"));
     }
   };
-  
+
+  // ✅ 로그인 후 질문 데이터 전송
+  const sendUserQuestionData = async () => {
+    try {
+      const data = {
+        nickname: localStorage.getItem("nickname") || "",
+        height: Number(localStorage.getItem("height")) || 0,
+        weight: Number(localStorage.getItem("weight")) || 0,
+        goalWeight: Number(localStorage.getItem("goal_weight")) || 0,
+        activityLevel: localStorage.getItem("activity_level") || "",
+        mealNumber: localStorage.getItem("meal_number") || "",
+        cookTime: localStorage.getItem("cook_time") || "",
+        deliveryNum: localStorage.getItem("delivery_num") || "",
+        mealTime: localStorage.getItem("meal_time") || "",
+        eatingOut: localStorage.getItem("eating_out") || "",
+        favoriteFood: localStorage.getItem("favorite_food") || "",
+      };
+
+      const response = await API.patch("/api/user/question", data);
+      console.log("질문 데이터 업데이트 성공:", response.data);
+    } catch (error) {
+      console.error("❌ 질문 데이터 업데이트 실패:", error);
+    }
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 font-[Pretendard]">
