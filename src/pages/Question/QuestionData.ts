@@ -55,7 +55,12 @@ export const questionData: Record<string, any> = {
     progress: 50,
     bigQuestion: `식습관에 대해
 알려주세요!`,
-    smallQuestion: '평소 즐겨 먹는 음식을 알려주세요.',
+    smallQuestion: `평소 즐겨 먹는 음식을 알려주세요.
+    
+    초록색으로 표시된 항목이 선택된 상태입니다.
+    다시 누르면 선택이 해제됩니다.
+    
+    `,
     categories: [
       {
         title: '채소',

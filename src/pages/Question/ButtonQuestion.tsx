@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import QuestionInfo from './QuestionInfo'
-import QuestionButtonComponent from '../../components/QuestionButtonComponent'
+import QuestionButtonComponent from '../../components/question/QuestionButtonComponent'
 import BigGrayButton from '../../components/BigGrayButton'
 
 interface SpecialButtonProps {

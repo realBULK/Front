@@ -1,4 +1,4 @@
-import StepProgressBar from './../../components/StepProgressBar'
+import StepProgressBar from '../../components/question/StepProgressBar'
 
 interface QuestionInfoProps {
   progress: number
