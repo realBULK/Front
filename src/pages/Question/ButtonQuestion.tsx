@@ -45,13 +45,14 @@ const ButtonQuestion: FC<ButtonQuestionProps> = ({
     const formattedText = strCut(text)
     localStorage.setItem(datatype, formattedText)
     setSelectedIndex(index)
+
     if (!isFinalPage && navigateTo) {
       navigate(`/${navigateTo}`)
     }
   }
 
   return (
-    <div className="bg-[#F5F5F5] min-h-screen flex flex-col">
+    <div className="bg-[#F5F5F5] min-h-screen flex flex-col relative">
       <QuestionInfo progress={progress} bigQuestion={bigQuestion} smallQuestion={smallQuestion}>
         <div className="flex flex-col gap-[2.35vh] px-4 pt-4">
           {options?.map((option, idx) => (
@@ -65,7 +66,9 @@ const ButtonQuestion: FC<ButtonQuestionProps> = ({
         </div>
       </QuestionInfo>
 
-      <div className="absolute bottom-[10px] left-0 w-full flex justify-center py-4 z-10">
+      <div className="flex-grow overflow-y-auto" />
+
+      <div className="absolute bottom-[10px] left-0 right-0 flex justify-center">
         {specialButton && (
           <BigGrayButton
             text={specialButton.text}
