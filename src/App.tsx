@@ -27,12 +27,13 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import TodayDiet from './pages/Diet/TodayDiet'
 import SignupForm from './pages/SignUp/SignupForm'
 import LoginForm from './pages/SignUp/LoginForm'
+import NotFound from './pages/Main/not-found'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
-    errorElement: <div className="bg-blue-50" />,
+    errorElement: <NotFound />,
     children: [
       {
         index: true,
