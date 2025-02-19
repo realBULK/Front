@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import QuestionInfo from './QuestionInfo'
-import QuestionInputComponent from './../../components/QuestionInputComponent'
+import QuestionInputComponent from '../../components/question/QuestionInputComponent'
 import BigGrayButton from './../../components/BigGrayButton'
 
 interface InputQuestionProps {
