@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const API = axios.create({
-  baseURL: "http://43.200.218.42:8080", // 백엔드 URL
+  baseURL: API_BASE_URL
 });
 
 // 요청 시 Authorization 헤더 추가
