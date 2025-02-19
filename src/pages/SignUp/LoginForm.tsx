@@ -56,7 +56,7 @@ const LoginForm: React.FC = () => {
       // error ? alert('로그인 실패. 질문페이지 여부 확인 에러') : ''
 
       alert('로그인 성공!')
-      navigate('/report')
+      navigate('/report', { state: { mealId: 3 } }) //추후 수정 필요
     } catch (error: any) {
       console.error('로그인 실패:', error.response?.data || error)
       alert('로그인 실패: ' + (error.response?.data?.message || '서버 오류 발생'))

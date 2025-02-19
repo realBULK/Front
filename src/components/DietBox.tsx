@@ -27,7 +27,6 @@ const DietBox: React.FC<MealProps> = ({
   mealFats,
   isDetail,
 }) => {
-  console.log(items)
   const navigate = useNavigate()
   const title = type === 'BREAKFAST' ? '아침' : type === 'LUNCH' ? '점심' : type === 'DINNER' ? '저녁' : '간식'
   const itemsString = items?.map((item) => item.name) || []
