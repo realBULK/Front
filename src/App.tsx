@@ -25,6 +25,8 @@ import SharePage from './pages/Share/Share'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import TodayDiet from './pages/Diet/TodayDiet'
+import SignupForm from './pages/SignUp/SignupForm'
+import LoginForm from './pages/SignUp/LoginForm'
 
 const router = createBrowserRouter([
   {
@@ -39,10 +41,6 @@ const router = createBrowserRouter([
       {
         path: 'home',
         element: <Main />,
-      },
-      {
-        index: true,
-        element: <Start />,
       },
       {
         path: 'record',
@@ -67,10 +65,6 @@ const router = createBrowserRouter([
       {
         path: 'record/review/write',
         element: <ReviewWrite />,
-      },
-      {
-        path: 'home',
-        element: <Main />,
       },
       {
         path: 'signup',
@@ -120,6 +114,14 @@ const router = createBrowserRouter([
       {
         path: 'group',
         element: <SharePage />,
+      },
+      {
+        path: 'signuppage',
+        element: <SignupForm />,
+      },
+      {
+        path: 'login',
+        element: <LoginForm />,
       },
     ],
   },
