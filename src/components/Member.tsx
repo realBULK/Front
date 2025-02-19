@@ -8,18 +8,10 @@ import level from '../assets/level.svg';
 import levelbg from '../assets/level_bg.svg';
 import useFetchGroupMembers from '../hooks/useFetchGroupMembers';
 
-const groupId = 1;
-
 const Member = () => {
-  const { members, loading, error } = useFetchGroupMembers(groupId);
+  const { members, loading, error } = useFetchGroupMembers();
   const [likes, setLikes] = useState<number[]>([]);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-
-  /*const handleHeartClick = (index: number) => {
-    setLikes((prevLikes) =>
-      prevLikes.map((like, i) => (i === index ? (like > 0 ? 0 : 1) : like)) 
-    );
-  };*/
 
   useEffect(() => {
     if (members.length > 0) {
@@ -63,7 +55,6 @@ const Member = () => {
           [@media(max-width:400px)]:h-auto
         "
       >
-        {/* 팀원 리스트 */}
         {members.map((user, index) => (
           <div key={user.userId} className="flex flex-col items-center w-[60px] h-[100px]">
             <div className="relative w-[42px] h-[42px]">
@@ -73,10 +64,8 @@ const Member = () => {
                 <img src={mask} alt="프로필" className="w-full h-full object-cover" />
               </div>
             </div>
-            {/* 사용자 닉네임 */}
             <p className="text-[9px] font-[pretendard] text-[#000000] mt-1">{user.nickname}</p>
 
-            {/* 좋아요 버튼 */}
             <div
               className="flex items-center mt-1"
               onMouseEnter={() => setHoverIndex(index)}
@@ -85,7 +74,6 @@ const Member = () => {
               <button
                 type="button"
                 className="w-[15px] h-[15px] mr-1"
-                //onClick={() => handleHeartClick(index)}
                 onClick={() => {
                   setLikes((prevLikes) =>
                     prevLikes.map((like, i) => (i === index ? (like > 0 ? 0 : 1) : like))
@@ -101,16 +89,6 @@ const Member = () => {
               </button>
               <p className="text-[10px] font-[pretendard] text-[#000000]">{likes[index]}</p>
             </div>
-
-            {/* 이모지 표시 <div className="flex flex-wrap gap-1 mt-1">
-              {user.emojis.map((emoji, i) => (
-                <div key={i} className="flex items-center">
-                  <span className="text-[12px]">{emoji.emojiType}</span>
-                  <span className="text-[10px] ml-1">x{emoji.count}</span>
-                </div>
-              ))}
-            </div>*/}
-            
           </div>
         ))}
       </Box>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import API from "../../apis/api";
+import API from "../../apis/axiosInstance";
 
 interface FormData {
   email: string;

@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import KakaoIcon from "../../assets/kakao.svg";
 import AppleIcon from "../../assets/apple.svg";
-import { useUserData } from "../../hooks/useUserData";
-
+import { useUserData, UserData } from "../../hooks/useUserData";
+import axios from "axios";
 
 interface LocalData {
   nickname: string | null;
@@ -19,61 +19,95 @@ interface LocalData {
   favoriteFood: string | null;
 }
 
+
+
 const SignUp3: React.FC = () => {
   const navigate = useNavigate();
-  const mutation = useUserData();
-  const hasPatched = useRef(false); // 요청 중복 방지를 위한 플래그
+  const { query, mutation } = useUserData(); // ✅ `useQuery` + `useMutation`
+  const hasPatched = useRef(false); // 요청 중복 방지
 
 
   useEffect(() => {
-    if (hasPatched.current) return; // 이미 실행된 경우, 더 이상 실행하지 않음
+    if (hasPatched.current || query.isLoading) return;
     hasPatched.current = true;
 
-    // 로컬 스토리지에서 데이터 불러오기
-    const data: LocalData = {
-      nickname: localStorage.getItem("nickname") || null,
-      height: localStorage.getItem("height") ? Number(localStorage.getItem("height")) : 0,
-      weight: localStorage.getItem("weight") ? parseFloat(localStorage.getItem("weight") || "0") : 0,
-      goalWeight: localStorage.getItem("goal_weight") ? Number(localStorage.getItem("goal_weight")) : null,
-      activityLevel: localStorage.getItem("activity_level") || null,
-      mealNumber: localStorage.getItem("meal_number") || null,
-      cookTime: localStorage.getItem("cook_time") || null,
-      deliveryNum: localStorage.getItem("delivery_num") || null,
-      mealTime: localStorage.getItem("meal_time") || null,
-      eatingOut: localStorage.getItem("eating-out") || null,
-      favoriteFood: localStorage.getItem("favorite_food") || null,
-    };
+    if (!query.data) {
+      // ✅ 유저 데이터가 없으면 로컬 데이터로 API 저장
+      const data: LocalData = {
+        nickname: localStorage.getItem("nickname") || null,
+        height: localStorage.getItem("height") ? Number(localStorage.getItem("height")) : null,
+        weight: localStorage.getItem("weight") ? parseFloat(localStorage.getItem("weight") || "0") : null,
+        goalWeight: localStorage.getItem("goal_weight") ? Number(localStorage.getItem("goal_weight")) : null,
+        activityLevel: localStorage.getItem("activity_level") || null,
+        mealNumber: localStorage.getItem("meal_number") || null,
+        cookTime: localStorage.getItem("cook_time") || null,
+        deliveryNum: localStorage.getItem("delivery_num") || null,
+        mealTime: localStorage.getItem("meal_time") || null,
+        eatingOut: localStorage.getItem("eating-out") || null,
+        favoriteFood: localStorage.getItem("favorite_food") || null,
+      };
 
-    console.log("로컬 데이터 로드:", data);
+      // ✅ `null` 값을 API 요청에 맞게 변환
+      const requestData: UserData = {
+        nickname: data.nickname || "",
+        height: data.height || 0,
+        weight: data.weight || 0,
+        goalWeight: data.goalWeight || 0,
+        activityLevel: data.activityLevel || "",
+        mealNumber: data.mealNumber || "",
+        cookTime: data.cookTime || "",
+        deliveryNum: data.deliveryNum || "",
+        mealTime: data.mealTime || "",
+        eatingOut: data.eatingOut || "",
+        favoriteFood: data.favoriteFood || "",
+      };
 
-    // 데이터가 유효할 경우 API 호출
-    mutation.mutate(data, {
-      onSuccess: () => {
-        console.log("데이터가 성공적으로 업데이트되었습니다!");
-      },
-      onError: (error) => {
-        console.error("API 요청 중 에러 발생:", error);
-      },
-    });
-  }, [mutation]);
+      mutation.mutate(requestData, {
+        onSuccess: () => {
+          console.log("✅ 데이터 업데이트 성공");
+        },
+        onError: (error) => {
+          console.error("❌ 데이터 업데이트 실패:", error);
+        },
+      });
+    }
+  }, [query.data, query.isLoading, mutation]);
 
-  const handleKakaoLogin = async () => {
-    const kakaoLoginUrl = `http://43.200.218.42:8080`;
-    window.location.href = kakaoLoginUrl; // 카카오 인증 URL로 리다이렉트
+  // 🔹 카카오 로그인 URL로 이동
+  const handleKakaoLogin = () => {
+    const kakaoAuthUrl = `http://43.200.218.42:8080/oauth2/authorization/kakao`;
+    window.location.href = kakaoAuthUrl;
   };
 
-  const handleNavigation = (navigateTo: string) => {
-    navigate(`/${navigateTo}`);
-  };
+  // 🔹 카카오 로그인 후, 백엔드에 인가 코드 보내기
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const authCode = urlParams.get("code");
+
+    if (authCode) {
+      console.log("🔑 카카오 인가 코드:", authCode);
+      
+      axios.post("http://43.200.218.42:8080/api/auth/kakao/token", null, {
+        params: { code: authCode }
+      })
+      .then((response) => {
+        console.log("✅ 카카오 액세스 토큰 응답:", response.data);
+        localStorage.setItem("access_token", response.data.access_token);
+        navigate("/report"); // 🔹 로그인 후 페이지 이동
+      })
+      .catch((error) => {
+        console.error("❌ 카카오 로그인 실패:", error);
+      });
+    }
+  }, []);
 
   return (
     <div className="h-screen flex flex-col items-center bg-[#F5F5F5] font-pretendard px-6">
       {/* Circular Progress */}
       <div className="mt-36 w-[148px] h-[148px] flex items-center justify-center">
-        <div
-          className="w-full h-full rounded-full flex items-center justify-center"
-          style={{ backgroundColor: "#DED1E8" }}
-        ></div>
+        <div className="w-full h-full rounded-full flex items-center justify-center"
+          style={{ backgroundColor: "#DED1E8" }}>
+        </div>
       </div>
 
       {/* Title */}
@@ -88,23 +122,20 @@ const SignUp3: React.FC = () => {
 
       {/* Buttons */}
       <div className="mt-12 flex flex-col gap-2 w-full max-w-xs">
-        <button
-          className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold text-[#000000] text-center rounded-[200px] bg-[#FAE100] active:bg-[#998C17] flex items-center justify-center gap-1"
-          style={{
-            border: "1px solid #FFEB01",
-          }}
+        <button className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold 
+        text-[#000000] text-center rounded-[200px] bg-[#FAE100] active:bg-[#998C17] flex 
+        items-center justify-center gap-1"
+          style={{ border: "1px solid #FFEB01" }}
           onClick={handleKakaoLogin}
         >
           <img src={KakaoIcon} alt="Kakao Icon" className="w-5 h-5" />
           카카오로 계속하기
         </button>
 
-        <button
-          className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold text-[#FFFFFF] text-center rounded-[200px] bg-[#000000] flex items-center justify-center gap-1"
-          style={{
-            border: "1px solid #000000",
-          }}
-          onClick={() => handleNavigation("apple")}
+        <button className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold 
+        text-[#FFFFFF] text-center rounded-[200px] bg-[#000000] flex items-center justify-center gap-1"
+          style={{ border: "1px solid #000000" }}
+          onClick={() => navigate("/apple")}
         >
           <img src={AppleIcon} alt="Apple Icon" className="w-5 h-5" />
           Apple로 계속하기
