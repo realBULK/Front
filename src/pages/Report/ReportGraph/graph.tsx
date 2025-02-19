@@ -3,8 +3,8 @@ import starCurrent from '/src/assets/graph_star_current.svg'
 import starGoal from '/src/assets/graph_star_goal.svg'
 
 interface WeightProgressGraphProps {
-  currentWeight: number
-  goalWeight: number
+  currentWeight: number | null
+  goalWeight: number | null
 }
 
 const WeightProgressGraph: React.FC<WeightProgressGraphProps> = ({ currentWeight, goalWeight }) => {
@@ -58,7 +58,7 @@ const WeightProgressGraph: React.FC<WeightProgressGraphProps> = ({ currentWeight
             fontWeight="bold"
             className="text-[#191919] text-center text-base not-italic font-medium leading-[100%] tracking-[-0.32px]"
           >
-            {currentWeight}kg
+            {currentWeight !== null && currentWeight !== undefined ? currentWeight : 'null '}kg
           </text>
 
           {/* 목표 몸무게 포인트 */}
@@ -71,7 +71,7 @@ const WeightProgressGraph: React.FC<WeightProgressGraphProps> = ({ currentWeight
             fontWeight="bold"
             className="text-[#191919] text-center text-base not-italic font-medium leading-[100%] tracking-[-0.32px]"
           >
-            {goalWeight}kg
+            {goalWeight !== null && goalWeight !== undefined ? goalWeight : 'null '}kg
           </text>
         </svg>
       </div>

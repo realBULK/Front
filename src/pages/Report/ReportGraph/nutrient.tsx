@@ -1,10 +1,10 @@
 import Box from '@/components/WhiteBox'
 
 interface Nutrient {
-  calories: number
-  carbos: number
-  proteins: number
-  fats: number
+  calories: number | null
+  carbos: number | null
+  proteins: number | null
+  fats: number | null
 }
 
 const NutrientsBox: React.FC<Nutrient> = ({ calories, carbos, proteins, fats }) => {
@@ -15,7 +15,6 @@ const NutrientsBox: React.FC<Nutrient> = ({ calories, carbos, proteins, fats }) 
       quantity: calories,
       unit: 'kcal',
     },
-
     {
       icon: '🍞',
       title: '탄수화물',
@@ -35,6 +34,7 @@ const NutrientsBox: React.FC<Nutrient> = ({ calories, carbos, proteins, fats }) 
       unit: 'g',
     },
   ]
+
   return (
     <Box className="flex gap-2 h-[130px] justify-between shadow-whiteBoxDeepShadow">
       {itemData.map((item, index) => (
@@ -44,8 +44,8 @@ const NutrientsBox: React.FC<Nutrient> = ({ calories, carbos, proteins, fats }) 
             {item.title}
           </div>
           <div className="text-[16px] text-black text-center text-base not-italic font-normal leading-[121%]">
-            {item.quantity.toLocaleString('ko-KR')}
-            {item.unit}
+            {item.quantity !== null && item.quantity !== undefined ? item.quantity.toLocaleString('ko-KR') : 'null'}
+            {item.quantity !== null && item.quantity !== undefined ? item.unit : ''}
           </div>
         </div>
       ))}
