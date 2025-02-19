@@ -40,7 +40,7 @@ const DietBox: React.FC<MealProps> = ({
   }
   return (
     <Box
-      className=" h-[100px] shadow-whiteBox gap-4 cursor-pointer hover:shadow-lg text-[#191919]"
+      className=" h-[100px] shadow-whiteBox gap-4 cursor-pointer hover:shadow-lg text-[#191919] w-full p-4"
       as="button"
       onClick={onClickHandler}
       key={typeIndex}
