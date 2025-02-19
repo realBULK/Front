@@ -57,7 +57,7 @@ const SuggestionDaysComponent: React.FC<SuggestionDaysComponentProps> = ({ data 
               {dayData.meals.map((meal, index) => (
                 <DietBox
                   key={`${dayData.date}-${meal.type}-${index}`} // ✅ 더 고유한 키 값 적용
-                  id={index.toString()}
+                  id={dayData.dailyMealId.toString()}
                   type={meal.type}
                   items={meal.mealItems}
                   mealCalories={meal.mealCalories}

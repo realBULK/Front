@@ -3,13 +3,16 @@ import human from '@/assets/human.svg'
 import minus from '@/assets/minusButton.svg'
 
 interface Props {
+  id: number
   name: string
   unit: string
-  carbon: number
-  fat: number
-  protien: number
-  starCount: number
-  humanCount: number
+  gradePeopleNum: number
+  grade: number
+  calories: number
+  carbos: number
+  proteins: number
+  fats: number
+  gram: number
   onRemove: () => void
   children: React.ReactNode
   height?: string
@@ -19,11 +22,11 @@ const DietBox = ({
   children,
   name,
   unit,
-  carbon,
-  fat,
-  protien,
-  starCount,
-  humanCount,
+  gradePeopleNum,
+  grade,
+  carbos,
+  proteins,
+  fats,
   onRemove,
   height = 'h-[99px]',
 }: Props) => {
@@ -36,9 +39,9 @@ const DietBox = ({
           {name}({unit})
         </h1>
         <img src={human} />
-        <p className="text-[14px] font-[500] me-[7px]">{starCount}</p>
+        <p className="text-[14px] font-[500] me-[7px]">{gradePeopleNum}</p>
         <img src={star} />
-        <p className="text-[14px] font-[500]">{humanCount}</p>
+        <p className="text-[14px] font-[500]">{grade}</p>
         <img
           src={minus}
           className="ml-auto w-[24px] h-[24px]"
@@ -46,9 +49,9 @@ const DietBox = ({
         />
       </div>
       <div className="box-border flex flex-row w-full mt-[11px] text-[14px] font-[500] leading-[19.36px] gap-[6.5px] text-[#8B8B8B]">
-        <p>탄수화물 {carbon}g</p>
-        <p>단백질 {protien}g</p>
-        <p>지방 {fat}g</p>
+        <p>탄수화물 {carbos}g</p>
+        <p>단백질 {proteins}g</p>
+        <p>지방 {fats}g</p>
       </div>
       {children}
     </div>

@@ -29,11 +29,13 @@ const DietBox: React.FC<MealProps> = ({
 }) => {
   const navigate = useNavigate()
   const title = type === 'BREAKFAST' ? '아침' : type === 'LUNCH' ? '점심' : type === 'DINNER' ? '저녁' : '간식'
+  const typeIndex = type === 'BREAKFAST' ? 0 : type === 'LUNCH' ? 1 : type === 'DINNER' ? 2 : 3
+
   const itemsString = items?.map((item) => item.name) || []
 
   const onClickHandler = () => {
     if (isDetail) {
-      navigate(`/suggestion/${id}`)
+      navigate(`/suggestion/${id}/${type}`, { state: { mealId: id, type: type } })
     }
   }
   return (
@@ -41,11 +43,11 @@ const DietBox: React.FC<MealProps> = ({
       className=" h-[100px] shadow-whiteBox gap-4 cursor-pointer hover:shadow-lg text-[#191919]"
       as="button"
       onClick={onClickHandler}
-      key={id}
+      key={typeIndex}
     >
       <div className="flex flex-col items-center justify-center relative">
         {/* 아이콘 */}
-        {iconData[Number(id)] && <img src={iconData[Number(id)]} alt="아이콘" />}
+        {iconData[Number(typeIndex)] && <img src={iconData[Number(typeIndex)]} alt="아이콘" />}
         {/* 제목 */}
         <div className="mt-1 text-center text-black text-[14px] font-bold">{title}</div>
       </div>
