@@ -1,5 +1,10 @@
 import Box from '@/components/WhiteBox'
 import { useNavigate } from 'react-router-dom'
+import sunrise from '@/assets/sunrise.svg'
+import sun from '@/assets/sun.svg'
+import moon from '@/assets/moon.svg'
+import snack from '@/assets/snack.svg'
+import back from '@/assets/back.svg'
 
 interface MealItems {
   name: string
@@ -15,7 +20,7 @@ interface MealProps {
   isDetail?: boolean
 }
 
-const iconData = ['/src/assets/sunrise.svg', '/src/assets/sun.svg', '/src/assets/moon.svg', '/src/assets/snack.svg']
+const iconData = [sunrise, sun, moon, snack]
 
 const DietBox: React.FC<MealProps> = ({
   id,
@@ -63,7 +68,7 @@ const DietBox: React.FC<MealProps> = ({
         </span>
         <span className="text-[16px] font-semibold">{mealCalories} kcal</span>
       </div>
-      {isDetail ? <img src="/src/assets/back.svg" alt="back" /> : null}
+      {isDetail ? <img src={back} alt="back" /> : null}
     </Box>
   )
 }

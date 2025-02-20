@@ -2,6 +2,11 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import DietBox from '@/components/SuggestionDietDetailBox'
 import { useState, useEffect } from 'react'
 import { useSuggestionDetail } from '@/hooks/useSuggestionDetail'
+import sunrise from '@/assets/sunrise.svg'
+import sun from '@/assets/sun.svg'
+import moon from '@/assets/moon.svg'
+import snack from '@/assets/snack.svg'
+import backButton from '@/assets/backButton.svg'
 
 // import useSuggestion from '@/hooks/useSuggestion'
 interface DietItem {
@@ -40,7 +45,7 @@ const SuggestionDetail: React.FC = () => {
   const { data } = useSuggestionDetail(mealPlanId, type)
 
   const iconNum = type === 'BREAKFAST' ? 0 : type === 'LUNCH' ? 1 : type === 'DINNER' ? 2 : 3
-  const iconData = ['/src/assets/sunrise.svg', '/src/assets/sun.svg', '/src/assets/moon.svg', '/src/assets/snack.svg']
+  const iconData = [sunrise, sun, moon, snack]
 
   // 초기 상태를 `null`로 설정하고, `data`가 로드되면 업데이트
   const [dietBoxes, setDietBoxes] = useState<SuggestionDetailProps | null>(null)
@@ -72,7 +77,7 @@ const SuggestionDetail: React.FC = () => {
     <div className="flex justify-center items-center flex-col mt-[30px] h-full">
       <div className="flex justify-center items-center flex-col mt-[30px] w-[80%] items-start w-full">
         <div className="block self-start w-[7px] h-[14px] ml-[20px]" onClick={() => navigate(-1)}>
-          <img src={'/src/assets/backButton.svg'} />
+          <img src={backButton} />
         </div>
         <img src={iconData[iconNum]} className="w-[126px] h-[126px] " />
         <h1 className="text-[40px] font-[GmarketSansWeight] mb-[] ">

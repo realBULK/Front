@@ -11,7 +11,7 @@ const Report: React.FC = () => {
   if (isLoading) return <p>로딩 중...</p>
   if (error) return <p>에러 발생: {error.message}</p>
 
-  const mealId = location.state?.mealId
+  const mealPlanId = location.state?.mealPlanId
 
   return (
     <div className="flex justify-center items-center flex-col pt-10 pb-10 pr-8 pl-8">
@@ -34,7 +34,7 @@ const Report: React.FC = () => {
         <button
           className="w-[327px] h-[55px] font-[pretendard] bg-[#D1D1D1] 
       shadow-whiteBox rounded-base font-semibold text-[14px] text-[#191919] outline-none mb-9"
-          onClick={() => navigate('/suggestion', { state: { mealId } })}
+          onClick={() => navigate('/suggestion', { state: { mealPlanId } })}
         >
           다음
         </button>

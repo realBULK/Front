@@ -31,6 +31,10 @@ const SuggestionDaysComponent: React.FC<SuggestionDaysComponentProps> = ({ data 
 
   const firstDataNum = data[0]?.dailyMealId
   const [selectedDay, setSelectedDay] = useState(day[0] || '월') // 기본 선택 요일
+  const today = new Date().getDay() // 원래: 0(일) ~ 6(토)
+  const adjustedToday = today === 0 ? 6 : today - 1 // 월요일을 0, 일요일을 6으로 변환
+
+  localStorage.setItem('todayDailyMeal', data[adjustedToday].dailyMealId.toString())
 
   return (
     <div className="flex flex-col gap-5">
