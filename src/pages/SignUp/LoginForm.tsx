@@ -45,27 +45,53 @@ const LoginForm: React.FC = () => {
 
       localStorage.setItem('access_token', accessToken)
 
-      // ✅ 질문 데이터 및 식단 데이터 동시 전송
-      await Promise.all([sendUserQuestionData(), sendUserMealData()])
+      // ✅ userId 가져와서 저장
+      await fetchAndStoreUserId()
 
-      if (isLoading || isFetching) {
-        alert('로그인 성공! 질문 데이터를 불러오는 중입니다. 잠시만 기다려 주세요.')
-        return
-      }
+      // ✅ 로그인 후 질문 데이터 백엔드로 전송
+      await sendUserQuestionData()
+      await sendUserMealData()
 
-      console.log('질문 데이터 응답:', questionResponseData)
+      // isLoading ? alert('로그인 중') : ''
+      // error ? alert('로그인 실패. 질문페이지 여부 확인 에러') : ''
 
-      if (questionResponseData && questionResponseData.isSuccess) {
-        console.log('질문 페이지로 이동합니다. 질문 페이지 ID:', questionResponseData.data[0])
-        navigate('/report', { state: { mealId: questionResponseData.data[0] } })
-      } else {
-        alert('질문 페이지를 작성하지 않았습니다. 질문 페이지로 이동합니다.')
-
-        navigate('/questionstart')
-      }
+      alert('로그인 성공!')
+      navigate('/report', { state: { mealId: 3 } }) //추후 수정 필요
     } catch (error: any) {
       console.error('로그인 실패:', error.response?.data || error)
       alert('로그인 실패: ' + (error.response?.data?.message || '서버 오류 발생'))
+    }
+  }
+
+  // ✅ 로그인 후 userId 가져와서 저장
+  const fetchAndStoreUserId = async () => {
+    try {
+      const token = localStorage.getItem('access_token')
+      if (!token) {
+        console.error('❌ 액세스 토큰이 없습니다. userId를 가져올 수 없습니다.')
+        return
+      }
+
+      const response = await API.get('/api/user/test', {
+        headers: {
+          Authorization: `Bearer ${token}`, // ✅ 토큰을 헤더에 포함
+        },
+      })
+
+      //console.log('🔹 현재 로그인한 유저 정보:', response.data);
+
+      // ✅ `Hello, 9` 형태의 응답에서 숫자 부분만 추출
+      const userId = response.data.match(/\d+/)?.[0]
+
+      if (!userId) {
+        console.error('❌ userId를 찾을 수 없습니다.', response.data)
+        return
+      }
+
+      //console.log(`✅ 저장된 userId: ${userId}`);
+      localStorage.setItem('userId', userId) // ✅ userId 저장
+    } catch (error) {
+      console.error('❌ userId 가져오기 실패:', error)
     }
   }
 

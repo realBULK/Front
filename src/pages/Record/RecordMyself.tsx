@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import backButton from '../../assets/backButton.svg'
 import grayCircle from '../../assets/pinkCircle.svg'
 import searchIcon from '../../assets/searchIcon.svg'
@@ -6,46 +6,144 @@ import review from '../../assets/review.svg'
 import quotes from '../../assets/quotes.svg'
 import plus from '../../assets/plusIcon.svg'
 import minus from '../../assets/minusIcon.svg'
+import { useNavigate } from 'react-router'
 
 import CustomFoodBox from './Recordcomponents/CustomFoodBox'
-import { Link } from 'react-router'
+import API from '@/apis/axiosInstance'
 
-interface Diet {
-  id: number // 고유 ID
+interface Food {
+  id: number
   name: string
   unit: string
-  starCount: number
-  humanCount: number
+  gradePeopleNum: number
+  grade: number
+  calories: number
+  carbos: number
+  proteins: number
+  fats: number
+  gram: number
 }
 
 interface ModalInfo {
+  id: number
   name: string
-  unit: number
+  unit: string
   carbon: number
   fat: number
   protien: number
   kcal: number
+  gradePeopleNum: number
+  grade: number
 }
 
+type Diet = Food[]
+
 const RecordMyself = () => {
-  const [customFoodBoxes] = useState<Diet[]>([
-    { id: 1, name: '현미밥', unit: '200g', starCount: 3, humanCount: 5 },
-    { id: 2, name: '닭가슴살', unit: '100g', starCount: 4, humanCount: 7 },
-    { id: 3, name: '계란후라이', unit: '1개', starCount: 5, humanCount: 4 },
-    { id: 4, name: '채소 볶음', unit: '브로콜리, 당근', starCount: 2, humanCount: 9 },
-  ])
-  const [modalInfo] = useState<ModalInfo>({
+  useEffect(() => {
+    const fetchDietData = async () => {
+      try {
+        const response = await API.get('/api/search')
+
+        setCustomFoodBoxes(response.data)
+      } catch (error) {
+        console.error('식단 데이터를 불러오는 중 오류 발생:', error)
+      }
+    }
+    fetchDietData()
+  }, [])
+
+  const navigate = useNavigate()
+  useEffect(() => {
+    const storedFoods = sessionStorage.getItem('selectedFoods')
+    if (storedFoods) {
+      const parsedFoods = JSON.parse(storedFoods)
+      setSelectedFoods(parsedFoods)
+      setCount(parsedFoods.length) // 개수 반영
+    }
+  }, [])
+
+  const response: Diet = [
+    {
+      id: 0,
+      name: '고구마',
+      unit: 'string',
+      gradePeopleNum: 3,
+      grade: 2,
+      calories: 1,
+      carbos: 2,
+      proteins: 3,
+      fats: 4,
+      gram: 5,
+    },
+    {
+      id: 1,
+      name: '바나ㅏ',
+      unit: 'string',
+      gradePeopleNum: 0,
+      grade: 3,
+      calories: 6,
+      carbos: 7,
+      proteins: 8,
+      fats: 9,
+      gram: 10,
+    },
+  ]
+  const [customFoodBoxes, setCustomFoodBoxes] = useState<Diet>(response)
+  const [modalInfo, setModalInfo] = useState<ModalInfo>({
+    id: 1,
     name: '삶은 고구마',
-    unit: 100,
+    unit: '100',
     carbon: 45.85,
     protien: 2.6,
     fat: 0.22,
     kcal: 128,
+    gradePeopleNum: 0,
+    grade: 0,
   })
+
   const [isOpen, setIsOpen] = useState(false)
 
-  const openModal = () => {
+  const [count, setCount] = useState(0)
+
+  const addFoodToList = () => {
+    const newFood: Food = {
+      id: Date.now(), // 새로운 음식에 고유 ID 부여
+      name: modalInfo.name,
+      unit: modalInfo.unit,
+      gradePeopleNum: modalInfo.gradePeopleNum,
+      grade: modalInfo.grade,
+      calories: modalInfo.kcal,
+      carbos: modalInfo.carbon,
+      proteins: modalInfo.protien,
+      fats: modalInfo.fat,
+      gram: 100, // 기본값 설정 (필요하면 조정)
+    }
+
+    setSelectedFoods([...selectedFoods, newFood])
+    setCount(count + 1)
+    closeModal()
+  }
+
+  const [selectedFoods, setSelectedFoods] = useState<Food[]>([])
+
+  const openModal = (food: Food) => {
+    setModalInfo({
+      id: food.id,
+      name: food.name,
+      unit: food.unit,
+      carbon: food.carbos,
+      fat: food.fats,
+      protien: food.proteins,
+      kcal: food.calories,
+      gradePeopleNum: food.gradePeopleNum,
+      grade: food.grade,
+    })
     setIsOpen(true)
+  }
+
+  const naviReview = () => {
+    sessionStorage.setItem('selectedFoods', JSON.stringify(selectedFoods))
+    navigate(`/record/review/${modalInfo.id}`)
   }
   const closeModal = () => {
     setIsOpen(false)
@@ -76,8 +174,45 @@ const RecordMyself = () => {
     setIsActive(!isActive)
   }
 
+  const saveFoodsToSessionStorage = (foods: Food[]) => {
+    const formattedFoods = foods.map(({ name, unit, grade, gradePeopleNum, carbos, proteins, fats }) => ({
+      foodName: name,
+      quantity: unit,
+      grade,
+      gradePeopleNum,
+      carbos,
+      proteins,
+      fats,
+    }))
+    sessionStorage.setItem('selectedFoods', JSON.stringify(formattedFoods))
+  }
+
   const goBack = () => {
-    window.history.back() // 뒤로 가기
+    saveFoodsToSessionStorage(selectedFoods)
+    navigate('/record/equal')
+  }
+
+  const [text, setText] = useState('')
+
+  const searchAPICall = async () => {
+    try {
+      const response = await API.get('/api/search/keyword', {
+        params: {
+          keyword: text,
+        },
+      })
+      console.log(response.data)
+      setCustomFoodBoxes(response.data)
+    } catch (error) {
+      console.error('API 호출 중 오류 발생:', error)
+    }
+  }
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault() // 기본 엔터 입력 방지 (새 줄 X)
+      searchAPICall() // API 호출
+    }
   }
 
   return (
@@ -86,15 +221,21 @@ const RecordMyself = () => {
         <img src={backButton} className="w-[24px] h-[17.485px]" onClick={goBack} />
         <div className="w-[70%] h-[37px] rounded-[50px] bg-[#dfdfdf] opacity-80 flex items-center ">
           <img src={searchIcon} className="ms-[15px]" />
+          <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)} // 입력 값 업데이트
+            onKeyDown={handleKeyDown}
+            className=" bg-[#dfdfdf] h-[100%] border-[dfdfdf] ps-[5px] pt-[6px]"
+          ></textarea>
         </div>
-        <div className="relative w-[40px] h-[40px] flex items-center justify-center">
+        <div className="relative w-[40px] h-[40px] flex items-center justify-center ">
           <img src={grayCircle} className="absolute w-[45px] h-[45px] " />
-          <p className="absolute text-[14px] font-[900]">0</p>
+          <p className="absolute text-[14px] font-[900]">{count}</p>
         </div>
       </div>
       {/* DietBox 리스트 렌더링 */}
       {customFoodBoxes.map((diet) => (
-        <CustomFoodBox key={diet.id} {...diet} openMdoal={() => openModal()} />
+        <CustomFoodBox key={diet.id} {...diet} openModal={() => openModal(diet)} />
       ))}
 
       {isOpen && (
@@ -111,9 +252,9 @@ const RecordMyself = () => {
                   <img src={review} className=" absolute w-[20px] h-[18px] " />
                   <img src={quotes} className=" absolute left-1.5 top-1" />
                 </div>
-                <Link to="/record/review" className="ms-1.5 text-[14px] font-[500]">
+                <p className="ms-1.5 text-[14px] font-[500]" onClick={naviReview}>
                   후기보러가기
-                </Link>
+                </p>
               </div>
             </div>
             <div className="flex flex-col justify-around px-[40px] py-4 bg-[#ffffff] rounded-base shadow-whiteBox h-[138px] border-[1px] border-solid border-[#EDEDED] opacity-80 mb-[27px]">
@@ -153,7 +294,7 @@ const RecordMyself = () => {
                   className={`flex flex-row justify-center items-center py-4 rounded-[15px] shadow-whiteBox h-[37px] border-[1px] border-solid border-[#EDEDED] opacity-80 ${isActive ? 'bg-[#ffffff]' : 'bg-[#f2e1da] opacity-80'}`}
                   onClick={handleActive}
                 >
-                  <p className="text-[16px] font-[500]">인분({modalInfo.unit}g)</p>
+                  <p className="text-[16px] font-[500]">인분({modalInfo.unit})</p>
                 </button>
                 <button
                   className={`flex flex-row justify-center items-center px-[22px] py-4  rounded-[15px] shadow-whiteBox h-[37px] border-[1px] border-solid border-[#EDEDED] opacity-80 ${!isActive ? 'bg-[#ffffff]' : 'bg-[#f2e1da] opacity-80'}`}
@@ -163,7 +304,10 @@ const RecordMyself = () => {
                 </button>
               </div>
             </div>
-            <button className="w-full h-[57px] bg-[#D1D1D1] rounded-[15px] shadow-whiteBox text-[14px] font-[500]">
+            <button
+              className="w-full h-[57px] bg-[#D1D1D1] rounded-[15px] shadow-whiteBox text-[14px] font-[500]"
+              onClick={addFoodToList}
+            >
               추가하기
             </button>
           </div>

@@ -1,4 +1,4 @@
-import Member from "@/components/Member";
+import Member from "@/components/group/Member";
 import Week from "@/components/group/Week";
 import NavBar from "@/components/NavBar";
 

@@ -1,46 +1,59 @@
-import logo from '../../assets/BULK.svg'
-import BigWhiteButton from '../../components/BigWhiteButton'
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import logo from "../../assets/BULK.svg";
+import BigWhiteButton from "../../components/BigWhiteButton";
 
 const Start = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // 로컬 스토리지에서 토큰 확인하여 로그인 여부 설정
+    const token = localStorage.getItem("access_token");
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("access_token"); // 토큰 삭제
+    setIsLoggedIn(false);
+    alert("로그아웃 되었습니다.");
+  };
 
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="flex flex-col items-center">
-        <img src={logo} alt="Logo" className="w-[252px] h-[135px] mb-[36px] mt-[15%]" />
-        <BigWhiteButton text="맞춤 식단 받아보기" navigateTo="questionstart"></BigWhiteButton>
-        <BigWhiteButton text="로그인" navigateTo="login"></BigWhiteButton>
-        {/* <div className="flex items-center w-[327px]">
-          <hr className="flex-1 border-[#A4A4A4]" />
-          <span className="mx-4 text-[14px] text-[#A4A4A4]">또는</span>
-          <hr className="flex-1 border-[#A4A4A4]" />
-        </div>
+        <img
+          src={logo}
+          alt="Logo"
+          className="w-[252px] h-[135px] mb-[36px] mt-[15%]"
+        />
 
-        <div className="mt-[35px] flex flex-col gap-2 w-full">
-          <button
-            className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold text-[#000000] text-center rounded-[200px] bg-[#FAE100] active:bg-[#998C17] flex items-center justify-center gap-1"
-            style={{
-              border: '1px solid #FAE100',
-            }}
-            onClick={handleLogin}
-          >
-            <img src={KakaoIcon} alt="Kakao Icon" className="w-5 h-5" />
-            카카오로 계속하기
-          </button>
+        {/* 로그인되지 않은 경우에만 맞춤 식단 버튼 표시 */}
+        {!isLoggedIn && (
+          <BigWhiteButton text="맞춤 식단 받아보기" navigateTo="questionstart" />
+        )}
 
-          <button
-            className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold text-[#FFFFFF] text-center rounded-[200px] bg-[#000000] flex items-center justify-center gap-1"
-            style={{
-              border: '1px solid #000000',
-            }}
-            onClick={() => navigate('apple')}
-          >
-            <img src={AppleIcon} alt="Apple Icon" className="w-5 h-5" />
-            Apple로 계속하기
-          </button>
-        </div> */}
+        {isLoggedIn ? (
+          <>
+            <button
+              onClick={() => navigate("/home")}
+              className="w-[327px] h-[58px] text-[16px] font-[Pretendard] font-semibold text-[#191919] text-center mb-[35px] rounded-full border border-[#EDEDED] bg-white/80 shadow-md hover:bg-[#BDBDBD]"
+            >
+              홈
+            </button>
+            <button
+              onClick={handleLogout}
+              className="w-[327px] h-[58px] text-[16px] font-[Pretendard] font-semibold text-[#191919] text-center mb-[35px] rounded-full border border-[#EDEDED] bg-white/80 shadow-md hover:bg-[#BDBDBD]"
+            >
+              로그아웃
+            </button>
+          </>
+        ) : (
+          <BigWhiteButton text="로그인" navigateTo="login" />
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Start;

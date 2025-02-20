@@ -69,7 +69,7 @@ const CalorieCard: React.FC<CalorieCardProps> = ({
         <span></span>
         <span>
           <span>{apiData.curCalories ?? 0}</span>
-          <span className="text-[#8D8D8D]">/{apiData.calories ?? 0} kcal</span>
+          <span className="text-[#8D8D8D]">/{apiData.calories ?? 0}kcal</span>
         </span>
       </div>
 
@@ -79,21 +79,21 @@ const CalorieCard: React.FC<CalorieCardProps> = ({
           <div className="flex flex-col items-start">
             <span className="font-[Pretendard] w-[90px] text-lg font-semibold mb-1">탄수화물</span>
             <ProgressBar progress={carbProgress} color={selectedColor.bar} />
-            <span className="font-[Pretendard] mt-1 text-sm text-black ml-[61px]">
+            <span className="font-[Pretendard] mt-1 text-sm text-black ml-[69px]">
               {apiData.curCarbos ?? 0}g
             </span>
           </div>
           <div className="flex flex-col items-start">
             <span className="font-[Pretendard] w-[90px] text-lg font-semibold mb-1">단백질</span>
             <ProgressBar progress={proteinProgress} color={selectedColor.bar} />
-            <span className="font-[Pretendard] mt-1 text-sm text-black ml-[61px]">
+            <span className="font-[Pretendard] mt-1 text-sm text-black ml-[69px]">
               {apiData.curProteins ?? 0}g
             </span>
           </div>
           <div className="flex flex-col items-start">
             <span className="font-[Pretendard] w-[90px] text-lg font-semibold mb-1">지방</span>
             <ProgressBar progress={fatProgress} color={selectedColor.bar} />
-            <span className="font-[Pretendard] mt-1 text-sm text-black ml-[61px]">
+            <span className="font-[Pretendard] mt-1 text-sm text-black ml-[69px]">
               {apiData.curFats ?? 0}g
             </span>
           </div>
