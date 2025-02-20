@@ -88,7 +88,7 @@ const RecordEqual = () => {
   }
   const postMeal = async () => {
     const payload = {
-      date: '2025-01-20',
+      date: '2025-02-04',
       mealType: 'DINNER',
     }
     try {
