@@ -52,11 +52,23 @@ const LoginForm: React.FC = () => {
       await sendUserQuestionData()
       await sendUserMealData()
 
-      // isLoading ? alert('로그인 중') : ''
-      // error ? alert('로그인 실패. 질문페이지 여부 확인 에러') : ''
+      if (isLoading || isFetching) {
+        alert('로그인 성공! 질문 데이터를 불러오는 중입니다. 잠시만 기다려 주세요.')
+        return
+      }
 
-      alert('로그인 성공!')
-      navigate('/report', { state: { mealId: 3 } }) //추후 수정 필요
+      if (!questionResponseData) {
+        alert('질문 데이터가 없습니다. 다시 시도해주세요.')
+        return
+      }
+
+      if (questionResponseData.isSuccess) {
+        navigate('/report', { state: { mealId: questionResponseData.data[0] } })
+      } else {
+        alert('질문 페이지를 작성하지 않았습니다. 질문 페이지로 이동합니다.')
+        localStorage.removeItem('access_token')
+        navigate('/questionstart')
+      }
     } catch (error: any) {
       console.error('로그인 실패:', error.response?.data || error)
       alert('로그인 실패: ' + (error.response?.data?.message || '서버 오류 발생'))
