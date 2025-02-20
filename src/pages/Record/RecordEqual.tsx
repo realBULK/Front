@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import lunchSun from '@/assets/lunchSun.svg'
-import DietBox from './recordComponents/dietDetailBox'
+import DietBox from './recordComponents/DietDetailBox'
 import { Link } from 'react-router'
 import API from '@/apis/axiosInstance'
 
