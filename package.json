@@ -61,5 +61,8 @@
     "workerDirectory": [
       "public"
     ]
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/realBULK/Front.git",
+  "license": "MIT"
 }
