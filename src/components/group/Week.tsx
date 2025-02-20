@@ -10,7 +10,7 @@ const Week = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await API.get("/groups/map");
+        const response = await API.get("/api/groups/map");
 
         if (response.data && response.data.isSuccess) {
           setFilledCircles(response.data.data.currentStage);
