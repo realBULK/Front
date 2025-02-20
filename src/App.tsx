@@ -28,6 +28,7 @@ import TodayDiet from './pages/Diet/TodayDiet'
 import SignupForm from './pages/SignUp/SignupForm'
 import LoginForm from './pages/SignUp/LoginForm'
 import NotFound from './pages/Main/not-found'
+import MyPage from './pages/Mypage/mypage'
 
 const router = createBrowserRouter([
   {
@@ -123,6 +124,10 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <LoginForm />,
+      },
+      {
+        path: 'mypage',
+        element: <MyPage />,
       },
     ],
   },
