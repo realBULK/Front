@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router'
 import { usePopularMenu } from '@/hooks/usePopularMenu'
 import human from '@/assets/human.svg'
 import star from '@/assets/star.svg'
+import { useTodayMeal } from '@/hooks/useTodayMeal'
 
 // import { useDietMenuDaily } from '@/hooks/useDietMenu'
 
@@ -31,49 +32,14 @@ interface PopularMenu {
 
 const Diet: React.FC = () => {
   const navigate = useNavigate()
+  const mealID = Number(localStorage.getItem('mealPlanId'))
+  const { data: todayMeal } = useTodayMeal(mealID)
   const { data: popularMenu, isLoading: popularMenuIsLoading, error: popularMenuError } = usePopularMenu()
 
-  // const getFormattedDate = (date: Date) => {
-  //   return date.toISOString().split('T')[0] // '2025-01-30' 같은 형식
-  // }
-  // // 오늘 날짜 가져오기
-  // const today = getFormattedDate(new Date())
+  console.log('todayMeal', todayMeal)
 
-  // const { data, isLoading, error } = useDietMenuDaily(today)
+  const data = todayMeal?.data.meals
 
-  // const dailyMeals: Meal[] = data?.meals || []
-
-  // console.log(dailyMeals)
-
-  // if (isLoading) return <p>로딩 중...</p>
-  // if (error) return <p>에러 발생: {error.message}</p>
-
-  const data = [
-    {
-      type: 'BREAKFAST',
-      mealItems: [{ name: '현미밥' }, { name: '김치볶음' }, { name: '삶은 계란' }],
-      mealCalories: 450,
-      mealCarbos: 50,
-      mealProteins: 20,
-      mealFats: 10,
-    },
-    {
-      type: 'LUNCH',
-      mealItems: [{ name: '불고기덮밥' }, { name: '된장찌개' }, { name: '깍두기' }],
-      mealCalories: 700,
-      mealCarbos: 70,
-      mealProteins: 40,
-      mealFats: 30,
-    },
-    {
-      type: 'DINNER',
-      mealItems: [{ name: '닭가슴살 샐러드' }, { name: '고구마' }, { name: '요거트' }],
-      mealCalories: 500,
-      mealCarbos: 40,
-      mealProteins: 50,
-      mealFats: 15,
-    },
-  ]
   const exampleData = [
     {
       img: 'https://static.cdn.kmong.com/gigs/fPoZ31584321311.jpg', // 현미밥 & 닭가슴살
