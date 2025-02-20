@@ -59,7 +59,7 @@ const SelectionQuestion: FC<SelectionQuestionProps> = ({
   }
 
   return (
-    <div className="bg-[#F5F5F5] min-h-screen flex flex-col">
+    <div className="bg-[#F5F5F5] h-screen flex flex-col">
       <QuestionInfo progress={progress} bigQuestion={bigQuestion} smallQuestion={smallQuestion}>
         <div className="flex flex-col gap-[2.93vh] w-[323px]">
           {categories.map((cat, idx) => (
