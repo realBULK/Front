@@ -8,8 +8,8 @@ interface MealItems {
   name: string
 }
 interface Meal {
-  type: string //아침점심저녁간식
-  mealItems: MealItems[]
+  mealType: string //아침점심저녁간식
+  mealItemNames: MealItems[]
   mealCalories: number
   mealCarbos: number
   mealProteins: number
@@ -40,8 +40,8 @@ const DietSlider: React.FC<Diet> = ({ dietItem }) => {
             <div key={index}>
               <DietBox
                 id={index.toString()}
-                type={meal.type}
-                items={meal.mealItems}
+                type={meal.mealType}
+                items={meal.mealItemNames}
                 mealCalories={meal.mealCalories}
                 mealCarbos={meal.mealCarbos}
                 mealProteins={meal.mealProteins}

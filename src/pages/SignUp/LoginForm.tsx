@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import API from '../../apis/axiosInstance'
-// import { useQuestionResponse } from '@/hooks/useQuestionResponse'
+import { useQuestionResponse } from '@/hooks/useQuestionResponse'
 import { mealData } from '@/apis/mealData'
 
 interface FormData {
@@ -12,9 +12,7 @@ interface FormData {
 const LoginForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({ email: '', password: '' })
   const navigate = useNavigate()
-  // const { data: questionResponseData, isLoading, error } = useQuestionResponse()
-
-  // console.log('질문 응답 데이터:', questionResponseData)
+  const { data: questionResponseData, isLoading, isFetching } = useQuestionResponse()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -36,7 +34,7 @@ const LoginForm: React.FC = () => {
         return
       }
 
-      const { accessToken} = response.data.data // ✅ accessToken 사용
+      const { accessToken } = response.data.data
       console.log('받은 액세스 토큰:', accessToken)
 
       if (!accessToken) {
@@ -45,64 +43,92 @@ const LoginForm: React.FC = () => {
         return
       }
 
-      // ✅ 토큰 저장
       localStorage.setItem('access_token', accessToken)
 
       // ✅ userId 가져와서 저장
-      await fetchAndStoreUserId();
- 
-
+      await fetchAndStoreUserId()
 
       // ✅ 로그인 후 질문 데이터 백엔드로 전송
       await sendUserQuestionData()
       await sendUserMealData()
 
-      // isLoading ? alert('로그인 중') : ''
-      // error ? alert('로그인 실패. 질문페이지 여부 확인 에러') : ''
+      // ✅ 질문 데이터 확인
+      if (isLoading || isFetching) {
+        alert('로그인 성공! 질문 데이터를 불러오는 중입니다. 잠시만 기다려 주세요.')
+        return
+      }
 
-      alert('로그인 성공!')
-      navigate('/report', { state: { mealId: 3 } }) //추후 수정 필요
+      // ✅ API 응답이 없거나, 404일 경우 질문 페이지로 이동
+      if (!questionResponseData) {
+        alert('질문 데이터가 없습니다. 질문 페이지로 이동합니다.')
+        navigate('/questionstart')
+        return
+      }
+
+      // ✅ questionResponseData가 성공적인 응답인지 확인
+      if (questionResponseData?.isSuccess) {
+        const questionResponseDataLength = questionResponseData.data.length
+        const randomNumUserMealDataIndex = Math.floor(Math.random() * questionResponseDataLength)
+
+        localStorage.setItem('mealPlanId', questionResponseData.data[randomNumUserMealDataIndex])
+        navigate('/report', { state: { mealPlanId: questionResponseData.data[randomNumUserMealDataIndex] } })
+      } else {
+        // ✅ API 응답이 실패한 경우에도 질문 페이지로 이동
+        alert('질문 페이지를 작성하지 않았습니다. 질문 페이지로 이동합니다.')
+        localStorage.removeItem('access_token')
+        navigate('/questionstart')
+      }
     } catch (error: any) {
       console.error('로그인 실패:', error.response?.data || error)
-      alert('로그인 실패: ' + (error.response?.data?.message || '서버 오류 발생'))
+
+      if (error.response?.status === 404) {
+        // ✅ 404 에러 발생 시 질문 페이지로 이동
+        alert('질문 데이터가 없습니다. 질문 페이지로 이동합니다.')
+        navigate('/questionstart')
+      } else {
+        alert('로그인 실패: ' + (error.response?.data?.message || '서버 오류 발생'))
+      }
     }
   }
 
   // ✅ 로그인 후 userId 가져와서 저장
   const fetchAndStoreUserId = async () => {
     try {
-      const token = localStorage.getItem('access_token');
+      const token = localStorage.getItem('access_token')
       if (!token) {
-        console.error('❌ 액세스 토큰이 없습니다. userId를 가져올 수 없습니다.');
-        return;
+        console.error('❌ 액세스 토큰이 없습니다. userId를 가져올 수 없습니다.')
+        return
       }
 
       const response = await API.get('/api/user/test', {
         headers: {
           Authorization: `Bearer ${token}`, // ✅ 토큰을 헤더에 포함
         },
-      });
+      })
 
       //console.log('🔹 현재 로그인한 유저 정보:', response.data);
 
       // ✅ `Hello, 9` 형태의 응답에서 숫자 부분만 추출
-      const userId = response.data.match(/\d+/)?.[0];
+      const userId = response.data.match(/\d+/)?.[0]
 
       if (!userId) {
-        console.error('❌ userId를 찾을 수 없습니다.', response.data);
-        return;
+        console.error('❌ userId를 찾을 수 없습니다.', response.data)
+        return
       }
 
       //console.log(`✅ 저장된 userId: ${userId}`);
-      localStorage.setItem('userId', userId); // ✅ userId 저장
+      localStorage.setItem('userId', userId) // ✅ userId 저장
     } catch (error) {
-      console.error('❌ userId 가져오기 실패:', error);
+      console.error('❌ userId 가져오기 실패:', error)
     }
-  };
+  }
 
   const sendUserMealData = async () => {
     try {
-      const data = mealData
+      const randomNum = Math.floor(Math.random() * 6)
+      // console.log(randomNum)
+
+      const data = mealData[randomNum]
 
       const response = await API.post('/api/mealPlan/', data)
       console.log('식단 데이터 전송 성공:', response.data)

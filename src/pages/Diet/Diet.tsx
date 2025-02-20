@@ -4,21 +4,10 @@ import DietSlider from './component/slider'
 import ScrollMenu from './component/scrollMenu'
 import { useNavigate } from 'react-router'
 import { usePopularMenu } from '@/hooks/usePopularMenu'
-
-// import { useDietMenuDaily } from '@/hooks/useDietMenu'
-
-// interface MealItem {
-//   name: string
-// }
-
-// interface Meal {
-//   type: string
-//   mealItems: MealItem[]
-//   mealCalories: number
-//   mealCarbos: number
-//   mealProteins: number
-//   mealFats: number
-// }
+import human from '@/assets/human.svg'
+import star from '@/assets/star.svg'
+import { useTodayMeal } from '@/hooks/useTodayMeal'
+import DietBoxSkeleton from '@/components/DietBoxSkeleton'
 
 interface PopularMenu {
   name: string
@@ -29,49 +18,14 @@ interface PopularMenu {
 
 const Diet: React.FC = () => {
   const navigate = useNavigate()
+  const mealID = Number(localStorage.getItem('todayDailyMeal'))
+  const { data: todayMeal } = useTodayMeal(mealID)
   const { data: popularMenu, isLoading: popularMenuIsLoading, error: popularMenuError } = usePopularMenu()
 
-  // const getFormattedDate = (date: Date) => {
-  //   return date.toISOString().split('T')[0] // '2025-01-30' 같은 형식
-  // }
-  // // 오늘 날짜 가져오기
-  // const today = getFormattedDate(new Date())
+  console.log('todayMeal', todayMeal)
 
-  // const { data, isLoading, error } = useDietMenuDaily(today)
+  const data = todayMeal?.data.meals
 
-  // const dailyMeals: Meal[] = data?.meals || []
-
-  // console.log(dailyMeals)
-
-  // if (isLoading) return <p>로딩 중...</p>
-  // if (error) return <p>에러 발생: {error.message}</p>
-
-  const data = [
-    {
-      type: 'BREAKFAST',
-      mealItems: [{ name: '현미밥' }, { name: '김치볶음' }, { name: '삶은 계란' }],
-      mealCalories: 450,
-      mealCarbos: 50,
-      mealProteins: 20,
-      mealFats: 10,
-    },
-    {
-      type: 'LUNCH',
-      mealItems: [{ name: '불고기덮밥' }, { name: '된장찌개' }, { name: '깍두기' }],
-      mealCalories: 700,
-      mealCarbos: 70,
-      mealProteins: 40,
-      mealFats: 30,
-    },
-    {
-      type: 'DINNER',
-      mealItems: [{ name: '닭가슴살 샐러드' }, { name: '고구마' }, { name: '요거트' }],
-      mealCalories: 500,
-      mealCarbos: 40,
-      mealProteins: 50,
-      mealFats: 15,
-    },
-  ]
   const exampleData = [
     {
       img: 'https://static.cdn.kmong.com/gigs/fPoZ31584321311.jpg', // 현미밥 & 닭가슴살
@@ -105,16 +59,33 @@ const Diet: React.FC = () => {
     },
   ]
 
+  const exampleData2 = [
+    {
+      img: 'https://static.cdn.kmong.com/gigs/fPoZ31584321311.jpg', // 오트밀 & 바나나
+      menu: '오트밀 & 바나나',
+      like: true,
+      likeNum: 24,
+    },
+    {
+      img: 'https://static.cdn.kmong.com/gigs/fPoZ31584321311.jpg', // 그릭요거트 & 견과류
+      menu: '그릭요거트 & 견과류',
+      like: true,
+      likeNum: 40,
+    },
+  ]
+
+  const mealPlanId = Number(localStorage.getItem('mealPlanId'))
+
   return (
     <div>
-      <div className="flex flex-col pl-8 pr-8 min-h-screen pb-16">
-        <div className="flex justify-center flex-col mt-[30px]">
+      <div className="flex flex-col pl-8 pr-8 h-screen pb-16  overflow-y-scroll overflow-x-hidden">
+        <div className="flex justify-center flex-col mt-[30px] ">
           <div className="flex items-center justify-between pl-4 pr-4 text-black text-center text-[32px] not-italic font-bold leading-[100%] tracking-[-0.64px]">
             오늘 식단
-            <ViewAllButton onClick={() => navigate('/diet/today', { state: { mealPlanId: 3 } })} />
+            <ViewAllButton onClick={() => navigate('/diet/today', { state: { mealPlanId: mealPlanId } })} />
             {/* 추후 수정 */}
           </div>
-          <DietSlider dietItem={data} />
+          {data ? <DietSlider dietItem={data} /> : <DietBoxSkeleton />}
         </div>
         <div className="flex justify-center flex-col mt-[60px]">
           <div className="flex items-center justify-between mb-3 text-black text-base not-italic font-bold leading-[100%] tracking-[-0.32px]">
@@ -159,11 +130,11 @@ const Diet: React.FC = () => {
                   {/* 좋아요 및 평점 */}
                   <div className="flex items-center gap-2 ml-auto">
                     <div className="flex items-center gap-[2px] text-black text-center text-[10px] not-italic font-medium leading-[100%] tracking-[-0.2px]">
-                      <img src="/src/assets/human.svg" alt="user" className="w-3 h-3" />
+                      <img src={human} alt="user" className="w-3 h-3" />
                       {item.gradePeopleNum}
                     </div>
                     <div className="flex items-center gap-[2px] text-black text-center text-[10px] not-italic font-medium leading-[100%] tracking-[-0.2px]">
-                      <img src="/src/assets/star.svg" alt="star" className="w-3 h-3" />
+                      <img src={star} alt="star" className="w-3 h-3" />
                       {item.grade}
                     </div>
                   </div>
@@ -176,7 +147,7 @@ const Diet: React.FC = () => {
           <div className="flex items-center justify-between mb-3 text-black text-base not-italic font-bold leading-[100%] tracking-[-0.32px]">
             ❤️ 내가 찜한 식단 ❤️
           </div>
-          <ScrollMenu scrollMenus={exampleData} />
+          <ScrollMenu scrollMenus={exampleData2} />
         </div>
       </div>
       <NavBar />

@@ -1,4 +1,4 @@
-import Camera from '@/components/Camera'
+import Camera from '@/pages/Record/Recordcomponents/Camera'
 
 const RecordUnequal = () => {
   return (
