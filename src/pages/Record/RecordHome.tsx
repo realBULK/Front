@@ -15,7 +15,7 @@ const RecordHome = () => {
       <div className="flex flex-col gap-8 w-[83%]">
         {/* 첫 번째 버튼 */}
         <Link
-          to="equal"
+          to="/home"
           className="flex items-center justify-center py-4 bg-white rounded-base shadow-base text-[16px] font-[600] h-[80px] border-[1px] border-solid border-[#EDEDED]"
         >
           식단 대로 먹었어요 📄
