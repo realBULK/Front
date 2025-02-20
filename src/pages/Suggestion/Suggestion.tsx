@@ -7,7 +7,7 @@ const Suggestion: React.FC = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const mealPlanId = location.state?.mealId
+  const mealPlanId = location.state?.mealPlanId
   const { data, isLoading, error } = useSuggestionMenu(mealPlanId)
 
   if (isLoading) return <p>로딩 중...</p>

@@ -62,8 +62,13 @@ const LoginForm: React.FC = () => {
         return
       }
 
+      const questionResponseDataLength = questionResponseData.data.length
+      const randomNumUserMealDataIndex = Math.floor(Math.random() * questionResponseDataLength)
+      // console.log('randomNumUserMealDataIndex:' + randomNumUserMealDataIndex)
+
       if (questionResponseData.isSuccess) {
-        navigate('/report', { state: { mealId: questionResponseData.data[0] } })
+        localStorage.setItem('mealPlanId', questionResponseData.data[randomNumUserMealDataIndex])
+        navigate('/report', { state: { mealPlanId: questionResponseData.data[randomNumUserMealDataIndex] } })
       } else {
         alert('질문 페이지를 작성하지 않았습니다. 질문 페이지로 이동합니다.')
         localStorage.removeItem('access_token')
@@ -109,7 +114,10 @@ const LoginForm: React.FC = () => {
 
   const sendUserMealData = async () => {
     try {
-      const data = mealData
+      const randomNum = Math.floor(Math.random() * 6)
+      // console.log(randomNum)
+
+      const data = mealData[randomNum]
 
       const response = await API.post('/api/mealPlan/', data)
       console.log('식단 데이터 전송 성공:', response.data)
