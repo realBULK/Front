@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import API from '../../apis/axiosInstance'
-// import { useQuestionResponse } from '@/hooks/useQuestionResponse'
+import { useQuestionResponse } from '@/hooks/useQuestionResponse'
 import { mealData } from '@/apis/mealData'
 
 interface FormData {
@@ -12,9 +12,7 @@ interface FormData {
 const LoginForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({ email: '', password: '' })
   const navigate = useNavigate()
-  // const { data: questionResponseData, isLoading, error } = useQuestionResponse()
-
-  // console.log('질문 응답 데이터:', questionResponseData)
+  const { data: questionResponseData, isLoading, isFetching } = useQuestionResponse()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -36,7 +34,7 @@ const LoginForm: React.FC = () => {
         return
       }
 
-      const { accessToken } = response.data.data // ✅ accessToken 사용
+      const { accessToken } = response.data.data
       console.log('받은 액세스 토큰:', accessToken)
 
       if (!accessToken) {
@@ -45,18 +43,26 @@ const LoginForm: React.FC = () => {
         return
       }
 
-      // ✅ 토큰 저장
       localStorage.setItem('access_token', accessToken)
 
-      // ✅ 로그인 후 질문 데이터 백엔드로 전송
-      await sendUserQuestionData()
-      await sendUserMealData()
+      // ✅ 질문 데이터 및 식단 데이터 동시 전송
+      await Promise.all([sendUserQuestionData(), sendUserMealData()])
 
-      // isLoading ? alert('로그인 중') : ''
-      // error ? alert('로그인 실패. 질문페이지 여부 확인 에러') : ''
+      if (isLoading || isFetching) {
+        alert('로그인 성공! 질문 데이터를 불러오는 중입니다. 잠시만 기다려 주세요.')
+        return
+      }
 
-      alert('로그인 성공!')
-      navigate('/report', { state: { mealId: 3 } }) //추후 수정 필요
+      console.log('질문 데이터 응답:', questionResponseData)
+
+      if (questionResponseData && questionResponseData.isSuccess) {
+        console.log('질문 페이지로 이동합니다. 질문 페이지 ID:', questionResponseData.data[0])
+        navigate('/report', { state: { mealId: questionResponseData.data[0] } })
+      } else {
+        alert('질문 페이지를 작성하지 않았습니다. 질문 페이지로 이동합니다.')
+
+        navigate('/questionstart')
+      }
     } catch (error: any) {
       console.error('로그인 실패:', error.response?.data || error)
       alert('로그인 실패: ' + (error.response?.data?.message || '서버 오류 발생'))
