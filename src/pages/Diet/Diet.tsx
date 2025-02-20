@@ -111,7 +111,8 @@ const Diet: React.FC = () => {
         <div className="flex justify-center flex-col mt-[30px]">
           <div className="flex items-center justify-between pl-4 pr-4 text-black text-center text-[32px] not-italic font-bold leading-[100%] tracking-[-0.64px]">
             오늘 식단
-            <ViewAllButton onClick={() => navigate('/diet/today')} />
+            <ViewAllButton onClick={() => navigate('/diet/today', { state: { mealPlanId: 3 } })} />
+            {/* 추후 수정 */}
           </div>
           <DietSlider dietItem={data} />
         </div>
