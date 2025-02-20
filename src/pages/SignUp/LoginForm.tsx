@@ -36,7 +36,7 @@ const LoginForm: React.FC = () => {
         return
       }
 
-      const { accessToken } = response.data.data // ✅ accessToken 사용
+      const { accessToken} = response.data.data // ✅ accessToken 사용
       console.log('받은 액세스 토큰:', accessToken)
 
       if (!accessToken) {
@@ -47,6 +47,11 @@ const LoginForm: React.FC = () => {
 
       // ✅ 토큰 저장
       localStorage.setItem('access_token', accessToken)
+
+      // ✅ userId 가져와서 저장
+      await fetchAndStoreUserId();
+ 
+
 
       // ✅ 로그인 후 질문 데이터 백엔드로 전송
       await sendUserQuestionData()
@@ -62,6 +67,38 @@ const LoginForm: React.FC = () => {
       alert('로그인 실패: ' + (error.response?.data?.message || '서버 오류 발생'))
     }
   }
+
+  // ✅ 로그인 후 userId 가져와서 저장
+  const fetchAndStoreUserId = async () => {
+    try {
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        console.error('❌ 액세스 토큰이 없습니다. userId를 가져올 수 없습니다.');
+        return;
+      }
+
+      const response = await API.get('/api/user/test', {
+        headers: {
+          Authorization: `Bearer ${token}`, // ✅ 토큰을 헤더에 포함
+        },
+      });
+
+      //console.log('🔹 현재 로그인한 유저 정보:', response.data);
+
+      // ✅ `Hello, 9` 형태의 응답에서 숫자 부분만 추출
+      const userId = response.data.match(/\d+/)?.[0];
+
+      if (!userId) {
+        console.error('❌ userId를 찾을 수 없습니다.', response.data);
+        return;
+      }
+
+      //console.log(`✅ 저장된 userId: ${userId}`);
+      localStorage.setItem('userId', userId); // ✅ userId 저장
+    } catch (error) {
+      console.error('❌ userId 가져오기 실패:', error);
+    }
+  };
 
   const sendUserMealData = async () => {
     try {

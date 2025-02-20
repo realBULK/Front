@@ -43,11 +43,11 @@ const SignUp3: React.FC = () => {
           카카오로 계속하기
         </button> */}
 
-        <button
+
+
+          <button
             type="submit"
-            className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold 
-        text-[#000000] text-center rounded-[200px] bg-green-400 flex 
-        items-center justify-center gap-1" onClick={handleSignup}
+            className="w-full p-3 bg-[#DAE6CB] text-white rounded-lg hover:bg-[#ACB99C] transition" onClick={handleSignup}
           >
             회원가입
           </button>
