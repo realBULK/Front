@@ -3,6 +3,7 @@ import lunchSun from '@/assets/lunchSun.svg'
 import DietBox from './Recordcomponents/DietDetailBox'
 import { Link } from 'react-router'
 import API from '@/apis/axiosInstance'
+import Diet from '../Diet/Diet'
 
 interface Food {
   foodName: string
@@ -88,7 +89,7 @@ const RecordEqual = () => {
   }
   const postMeal = async () => {
     const payload = {
-      date: '2025-01-20',
+      date: '2025-02-04',
       mealType: 'DINNER',
     }
     try {
@@ -117,6 +118,11 @@ const RecordEqual = () => {
     const totalFats = calculateTotal('fats')
 
     return totalCarbos * 4 + totalProteins * 4 + totalFats * 9
+  }
+
+  const clickRecordMyself = () => {
+    localStorage.setItem('selectFoods', JSON.stringify(dietBoxes))
+    sessionStorage.removeItem('selectFoods')
   }
 
   return (
@@ -159,6 +165,7 @@ const RecordEqual = () => {
           <Link
             to="/record/myself"
             className="flex items-center justify-center py-4 bg-[#D1D1D1] rounded-base text-[14px] font-[500] w-1/2 h-[58px] border-[1px] border-solid border-[#EDEDED]"
+            onClick={clickRecordMyself}
           >
             직접 입력하기
           </Link>
