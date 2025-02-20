@@ -52,31 +52,42 @@ const LoginForm: React.FC = () => {
       await sendUserQuestionData()
       await sendUserMealData()
 
+      // ✅ 질문 데이터 확인
       if (isLoading || isFetching) {
         alert('로그인 성공! 질문 데이터를 불러오는 중입니다. 잠시만 기다려 주세요.')
         return
       }
 
+      // ✅ API 응답이 없거나, 404일 경우 질문 페이지로 이동
       if (!questionResponseData) {
-        alert('질문 데이터가 없습니다. 다시 시도해주세요.')
+        alert('질문 데이터가 없습니다. 질문 페이지로 이동합니다.')
+        navigate('/questionstart')
         return
       }
 
-      const questionResponseDataLength = questionResponseData.data.length
-      const randomNumUserMealDataIndex = Math.floor(Math.random() * questionResponseDataLength)
-      // console.log('randomNumUserMealDataIndex:' + randomNumUserMealDataIndex)
+      // ✅ questionResponseData가 성공적인 응답인지 확인
+      if (questionResponseData?.isSuccess) {
+        const questionResponseDataLength = questionResponseData.data.length
+        const randomNumUserMealDataIndex = Math.floor(Math.random() * questionResponseDataLength)
 
-      if (questionResponseData.isSuccess) {
         localStorage.setItem('mealPlanId', questionResponseData.data[randomNumUserMealDataIndex])
         navigate('/report', { state: { mealPlanId: questionResponseData.data[randomNumUserMealDataIndex] } })
       } else {
+        // ✅ API 응답이 실패한 경우에도 질문 페이지로 이동
         alert('질문 페이지를 작성하지 않았습니다. 질문 페이지로 이동합니다.')
         localStorage.removeItem('access_token')
         navigate('/questionstart')
       }
     } catch (error: any) {
       console.error('로그인 실패:', error.response?.data || error)
-      alert('로그인 실패: ' + (error.response?.data?.message || '서버 오류 발생'))
+
+      if (error.response?.status === 404) {
+        // ✅ 404 에러 발생 시 질문 페이지로 이동
+        alert('질문 데이터가 없습니다. 질문 페이지로 이동합니다.')
+        navigate('/questionstart')
+      } else {
+        alert('로그인 실패: ' + (error.response?.data?.message || '서버 오류 발생'))
+      }
     }
   }
 
