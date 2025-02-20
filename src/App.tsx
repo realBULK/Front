@@ -60,11 +60,11 @@ const router = createBrowserRouter([
         element: <RecordMyself />,
       },
       {
-        path: 'record/review',
+        path: 'record/review/:id',
         element: <RecordReview />,
       },
       {
-        path: 'record/review/write',
+        path: 'record/review/write/:id/:name',
         element: <ReviewWrite />,
       },
       {
