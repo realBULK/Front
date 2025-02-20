@@ -88,13 +88,11 @@ const RecordEqual = () => {
     localStorage.removeItem('selectedFoods')
   }
   const postMeal = async () => {
-    const payload = {
-      date: '2025-02-04',
-      mealType: 'DINNER',
-    }
     try {
-      console.log(payload)
-      await API.post('/api/records', payload)
+      await API.post('/api/records', {
+        date: '2025-02-09',
+        mealType: 'LUNCH',
+      })
     } catch (error) {
       console.error('API 호출 중 오류 발생:', error)
     }
@@ -121,8 +119,8 @@ const RecordEqual = () => {
   }
 
   const clickRecordMyself = () => {
-    localStorage.setItem('selectFoods', JSON.stringify(dietBoxes))
-    sessionStorage.removeItem('selectFoods')
+    localStorage.setItem('selectedFoods', JSON.stringify(dietBoxes))
+    sessionStorage.removeItem('selectedFoods')
   }
 
   return (

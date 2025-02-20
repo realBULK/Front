@@ -1,6 +1,17 @@
+import API from '@/apis/axiosInstance'
 import { Link } from 'react-router'
 
 const RecordHome = () => {
+  const postMeal = async () => {
+    try {
+      await API.post('/api/records', {
+        date: '2025-02-08',
+        mealType: 'LUNCH',
+      })
+    } catch (error) {
+      console.error('API 호출 중 오류 발생:', error)
+    }
+  }
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       {/* 상단 텍스트 */}
@@ -17,6 +28,7 @@ const RecordHome = () => {
         <Link
           to="/home"
           className="flex items-center justify-center py-4 bg-white rounded-base shadow-base text-[16px] font-[600] h-[80px] border-[1px] border-solid border-[#EDEDED]"
+          onClick={postMeal}
         >
           식단 대로 먹었어요 📄
         </Link>
