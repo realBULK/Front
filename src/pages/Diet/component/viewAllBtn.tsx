@@ -1,4 +1,5 @@
 import React from 'react'
+import back from '@/assets/back.svg'
 
 interface ViewAllButtonProps {
   onClick?: () => void
@@ -11,7 +12,7 @@ const ViewAllButton: React.FC<ViewAllButtonProps> = ({ onClick }) => {
       onClick={onClick}
     >
       전체보기
-      <img src="/src/assets/back.svg" alt="back" className="w-3 h-3" />
+      <img src={back} alt="back" className="w-3 h-3" />
     </button>
   )
 }

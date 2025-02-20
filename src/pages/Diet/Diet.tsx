@@ -4,6 +4,8 @@ import DietSlider from './component/slider'
 import ScrollMenu from './component/scrollMenu'
 import { useNavigate } from 'react-router'
 import { usePopularMenu } from '@/hooks/usePopularMenu'
+import human from '@/assets/human.svg'
+import star from '@/assets/star.svg'
 
 // import { useDietMenuDaily } from '@/hooks/useDietMenu'
 
@@ -159,11 +161,11 @@ const Diet: React.FC = () => {
                   {/* 좋아요 및 평점 */}
                   <div className="flex items-center gap-2 ml-auto">
                     <div className="flex items-center gap-[2px] text-black text-center text-[10px] not-italic font-medium leading-[100%] tracking-[-0.2px]">
-                      <img src="/src/assets/human.svg" alt="user" className="w-3 h-3" />
+                      <img src={human} alt="user" className="w-3 h-3" />
                       {item.gradePeopleNum}
                     </div>
                     <div className="flex items-center gap-[2px] text-black text-center text-[10px] not-italic font-medium leading-[100%] tracking-[-0.2px]">
-                      <img src="/src/assets/star.svg" alt="star" className="w-3 h-3" />
+                      <img src={star} alt="star" className="w-3 h-3" />
                       {item.grade}
                     </div>
                   </div>
