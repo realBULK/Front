@@ -1,14 +1,17 @@
 import WeightProgressChart from '@/pages/Report/ReportGraph/graph'
 import NutrientsBox from '@/pages/Report/ReportGraph/nutrient'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useUserReport } from '@/hooks/useUserReport'
 
 const Report: React.FC = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const { data, isLoading, error } = useUserReport()
 
   if (isLoading) return <p>로딩 중...</p>
   if (error) return <p>에러 발생: {error.message}</p>
+
+  const mealId = location.state?.mealId
 
   return (
     <div className="flex justify-center items-center flex-col pt-10 pb-10 pr-8 pl-8">
@@ -31,7 +34,7 @@ const Report: React.FC = () => {
         <button
           className="w-[327px] h-[55px] font-[pretendard] bg-[#D1D1D1] 
       shadow-whiteBox rounded-base font-semibold text-[14px] text-[#191919] outline-none mb-9"
-          onClick={() => navigate('/suggestion')}
+          onClick={() => navigate('/suggestion', { state: { mealId } })}
         >
           다음
         </button>

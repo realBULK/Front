@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import QuestionInfo from './QuestionInfo'
-import QuestionSmallButton from '../../components/QuestionSmallButton'
+import QuestionSmallButton from '../../components/question/QuestionSmallButton'
 import BigGrayButton from '../../components/BigGrayButton'
 import { useNavigate } from 'react-router'
 

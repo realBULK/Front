@@ -92,7 +92,7 @@ const router = createBrowserRouter([
         element: <Suggestion />,
       },
       {
-        path: 'suggestion/:mealId',
+        path: 'suggestion/:mealId/:type',
         element: <SuggestionDetail />,
       },
 

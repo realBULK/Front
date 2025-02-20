@@ -1,11 +1,14 @@
 import NavBar from '@/components/NavBar'
 import SuggestionDaysComponent from '@/components/SuggestionDaysComponent'
 import { useSuggestionMenu } from '@/hooks/useSuggestionMenu'
-import { useNavigate } from 'react-router'
+import { useNavigate, useLocation } from 'react-router'
 
 const TodayDiet = () => {
   const navigator = useNavigate()
-  const { data, isLoading, error } = useSuggestionMenu()
+  const location = useLocation()
+
+  const mealPlanId = location.state?.mealPlanId
+  const { data, isLoading, error } = useSuggestionMenu(mealPlanId)
 
   if (isLoading) return <p>로딩 중...</p>
   if (error) return <p>에러 발생: {error.message}</p>

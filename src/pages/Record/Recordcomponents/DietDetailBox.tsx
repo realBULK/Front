@@ -3,30 +3,27 @@ import human from '@/assets/human.svg'
 import minus from '@/assets/minusButton.svg'
 
 interface Props {
-  id: number
-  name: string
-  unit: string
-  gradePeopleNum: number
-  grade: number
-  calories: number
+  foodName: string
+  quantity: number
   carbos: number
-  proteins: number
   fats: number
-  gram: number
+  proteins: number
+  grade: number
+  gradePeopleNum: number
   onRemove: () => void
-  children: React.ReactNode
+  children?: React.ReactNode
   height?: string
 }
 
 const DietBox = ({
   children,
-  name,
-  unit,
-  gradePeopleNum,
-  grade,
+  foodName,
+  quantity,
   carbos,
-  proteins,
   fats,
+  proteins,
+  grade,
+  gradePeopleNum,
   onRemove,
   height = 'h-[99px]',
 }: Props) => {
@@ -36,12 +33,12 @@ const DietBox = ({
     >
       <div className="flex flex-row items-center">
         <h1 className="w-fit text-[16px] font-[700] me-[10px] ">
-          {name}({unit})
+          {foodName}({quantity})
         </h1>
         <img src={human} />
-        <p className="text-[14px] font-[500] me-[7px]">{gradePeopleNum}</p>
+        <p className="text-[14px] font-[500] me-[7px]">{grade}</p>
         <img src={star} />
-        <p className="text-[14px] font-[500]">{grade}</p>
+        <p className="text-[14px] font-[500]">{gradePeopleNum}</p>
         <img
           src={minus}
           className="ml-auto w-[24px] h-[24px]"
