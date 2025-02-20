@@ -24,31 +24,22 @@ const BigGrayButton: React.FC<QuestionButtonComponentProps> = ({
     if (navigateTF) navigate(`/${navigateTo}`)
   }
 
-  const colorClasses = isPink ? 'hover:bg-[#F2E1DA] active:bg-[#CEB6AD]' : 'hover:bg-[#DAE6CB] active:bg-[#ACB99C]'
+  const baseColor = isPink ? 'bg-[#F2E1DA]' : 'bg-[#DAE6CB]'
+  const hoverColor = isPink ? 'hover:bg-[#F2E1DA] active:bg-[#CEB6AD]' : 'hover:bg-[#DAE6CB] active:bg-[#ACB99C]'
+  const disabledColor = 'bg-[#D1D1D1] text-gray-500 cursor-not-allowed'
 
-  return disabled === false ? (
+  return (
     <button
       className={`
         w-[327px] h-[58px] text-[16px] font-[Pretendard] font-semibold 
-        text-[#191919] text-center rounded-[15px] bg-[#D1D1D1] 
+        text-[#191919] text-center rounded-[15px] 
         shadow-[0px_2px_5px_-2px_rgba(0,0,0,0.25)] filter-none mb-3 
         transition-colors
-        ${colorClasses}
+        ${disabled ? disabledColor : `${baseColor} ${hoverColor}`}
       `}
       style={{ boxShadow: `0px 2px 5px -2px rgba(0, 0, 0, 0.25)` }}
-      onClick={handleClick}
-    >
-      {text}
-    </button>
-  ) : (
-    <button
-      className="
-        w-[327px] h-[58px] text-[16px] font-[Pretendard] font-semibold 
-        text-[#191919] text-center rounded-[15px] bg-[#D1D1D1] 
-        shadow-[0px_2px_5px_-2px_rgba(0,0,0,0.25)] filter-none mb-3 
-        transition-colors
-      "
-      style={{ boxShadow: `0px 2px 5px -2px rgba(0, 0, 0, 0.25)` }}
+      onClick={!disabled ? handleClick : undefined} // disabled일 때 클릭 방지
+      disabled={disabled}
     >
       {text}
     </button>

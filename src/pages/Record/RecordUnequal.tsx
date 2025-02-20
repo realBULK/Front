@@ -1,5 +1,11 @@
+import Camera from '@/components/Camera'
+
 const RecordUnequal = () => {
-  return <div>RecordUnequal</div>
+  return (
+    <div>
+      <Camera />
+    </div>
+  )
 }
 
 export default RecordUnequal
