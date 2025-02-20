@@ -7,21 +7,7 @@ import { usePopularMenu } from '@/hooks/usePopularMenu'
 import human from '@/assets/human.svg'
 import star from '@/assets/star.svg'
 import { useTodayMeal } from '@/hooks/useTodayMeal'
-
-// import { useDietMenuDaily } from '@/hooks/useDietMenu'
-
-// interface MealItem {
-//   name: string
-// }
-
-// interface Meal {
-//   type: string
-//   mealItems: MealItem[]
-//   mealCalories: number
-//   mealCarbos: number
-//   mealProteins: number
-//   mealFats: number
-// }
+import DietBoxSkeleton from '@/components/DietBoxSkeleton'
 
 interface PopularMenu {
   name: string
@@ -32,7 +18,7 @@ interface PopularMenu {
 
 const Diet: React.FC = () => {
   const navigate = useNavigate()
-  const mealID = Number(localStorage.getItem('mealPlanId'))
+  const mealID = Number(localStorage.getItem('todayDailyMeal'))
   const { data: todayMeal } = useTodayMeal(mealID)
   const { data: popularMenu, isLoading: popularMenuIsLoading, error: popularMenuError } = usePopularMenu()
 
@@ -73,7 +59,22 @@ const Diet: React.FC = () => {
     },
   ]
 
-  const mealPlanId = localStorage.getItem('mealPlanId')
+  const exampleData2 = [
+    {
+      img: 'https://static.cdn.kmong.com/gigs/fPoZ31584321311.jpg', // 오트밀 & 바나나
+      menu: '오트밀 & 바나나',
+      like: true,
+      likeNum: 24,
+    },
+    {
+      img: 'https://static.cdn.kmong.com/gigs/fPoZ31584321311.jpg', // 그릭요거트 & 견과류
+      menu: '그릭요거트 & 견과류',
+      like: true,
+      likeNum: 40,
+    },
+  ]
+
+  const mealPlanId = Number(localStorage.getItem('mealPlanId'))
 
   return (
     <div>
@@ -84,7 +85,7 @@ const Diet: React.FC = () => {
             <ViewAllButton onClick={() => navigate('/diet/today', { state: { mealPlanId: mealPlanId } })} />
             {/* 추후 수정 */}
           </div>
-          <DietSlider dietItem={data} />
+          {data ? <DietSlider dietItem={data} /> : <DietBoxSkeleton />}
         </div>
         <div className="flex justify-center flex-col mt-[60px]">
           <div className="flex items-center justify-between mb-3 text-black text-base not-italic font-bold leading-[100%] tracking-[-0.32px]">
@@ -146,7 +147,7 @@ const Diet: React.FC = () => {
           <div className="flex items-center justify-between mb-3 text-black text-base not-italic font-bold leading-[100%] tracking-[-0.32px]">
             ❤️ 내가 찜한 식단 ❤️
           </div>
-          <ScrollMenu scrollMenus={exampleData} />
+          <ScrollMenu scrollMenus={exampleData2} />
         </div>
       </div>
       <NavBar />

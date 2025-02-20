@@ -52,6 +52,7 @@ const MyPage = () => {
   const handleLogout = () => {
     localStorage.removeItem('access_token')
     localStorage.removeItem('mealPlanId')
+    localStorage.removeItem('todayDailyMeal')
     setIsLoggedIn(false)
     alert('로그아웃 되었습니다.')
     navigate('/')
