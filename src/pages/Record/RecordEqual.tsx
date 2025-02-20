@@ -122,6 +122,7 @@ const RecordEqual = () => {
 
   const clickRecordMyself = () => {
     localStorage.setItem('selectFoods', JSON.stringify(dietBoxes))
+    sessionStorage.removeItem('selectFoods')
   }
 
   return (
