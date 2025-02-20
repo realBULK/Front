@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Box from "../../components/WhiteBox";
 import mask from "../../assets/Maskgroup.svg";
 import DefaultHeart from "../../assets/DefaultHeart.svg";
@@ -6,121 +6,15 @@ import HoveringHeart from "../../assets/HoveringHeart.svg";
 import PressingHeart from "../../assets/PressingHeart.svg";
 import level from "../../assets/level.svg";
 import levelbg from "../../assets/level_bg.svg";
-import useFetchGroupMembers from "../../hooks/useFetchGroupMembers";
-import api from "@/apis/axiosInstance";
+import useFetchGroupMembers from "../../hooks/group/useFetchGroupMembers";
+import useHeart from "../../hooks/group/useHeart";
+import useUserInfo from "../../hooks/group/useUserInfo";
 
 const Member = () => {
   const { members, loading, error } = useFetchGroupMembers();
-  const [likes, setLikes] = useState<{ [key: number]: number }>({});
-  const [emojiRecordIds, setEmojiRecordIds] = useState<{ [key: number]: number | null }>({});
+  const { myUserId, myNickname } = useUserInfo(members);
+  const { likes, handleHeartClick } = useHeart(members, myUserId);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-
-  const myUserId = Number(localStorage.getItem("userId"));
-  const myNickname = localStorage.getItem("nickname") || "알 수 없음"; 
-
-  useEffect(() => {
-    console.log("🔍 현재 로그인한 사용자 정보:", { myUserId, myNickname });
-    console.log("👥 팀원 데이터:", members);
-    
-    const myMember = members.find((user) => user.userId === myUserId);
-    if (myMember) {
-      console.log("✅ 팀원 데이터에서 찾은 내 닉네임:", myMember.nickname);
-      if (myMember.nickname !== myNickname) {
-        console.warn("❌ 닉네임 불일치! 로컬스토리지와 API 데이터가 다릅니다.");
-      }
-    } else {
-      console.warn("❌ 현재 로그인한 사용자가 팀원 목록에 없음.");
-    }
-  }, [members]);
-
-
-  // ✅ 각 멤버별 받은 하트 개수 가져오기
-  const fetchHeartCount = async (userId: number) => {
-    try {
-      const response = await api.get(`/api/groups/emojis/count/${userId}`);
-      if (response.data.isSuccess) {
-        return response.data.data; // 받은 하트 개수
-      }
-    } catch (error) {
-      console.error(`❌ 하트 개수 조회 실패 (userId: ${userId})`, error);
-    }
-    return 0; // 오류 발생 시 기본값 0
-  };
-
-  useEffect(() => {
-    if (members.length > 0) {
-      const initialLikes: { [key: number]: number } = {};
-      const initialEmojiIds: { [key: number]: number | null } = {};
-
-      // ✅ 모든 멤버의 하트 개수 조회
-      Promise.all(
-        members.map(async (user) => {
-          const count = await fetchHeartCount(user.userId);
-          initialLikes[user.userId] = count;
-          initialEmojiIds[user.userId] = null; // 초기값 설정
-        })
-      ).then(() => {
-        setLikes(initialLikes);
-        setEmojiRecordIds(initialEmojiIds);
-        console.log("👥 팀원 데이터:", members);
-      });
-    }
-  }, [members]);
-
- 
-
-  const handleHeartClick = async (userId: number) => {
-
-    if (userId === myUserId) {
-      console.log("❌ 자기 자신에게 하트를 줄 수 없습니다.");
-      alert('❌ 자기 자신에게 하트를 줄 수 없습니다.')
-      return; // 함수 실행을 막음
-    }
-
-
-    const isLiked = likes[userId] > 0;
-    const emojiId = emojiRecordIds[userId];
-
-    try {
-      if (isLiked && emojiId) {
-        // ✅ 하트 삭제 (DELETE 요청)
-        console.log(`❌ ${userId}의 하트 삭제 (ID: ${emojiId})`);
-        await api.delete(`/api/groups/emojis/${emojiId}`);
-
-        // ✅ 하트 개수 다시 가져오기
-        const updatedCount = await fetchHeartCount(userId);
-        setLikes((prevLikes) => ({
-          ...prevLikes,
-          [userId]: updatedCount,
-        }));
-        setEmojiRecordIds((prevIds) => ({
-          ...prevIds,
-          [userId]: null,
-        }));
-      } else {
-        // ✅ 하트 추가 (POST 요청)
-        console.log(`❤️ ${userId}에게 하트 추가`);
-        const response = await api.post("/api/groups/emojis", {
-          receiverUserId: userId,
-          emojiType: "heart",
-        });
-
-        if (response.data.isSuccess) {
-          const updatedCount = await fetchHeartCount(userId);
-          setLikes((prevLikes) => ({
-            ...prevLikes,
-            [userId]: updatedCount,
-          }));
-          setEmojiRecordIds((prevIds) => ({
-            ...prevIds,
-            [userId]: response.data.data.emojiRecordId, // 저장된 emojiRecordId 사용
-          }));
-        }
-      }
-    } catch (error) {
-      console.error("❌ 이모지 전송 실패:", error);
-    }
-  };
 
   if (loading) {
     console.log("⏳ 팀원 데이터를 불러오는 중...");
@@ -133,13 +27,13 @@ const Member = () => {
   }
 
   return (
-    <div className="bg-[#F5F5F5] flex flex-col items-center pt-[2%] [@media(max-width:400px)]:overflow-y-auto">
+    <div className="bg-[#F5F5F5] flex flex-col items-center pt-[2%]">
       <div className="w-[100%] max-w-[470px]">
         <h2 className="text-[24px] font-bold text-[#000000] font-[pretendard] ml-2 text-left">
           오늘의 팀원
         </h2>
       </div>
-      <Box className="w-[100%] max-w-[460px] bg-white/80 rounded-base border border-[#EDEDED] shadow-whiteBoxDeepShadow p-4 grid grid-cols-5 gap-x-2 h-[90%] h-auto [@media(max-width:400px)]:grid-cols-3 [@media(max-width:400px)]:h-auto">
+      <Box className="w-[100%] max-w-[460px] bg-white/80 rounded-base border border-[#EDEDED] shadow-whiteBoxDeepShadow p-4 grid grid-cols-5 gap-x-2">
         {members.map((user) => (
           <div key={user.userId} className="flex flex-col items-center w-[60px] h-[100px]">
             <div className="relative w-[42px] h-[42px]">
@@ -149,7 +43,8 @@ const Member = () => {
                 <img src={mask} alt="프로필" className="w-full h-full object-cover" />
               </div>
             </div>
-            <p className="text-[9px] font-[pretendard] text-[#000000] mt-1">{user.userId === myUserId ? myNickname : user.nickname || "알 수 없음"}
+            <p className="text-[9px] font-[pretendard] text-[#000000] mt-1">
+              {user.userId === myUserId ? myNickname : user.nickname || "알 수 없음"}
             </p>
 
             <div
@@ -158,14 +53,13 @@ const Member = () => {
               onMouseLeave={() => setHoverIndex(null)}
             >
               <button
-  type="button"
-  className={`w-[15px] h-[15px] mr-1 ${
-    user.userId === myUserId ? "cursor-not-allowed opacity-50" : ""
-  }`}
-  onClick={() => handleHeartClick(user.userId)}
-  disabled={user.userId === myUserId}
->
-
+                type="button"
+                className={`w-[15px] h-[15px] mr-1 ${
+                  user.userId === myUserId ? "cursor-not-allowed opacity-50" : ""
+                }`}
+                onClick={() => handleHeartClick(user.userId)}
+                disabled={user.userId === myUserId}
+              >
                 <img
                   src={
                     likes[user.userId] > 0
@@ -175,7 +69,6 @@ const Member = () => {
                       : DefaultHeart
                   }
                   alt="하트"
-                  className="w-full h-full"
                 />
               </button>
               <p className="text-[10px] font-[pretendard] text-[#000000]">{likes[user.userId]}</p>

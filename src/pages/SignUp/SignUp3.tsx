@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 // import KakaoIcon from "../../assets/kakao.svg";
 // import AppleIcon from "../../assets/apple.svg";
+import BigWhiteButton from '../../components/BigWhiteButton'
 
 
 const SignUp3: React.FC = () => {
@@ -45,12 +46,14 @@ const SignUp3: React.FC = () => {
 
 
 
-          <button
+          {/* <button
             type="submit"
             className="w-full p-3 bg-[#DAE6CB] text-white rounded-lg hover:bg-[#ACB99C] transition" onClick={handleSignup}
           >
             회원가입
-          </button>
+          </button> */}
+
+          <BigWhiteButton text=" 회원가입" navigateTo="signuppage" onClick={handleSignup} ></BigWhiteButton>
 
         {/* <button className="w-[327px] h-[57px] text-[16px] font-[Pretendard] font-semibold 
         text-[#FFFFFF] text-center rounded-[200px] bg-[#000000] flex items-center justify-center gap-1"
