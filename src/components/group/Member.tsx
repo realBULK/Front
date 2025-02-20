@@ -15,6 +15,25 @@ const Member = () => {
   const [emojiRecordIds, setEmojiRecordIds] = useState<{ [key: number]: number | null }>({});
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
+  const myUserId = Number(localStorage.getItem("userId"));
+  const myNickname = localStorage.getItem("nickname") || "알 수 없음"; 
+
+  useEffect(() => {
+    console.log("🔍 현재 로그인한 사용자 정보:", { myUserId, myNickname });
+    console.log("👥 팀원 데이터:", members);
+    
+    const myMember = members.find((user) => user.userId === myUserId);
+    if (myMember) {
+      console.log("✅ 팀원 데이터에서 찾은 내 닉네임:", myMember.nickname);
+      if (myMember.nickname !== myNickname) {
+        console.warn("❌ 닉네임 불일치! 로컬스토리지와 API 데이터가 다릅니다.");
+      }
+    } else {
+      console.warn("❌ 현재 로그인한 사용자가 팀원 목록에 없음.");
+    }
+  }, [members]);
+
+
   // ✅ 각 멤버별 받은 하트 개수 가져오기
   const fetchHeartCount = async (userId: number) => {
     try {
@@ -48,7 +67,7 @@ const Member = () => {
     }
   }, [members]);
 
-  const myUserId = Number(localStorage.getItem("userId"));
+ 
 
   const handleHeartClick = async (userId: number) => {
 
@@ -114,7 +133,7 @@ const Member = () => {
   }
 
   return (
-    <div className="bg-[#F5F5F5] flex flex-col items-center pt-[3%] [@media(max-width:400px)]:overflow-y-auto">
+    <div className="bg-[#F5F5F5] flex flex-col items-center pt-[2%] [@media(max-width:400px)]:overflow-y-auto">
       <div className="w-[100%] max-w-[470px]">
         <h2 className="text-[24px] font-bold text-[#000000] font-[pretendard] ml-2 text-left">
           오늘의 팀원
@@ -130,7 +149,8 @@ const Member = () => {
                 <img src={mask} alt="프로필" className="w-full h-full object-cover" />
               </div>
             </div>
-            <p className="text-[9px] font-[pretendard] text-[#000000] mt-1">{user.nickname || "알 수 없음"}</p>
+            <p className="text-[9px] font-[pretendard] text-[#000000] mt-1">{user.userId === myUserId ? myNickname : user.nickname || "알 수 없음"}
+            </p>
 
             <div
               className="flex items-center mt-1"
