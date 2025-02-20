@@ -16,7 +16,7 @@ const Suggestion: React.FC = () => {
   const mealData = data?.data.dailyMeals
 
   return (
-    <div className="pr-8 pl-8 pt-9 pb-9 h-screen pb-16 overflow-hidden">
+    <div className="pr-8 pl-8 pt-9 pb-9 h-screen pb-16 overflow-y-scroll overflow-x-hidden">
       <div className="w-[327px] max-w-md mx-auto mt-auto mb-10 gap-5 flex flex-col">
         <div className="flex w-[300px] h-[89px] flex-col text-black text-[40px] font-medium leading-[121%] font-[GmarketSansWeight]">
           일주일 식단이<br></br>만들어 졌어요!
