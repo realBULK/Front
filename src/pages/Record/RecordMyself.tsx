@@ -8,7 +8,7 @@ import plus from '../../assets/plusIcon.svg'
 import minus from '../../assets/minusIcon.svg'
 import { useNavigate } from 'react-router'
 
-import CustomFoodBox from './RecordComponents/CustomFoodBox'
+import CustomFoodBox from './Recordcomponents/CustomFoodBox'
 import API from '@/apis/axiosInstance'
 
 interface Food {
