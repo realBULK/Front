@@ -1,6 +1,6 @@
 import { useMediaQuery } from 'react-responsive'
 import { Outlet } from 'react-router-dom'
-import bulkLogo from './../assets/BULK.svg'
+import bulkLogo from './../assets/bulkLogoSlogan.svg'
 import React from 'react'
 
 import background from './../assets/backgroundLogoNo.svg'
@@ -15,7 +15,7 @@ const RootLayout = () => {
     overflowX: 'hidden',
     overflowY: 'hidden',
     background: `url(${background})`,
-    backgroundSize: '1500px auto',
+    backgroundSize: '1700px auto',
     backgroundPosition: 'left top',
     backgroundRepeat: 'no-repeat',
     backgroundAttachment: 'fixed',
@@ -40,7 +40,7 @@ const RootLayout = () => {
     return (
       <div style={containerStyleDesktop}>
         <div style={{ display: 'flex' }}>
-          <img src={bulkLogo} alt="벌크로고" className="pr-[5vw] " />
+          <img src={bulkLogo} alt="벌크로고" className="pr-[5vw] w-[400px]" />
           <div
             style={{
               width: '460px',
