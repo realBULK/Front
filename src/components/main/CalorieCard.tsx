@@ -37,11 +37,11 @@ const CalorieCard: React.FC<CalorieCardProps> = ({
     return <SkeletonCalorieCard />;
   }
 
-  // API 데이터가 없을 경우 기본값 처리
-  const calorieProgress = ((apiData.curCalories ?? 0) / (apiData.calories ?? 1)) * 100;
-  const carbProgress = ((apiData.curCarbos ?? 0) / (apiData.carbos ?? 1)) * 100;
-  const proteinProgress = ((apiData.curProteins ?? 0) / (apiData.proteins ?? 1)) * 100;
-  const fatProgress = ((apiData.curFats ?? 0) / (apiData.fats ?? 1)) * 100;
+  // 초과된 경우에도 최대 100%로 제한
+  const calorieProgress = Math.min(100, ((apiData.curCalories ?? 0) / (apiData.calories ?? 1)) * 100);
+  const carbProgress = Math.min(100, ((apiData.curCarbos ?? 0) / (apiData.carbos ?? 1)) * 100);
+  const proteinProgress = Math.min(100, ((apiData.curProteins ?? 0) / (apiData.proteins ?? 1)) * 100);
+  const fatProgress = Math.min(100, ((apiData.curFats ?? 0) / (apiData.fats ?? 1)) * 100);
 
   return (
     <div
