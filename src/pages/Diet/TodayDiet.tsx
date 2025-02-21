@@ -2,6 +2,7 @@ import NavBar from '@/components/NavBar'
 import SuggestionDaysComponent from '@/components/SuggestionDaysComponent'
 import { useSuggestionMenu } from '@/hooks/useSuggestionMenu'
 import { useNavigate, useLocation } from 'react-router'
+import X from '@/assets/X.svg'
 
 const TodayDiet = () => {
   const navigator = useNavigate()
@@ -20,7 +21,7 @@ const TodayDiet = () => {
       <div className="flex flex-col items-center min-h-screen pb-[80px] pt-11 pr-[33px] pl-[33px]">
         <div className="flex self-start justify-center gap-14 text-black text-[40px] not-italic font-medium leading-[121%] font-[GmarketSansWeight] mb-8">
           오늘 내 식단
-          <img src="/src/assets/X.svg" alt="뒤로가기" onClick={() => navigator('/diet')} />
+          <img src={X} alt="뒤로가기" onClick={() => navigator('/diet')} />
         </div>
         <div className="mb-4">
           <SuggestionDaysComponent data={mealData} />
